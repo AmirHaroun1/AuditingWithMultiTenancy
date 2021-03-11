@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="970aea17-af29-4bdb-ad1a-eaaf37fa032e" name="AuditingApp Server" url="http://192.168.1.15">
+        <fileTransfer host="192.168.1.15" port="22" rootFolder="/var/www/restApp" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
