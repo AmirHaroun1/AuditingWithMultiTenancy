@@ -18,7 +18,14 @@ import Vue from 'vue'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 import { VueEditor } from "vue2-editor";
+import Vuetify from 'vuetify';
+   Vue.use(Vuetify); 
 
+   const app = new Vue({
+    el: '#app',
+    vuetify: new Vuetify(),
+   
+});
 import VueHtmlToPaper from 'vue-html-to-paper'
 
 /* This will change according to your server */
