@@ -25,6 +25,9 @@ import VueHtmlToPaper from 'vue-html-to-paper'
 let basePath= 'http://localhost:8080';
 
 import VueExcelEditor from 'vue-excel-editor'
+
+import vuetify from './vuetify'
+
 Vue.use(VueExcelEditor)
 
 
@@ -57,6 +60,9 @@ Vue.component('transaction-clearances', require('./components/TransactionClearan
 Vue.component('upload-excel-accounts', require('./components/UploadExcelAccounts.vue').default);
 Vue.component('transaction-info', require('./components/TransactionInfo.vue').default);
 Vue.component('employee-signature', require('./components/EmployeeSignature').default);
+Vue.component('sidebarcom', require('./components/sidebar').default);
+Vue.component('ManageEmployees', require('./components/ManageEmployees').default);
+Vue.component('sysbar', require('./components/systemBar').default);
 
 /**
  * Secretary Components
@@ -74,7 +80,7 @@ Vue.component('edit-agent-form', require('./components/Secretary/EditAgentForm.v
 Vue.component('secretary-transactions-table', require('./components/Secretary/SecretaryTransactionsTable.vue').default);
 Vue.component('clearance-table', require('./components/ClearanceTable.vue').default);
 Vue.component('clearance-of-clearances-table', require('./components/ClearanceOfClearancesTable.vue').default);
-Vue.component('account-statements-sample', require('./components/TransactionAccountStatementsSample.vue').default);
+
 
 Vue.component('secretary-edit-transaction-section', require('./components/Secretary/EditTransaction/EditTransactionSection.vue').default);
 Vue.component('edit-transaction-data', require('./components/Secretary/EditTransaction/EditTransactionData.vue').default);
@@ -107,15 +113,11 @@ Vue.component('partner-edit-transaction', require('./components/Partner/PartnerE
 /**
  * Admin Components
  */
-
 Vue.component('drop-downs-management', require('./components/DropDownsManagement.vue').default);
 Vue.component('account-charts-management', require('./components/admin/AccountChartsManagement').default);
 Vue.component('revising-guid-management', require('./components/admin/RevisingGuidManagement').default);
 
 Vue.component('financial-groups-management', require('./components/admin/FinancialGroupsManagement').default);
-
-Vue.component('office-info', require('./components/admin/OfficeInfo').default)
-Vue.component('dash-board', require('./components/admin/DashBoard').default)
 
 /**
  * Archive Components
@@ -128,7 +130,6 @@ Vue.mixin({
         route: (name, params, absolute) => route(name, params, absolute, Ziggy),
     },
 });
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -137,4 +138,5 @@ Vue.mixin({
 
 const app = new Vue({
     el: '#app',
+    vuetify
 });

@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{asset('dist/css/bootstrap-rtl.min.css')}}">
     <link rel="stylesheet" href="{{asset('dist/css/rtl.css')}}">
     <!-- Date Picker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.9.55/css/materialdesignicons.min.css" integrity="sha512-vIgFb4o1CL8iMGoIF7cYiEVFrel13k/BkTGvs0hGfVnlbV6XjAA0M0oEHdWqGdAVRTDID3vIZPOHmKdrMAUChA==" crossorigin="anonymous" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,103 +44,36 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
-<body class="skin-black bg-gray sidebar-mini sidebar-collapse">
+<body class="skin-blue-light bg-white">
 
 @section('body')
-    <!-- header logo: style can be found in header.less -->
-    <header class="main-header">
-        <a href="#" class="logo">
-            <!-- Add the class icon to your logo image or logo icon to add the margining -->
-            مكتب المحاسبة
-        </a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top margin-50" role="navigation">
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <!-- Sidebar toggle button-->
-
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                    <!-- User Account: style can be found in dropdown.less -->
-                    @auth
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span>
-
-                                        {{auth()->user()->name}}
-                                    <i class="caret"></i>
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                                    <img src="{{asset('images/unknownAvatar.jpg')}}" class="img-circle" alt="User Image" />
-
-                                    <p>
-                                            {{auth()->user()->name}}
-                                    </p>
-                                </li>
-                                <!-- Menu Footer-->
-                                <li class="user-footer ">
-
-                                    <div class="text-center">
-
-                                        <a href="{{route('logout')}}" class="btn btn-default btn-flat"
-                                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            تسجيل خروج
-                                        </a>
-                                    </div>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-
-                    @endauth
-
-                </ul>
-            </div>
-
-        </nav>
-    </header>
-
-    <aside class="main-sidebar">
+<div id="app">
+<v-app>
+<aside class=" main-sidebar">
         <!-- right side column. contains the logo and sidebar -->
 
         @include('layout._Sidebar')
 
     </aside>
-
-    <div class="content-wrapper">
-
-
+        <v-toolbar
+        height="30px"
+        dense
+        ></v-toolbar>
+    <div class="content-wrapper v-content__wrap" style="background:#ffffff;">
         <!-- Content Wrapper. Contains the content of the page -->
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-
+        <!-- <section class="content-header">
 
             <h1 class="margin-50">
                 @section('PageHeader')
                     الرئيسية
                     @auth
-                        @if(auth()->user()->role == 'سوبر')
-                            <small>أدمن</small>
-                        @else
-                            <small>{{auth()->user()->role}}</small>
-
-                        @endif
+                        <small>{{auth()->user()->role}}</small>
                     @endauth
                 @show
             </h1>
 
-        </section>
+        </section> -->
 
         <!-- Main content -->
         <section class="content margin-50">
@@ -160,17 +94,27 @@
 
             @show
         </section><!-- /.content -->
-
+        <v-footer absolute padless>
+    <v-col
+      class="text-center"
+      cols="12"
+    >
+    Copyright ©
+      2021 — <strong>
+      <a href="http://almsaeedstudio.com">Masooud El Rofidy</a>
+      </strong>
+      All rights reserved.
+    </v-col>
+  </v-footer>
         <!-- /.Main-side -->
     </div>
     <!-- ./content-wrapper -->
 
-    <footer class="main-footer">
-        <div class="pull-left hidden-xs">
-            <b>Version</b>1
-        </div>
-        <strong>Copyright © 2020 <a href="http://almsaeedstudio.com">Masooud El Rofidy</a>.</strong> All rights reserved.
-    </footer>
+
+
+    </v-app>
+    </div>
+
 
 
     <!-- jQuery 2.1.4 -->
