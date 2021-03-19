@@ -50,6 +50,18 @@
                                     </h4>
                                 </div>
                             </div>
+                            <div class="form-group col-md-6" style="padding-bottom: 20px">
+                                <label class="float-right">الملاحظات</label>
+
+                                <input v-model="secretary_notes" type="text" class="form-control">
+
+                                <div v-if="ValidationErrors.secretary_notes"   style="margin-top:10px">
+                                    <h4 class="  font-weight-bold" style="color:red">
+                                        {{ ValidationErrors.secretary_notes }}
+                                    </h4>
+                                </div>
+                            </div>
+                            
                         </div>
 
                             <div class="row">
@@ -148,15 +160,17 @@
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="form-group col-md-6" style="padding-bottom: 20px">
                                 <label class="float-right">حالة العملية</label>
-
-                                <select v-model="status" type="checkbox" class="form-control" required>
-                                    <option value="فى حيذ التنفيذ">فى حيذ التنفيذ</option>
-                                    <option value="غير مفعلة">غير مفعلة</option>
-                                    <option value="تعتمد من طرف المراجع الفني">تعتمد من طرف المراجع الفني</option>
+                                <select @change="changeStatus" v-model="status" type="checkbox" class="form-control" required>
+                                    <option value="withdrawn"> تم سحب المعاملة </option>
+                                    <option value="reviser"> ترسل إلي المدقق  </option>
+                                    <option value="rejected"> مرفوض </option>
                                 </select>
+                            </div>
+                            <div v-if="status == 'rejected'" class="form-group col-md-6" style="padding-bottom: 20px">
+                                <label class="float-right">سبب الرفض</label>
+                                <input :value="rejection_reason" type="text" required class="form-control">
                             </div>
                         </div>
                     </div>
@@ -177,9 +191,14 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4" style="padding-top:20px">
+                                <label>أسم مكتب المراجعة</label>
+                                <input v-model="ReviserCompanyName" type="text" class="form-control" >
+                            </div>
+
+                            <div class="col-md-4" style="padding-top:20px">
                                 <label>النوع</label>
                                 <select v-model="PaymentType" type="text" class="form-control">
-                                    <option bv value="مقدم أتعاب">مقدم أتعاب</option>
+                                    <option value="مقدم أتعاب">مقدم أتعاب</option>
 
                                     <option value="دفعة أتعاب نهائية">دفعة أتعاب نهائية</option>
                                 </select>
@@ -214,7 +233,8 @@
             return{
                 LoadingSpinner:'',
                 ValidationErrors:'',
-
+                secretary_notes: '', 
+                startingDate: new Date(),
                 measurement_standard_determinantsOptions :[],
                 measurement_standardOptions:[],
 
@@ -232,6 +252,7 @@
                 zakat_deposit_fees : this.Transaction.zakat_deposit_fees,
                 offer_value : this.Transaction.offer_value,
                 status : this.Transaction.status,
+                rejection_reason: this.Transaction.rejection_reason,
 
 
                 ReviserCompanyName:'مكتوب مسعود الرفيدى',
@@ -267,10 +288,17 @@
             submitPaymentData(){
                 this.LoadingSpinner = true;
                 let formData = new FormData();
+                const date = new Date();
+                const diffTime = Math.abs(this.startingDate - date);
+                const diffHours = Math.ceil(diffTime / (1000 * 60 * 60)); 
+                const diffMinutes = Math.ceil(diffTime / (1000 * 60)); 
+                const actual_time = parseFloat(diffHours+'.'+diffMinutes);
 
                 formData.append('_method','PATCH');
                 formData.append('measurement_standard_determinants',this.measurement_standard_determinants);
                 formData.append('measurement_standard',this.measurement_standard);
+                formData.append('secretary_notes',this.secretary_notes);
+                formData.append('secretary_actualTime', actual_time);
 
                 formData.append('agreed_contract_value',this.agreed_contract_value);
                 formData.append('value_added_tax',this.value_added_tax_amount);
@@ -281,7 +309,6 @@
                 formData.append('final_payment',this.final_payment);
                 formData.append('total_value',this.total_value);
                 formData.append('status',this.status);
-
                 axios.post(route('Transactions.update',this.Transaction.id),formData)
                 .then((res)=>{
                     this.LoadingSpinner = false;
@@ -305,6 +332,16 @@
             CheckFinal_Payment()
             {
                 return this.final_payment = parseFloat(this.total_value) - parseFloat(this.down_payment);
+            },
+            changeStatus () {
+                let formData = new FormData();
+                formData.append('_method','PATCH');
+                formData.append('status',this.status);
+                axios.post(route('Transactions.update',this.Transaction.id),formData).then(res => {
+                    console.log('res', res)
+                }).catch(err => {
+                    console.log('err',err)
+                })
             }
         },
         computed :{

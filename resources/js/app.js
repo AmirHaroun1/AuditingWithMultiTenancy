@@ -20,6 +20,7 @@ import 'vue-select/dist/vue-select.css';
 import { VueEditor } from "vue2-editor";
 import Vuetify from 'vuetify';
    Vue.use(Vuetify); 
+import i18n from './i18'
 import VueHtmlToPaper from 'vue-html-to-paper'
 
 /* This will change according to your server */
@@ -117,6 +118,7 @@ Vue.component('partner-edit-transaction', require('./components/Partner/PartnerE
 Vue.component('drop-downs-management', require('./components/DropDownsManagement.vue').default);
 Vue.component('account-charts-management', require('./components/admin/AccountChartsManagement').default);
 Vue.component('revising-guid-management', require('./components/admin/RevisingGuidManagement').default);
+Vue.component('dash-board', require('./components/admin/DashBoard').default);
 
 Vue.component('financial-groups-management', require('./components/admin/FinancialGroupsManagement').default);
 
@@ -139,5 +141,6 @@ Vue.mixin({
 
 const app = new Vue({
     el: '#app',
-    vuetify
+    vuetify,
+    i18n
 });

@@ -94,7 +94,7 @@
 
             @show
         </section><!-- /.content -->
-        <v-footer absolute padless>
+        <v-footer background-color="primary" absolute padless>
     <v-col
       class="text-center"
       cols="12"

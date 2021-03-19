@@ -1,0 +1,1458 @@
+{
+  "employee": "hello sss !!",
+  "about": "When Bon Appetite achieved its resounding success in 1986, I was always exposed to two questions : The first was about the secret of Bon Appetit's success and what advice I would give to those who desire to work in this field. My reply was always, \"if you prepare food for you customer as if you would prepare it for yourself then be sure that success will be yours, god willing\" The second question was : what would you compare this kind of work to ? I used to reply, \"It is like one walking on a rope in a circus but without a net underneath",
+  "ourStory": "OUR STORY",
+  "navMenu": [],
+  "home": "home",
+  "menu": [
+    {
+      "name": "Salads",
+      "icon": "fas fa-cloud-meatball",
+      "subicon": "fas fa-cloud-meatball",
+      "data": [
+        {
+          "name": "Chicken Caesar",
+          "size1": {
+            "name": "",
+            "price": "40"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Caesar Salad",
+          "size1": {
+            "name": "",
+            "price": "25"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": "",
+          "img": "../assets/BBQ.jpg"
+        },
+        {
+          "name": "Greek Salad",
+          "size1": {
+            "name": "",
+            "price": "35"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Mixed Salad",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Coleslow Salad",
+          "size1": {
+            "name": "",
+            "price": "15"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Pickles",
+          "size1": {
+            "name": "",
+            "price": "5"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        }
+      ]
+    },
+    {
+      "name": "Sandwiches",
+      "icon": "fas fa-hamburger",
+      "subicon": "fas fa-hamburger",
+      "data": [
+        {
+          "name": "Chicken Filet Panne",
+          "size1": {
+            "name": "",
+            "price": "40",
+            "price1": "30",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "63",
+            "price1": "53"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Chicken Champion",
+          "size1": {
+            "name": "",
+            "price": "31",
+            "price1": "41",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "54",
+            "price1": "64"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": "fas fa-pepper-hot"
+        },
+        {
+          "name": "Chicken BBQ",
+          "size1": {
+            "name": "",
+            "price": "30",
+            "price1": "40",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "53",
+            "price1": "63"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Shrimp Panne",
+          "size1": {
+            "name": "",
+            "price": "48",
+            "price1": "60",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "71",
+            "price1": "83"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Chicken Fajitas",
+          "size1": {
+            "name": "",
+            "price": "30",
+            "price1": "40",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "53",
+            "price1": "63"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": "fas fa-pepper-hot"
+        },
+        {
+          "name": "Hot Dog",
+          "size1": {
+            "name": "",
+            "price": "15",
+            "price1": "25",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "38",
+            "price1": "48"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Shish Tawook",
+          "size1": {
+            "name": "",
+            "price": "30",
+            "price1": "40",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "53",
+            "price1": "63"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Grilled Kofta",
+          "size1": {
+            "name": "",
+            "price": "30",
+            "price1": "40",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "53",
+            "price1": "63"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+  
+  
+        {
+          "name": "Roast Beef",
+          "size1": {
+            "name": "",
+            "price": "37",
+            "price1": "48",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "60",
+            "price1": "71"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Roast Turkey",
+          "size1": {
+            "name": "",
+            "price": "37",
+            "price1": "48",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "60",
+            "price1": "71"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Tuna",
+          "size1": {
+            "name": "",
+            "price": "37",
+            "price1": "52",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "60",
+            "price1": "75"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Tongue",
+          "size1": {
+            "name": "",
+            "price": "40",
+            "price1": "52",
+            "cat": "R",
+            "cat1": "K"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "63",
+            "price1": "75"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Navitte",
+          "size1": {
+            "name": "",
+            "price": "45"
+          },
+          "size2": {
+            "name": "Combo",
+            "price": "68"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },    
+        
+        {
+          "name": "Croissant",
+          "size1": {
+            "name": "",
+            "price": "15"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Croissant with Cheddar",
+          "size1": {
+            "name": "",
+            "price": "16"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Pate with Sesame & White Cheese",
+          "size1": {
+            "name": "",
+            "price": "16"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Patte With Cheddar",
+          "size1": {
+            "name": "",
+            "price": "16"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Fruit Danish",
+          "size1": {
+            "name": "",
+            "price": "16"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Raisian Danish",
+          "size1": {
+            "name": "",
+            "price": "16"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "English Cake",
+          "size1": {
+            "name": "",
+            "price": "16"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "3 Slice",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Mango Buche",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Oreo",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Chico Bounty",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Club Sandwitch",
+          "size1": {
+            "name": "",
+            "price": "38"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Simmon Femme",
+          "size1": {
+            "name": "",
+            "price": "68"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Roast Beef",
+          "size1": {
+            "name": "",
+            "price": "37"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Turkey",
+          "size1": {
+            "name": "",
+            "price": "37"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Tuna Salad",
+          "size1": {
+            "name": "",
+            "price": "37"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Toast Club",
+          "size1": {
+            "name": "",
+            "price": "45"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Roast Beef",
+          "size1": {
+            "name": "",
+            "price": "48"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Turkey",
+          "size1": {
+            "name": "",
+            "price": "48"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Tuna Salad",
+          "size1": {
+            "name": "",
+            "price": "52"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        }
+      
+      ]
+    },
+    {
+      "name": "Hot Meals",
+      "icon": "fas fa-utensils",
+      "subicon": "fas fa-utensils",
+      "data": [
+        {
+          "name": "Chicken Panne",
+          "size1": {
+            "name": "",
+            "price": "69"
+          },
+          "size2": {
+            "name": "",
+            "price": "",
+            "price1": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Veal Escalope Panne",
+          "size1": {
+            "name": "",
+            "price": "85"
+          },
+          "size2": {
+            "name": "",
+            "price": "",
+            "price1": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Shish Tawook",
+          "size1": {
+            "name": "",
+            "price": "65"
+          },
+          "size2": {
+            "name": "",
+            "price": "",
+            "price1": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Grilled Kofta",
+          "size1": {
+            "name": "",
+            "price": "65"
+          },
+          "size2": {
+            "name": "",
+            "price": "",
+            "price1": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Mix Grill",
+          "size1": {
+            "name": "",
+            "price": "72"
+          },
+          "size2": {
+            "name": "",
+            "price": "",
+            "price1": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        }
+      ]
+    },
+    {
+      "name": "Side Orders",
+      "icon": "fas fa-spa",
+      "subicon": "fas fa-spa",
+      "data": [
+        {
+          "name": "French Fries",
+          "size1": {
+            "name": "",
+            "price": "15"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Soft Drink (Cans)",
+          "size1": {
+            "name": "",
+            "price": "10"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "Cola - Fanta - Sprite",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "schewepps (Bottle)",
+          "size1": {
+            "name": "",
+            "price": "10"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Fayrouz - Birell",
+          "size1": {
+            "name": "",
+            "price": "22"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Perrier",
+          "size1": {
+            "name": "",
+            "price": "22"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Minreal Water",
+          "size1": {
+            "name": "small",
+            "price": "6"
+          },
+          "size2": {
+            "name": "large",
+            "price": "9"
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        }
+      ]
+    },
+    {
+      "name": "Ice Cream",
+      "icon": "fas fa-ice-cream",
+      "subicon": "fas fa-ice-cream",
+      "list": true,
+      "data": [
+        {
+          "name": "mastic with pistachio",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Yogurt Raspberry",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Chick Hazelnut",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Chico Vanilla",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Caramel",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Biscoff",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Strawberry Buche",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Mango Buche",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Oreo",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Chico Bounty",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        }
+      ]
+    },
+    {
+      "name": "Gateaux",
+      "icon": "fas fa-cheese",
+      "subicon": "fas fa-cheese",
+      "list": true,
+      "data": [
+        {
+          "name": "Millefeuille",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Supreme",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Eclair",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Black Forest",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        },
+        {
+          "name": "Choclate Mousse",
+          "size1": {
+            "name": "",
+            "price": "20"
+          },
+          "size2": {
+            "name": "",
+            "price": ""
+          },
+          "desc": "",
+          "options": ["", ""],
+          "icon": ""
+        }
+      ]
+    },
+    {
+    "name": "juices and cocktails",
+    "icon": "fas fa-wine-glass",
+    "subicon": "fas fa-cocktail",
+    "list": true,
+    "data": [
+      {
+        "name": "Raspberry",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Passion Fruit",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Kiwi",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Mango",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Strawberry",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Lemon Squash",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      
+      {
+        "name": "Passion Fruit",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Raspberry",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Strawberry",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "hazelnut chocolate",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Caramel",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Dark of Choclate",
+        "size1": {
+          "name": "",
+          "price": "35"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Mango",
+        "size1": {
+          "name": "",
+          "price": "25"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Orange",
+        "size1": {
+          "name": "",
+          "price": "25"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Strawberry",
+        "size1": {
+          "name": "",
+          "price": "25"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Lemon",
+        "size1": {
+          "name": "",
+          "price": "25"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Guava",
+        "size1": {
+          "name": "",
+          "price": "25"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      }
+    ]
+  },
+  {
+    "name": "Hot Drinks",
+    "icon": "fas fa-mug-hot",
+    "subicon": "fas fa-coffee",
+    "list": true,
+    "data": [
+      {
+        "name": "Espresso",
+        "size1": {
+          "name": "Single",
+          "price": "22"
+        },
+        "size2": {
+          "name": "Double",
+          "price": "26"
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Espresso Macchiato",
+        "size1": {
+          "name": "Single",
+          "price": "24"
+        },
+        "size2": {
+          "name": "Double",
+          "price": "28"
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Cappuccino",
+        "size1": {
+          "name": "M",
+          "price": "30"
+        },
+        "size2": {
+          "name": "L",
+          "price": "28"
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Cafe` Latte",
+        "size1": {
+          "name": "M",
+          "price": "29"
+        },
+        "size2": {
+          "name": "L",
+          "price": "33"
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Cafe` Mocha",
+        "size1": {
+          "name": "M",
+          "price": "32"
+        },
+        "size2": {
+          "name": "L",
+          "price": "38"
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Hot Chocolate",
+        "size1": {
+          "name": "M",
+          "price": "32"
+        },
+        "size2": {
+          "name": "L",
+          "price": "36"
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Hot Cider",
+        "size1": {
+          "name": "",
+          "price": "30"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Turkish Coffee",
+        "size1": {
+          "name": "",
+          "price": "15"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "French Coffee",
+        "size1": {
+          "name": "",
+          "price": "15"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Coffee Flavors",
+        "size1": {
+          "name": "",
+          "price": "15"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "Peach - Vanila - Caramel - Hazelnut",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Tea",
+        "size1": {
+          "name": "",
+          "price": "20"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Grean Tea with Mint",
+        "size1": {
+          "name": "",
+          "price": "22"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Mint",
+        "size1": {
+          "name": "",
+          "price": "20"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      },
+      {
+        "name": "Cinnamon",
+        "size1": {
+          "name": "",
+          "price": "20"
+        },
+        "size2": {
+          "name": "",
+          "price": ""
+        },
+        "desc": "",
+        "options": ["", ""],
+        "icon": ""
+      }
+    ]
+  }
+]
+}
