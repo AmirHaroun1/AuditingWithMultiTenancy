@@ -18,8 +18,6 @@ import Vue from 'vue'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 import { VueEditor } from "vue2-editor";
-import Vuetify from 'vuetify';
-   Vue.use(Vuetify); 
 import i18n from './i18'
 import VueHtmlToPaper from 'vue-html-to-paper'
 

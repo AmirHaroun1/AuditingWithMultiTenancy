@@ -6,9 +6,9 @@
             <v-spacer></v-spacer>
             <v-text-field id="search-box" height="32px" v-model="search" class="col-md-2 mr-2 ml-2 mt-4" :label="$t('search')" dense small justify="center" single-line solo align-center hide-details append-icon="mdi-search" />
             <v-spacer></v-spacer>
-            <v-autocomplete :label="$t('filter')" multiple return-object v-model="headers" height="32px" class="col-md-2 mt-4 mr-2" :items="predefinedFilters" dense small justify="center" single-line solo align-center hide-details />
+            <v-autocomplete :label="$t('filter')" multiple return-object v-model="headers" height="32px" class="col-md-2 mt-4 mr-2" :items="predefinedFilters" dense small justify="center" />
             <v-spacer></v-spacer>
-            <v-btn color="#3161BE" dark heigh="30px" style="color:#FFFFFF !important" class="ml-1 mt-4">
+            <v-btn color="primary" dark heigh="30px" class="ml-1 mt-4">
                 <v-icon>mdi-plus</v-icon> {{$t('newEmployee')}}
             </v-btn>
         </v-card-title>

@@ -1,5 +1,5 @@
 <template>
-<v-navigation-drawer right permenant app dark color="#20407D">
+<v-navigation-drawer right permenant app dark class="primary">
     <h3 class="white--text text-center">
         {{authObject.role}}
     </h3>
