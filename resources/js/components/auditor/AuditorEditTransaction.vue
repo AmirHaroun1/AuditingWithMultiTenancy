@@ -114,7 +114,7 @@
         </div>
 
         <div class="text-center">
-            <button @click="UpdateTransactionStatus()" class="btn btn-success btn-lg">ارسال الى المراجع الفني</button>
+            <button @click="UpdateTransactionStatus('reviser')" class="btn btn-success btn-lg">إرسال الى المراجع الفني</button>
         </div>
     </div>
 </template>
