@@ -1,0 +1,10 @@
+{
+  "employeesTable":"جدول الموظفين",
+  "search": "بحث",
+  "filter": "اختيار العناصر",
+  "newEmployee": "موظف جديد",
+  "name": "الاسم",
+  "job": "الوظيفه",
+  "phoneNumber": "رقم الجوال",
+  "email": "الإيميل"
+}

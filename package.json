@@ -12,16 +12,18 @@
     "devDependencies": {
         "axios": "^0.19.2",
         "bootstrap": "^4.0.0",
+        "case-sensitive-paths-webpack-plugin": "^2.4.0",
         "cross-env": "^7.0",
+        "deepmerge": "^4.2.2",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.19",
         "popper.js": "^1.12",
         "printd": "^1.4.2",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.20.1",
-        "sass-loader": "^8.0.0",
-        "vue": "^2.5.17",
+        "sass": "^1.32.8",
+        "sass-loader": "^8.0.2",
+        "vue": "^2.6.12",
         "vue-ctk-date-time-picker": "^2.2.3",
         "vue-izitoast": "^1.2.1",
         "vue-pdf": "^4.2.0",
@@ -31,9 +33,14 @@
         "vue2-editor": "^2.10.2"
     },
     "dependencies": {
+        "chart.js": "^2.9.4",
+        "vue-chartjs": "^3.5.1",
         "vue-click-outside": "^1.1.0",
         "vue-excel-editor": "^1.3.90",
-        "vue-html-to-paper": "^1.3.1"
+        "vue-html-to-paper": "^1.3.1",
+        "vue-i18n": "^8.24.1",
+        "vuetify": "^2.4.6",
+        "vuetify-loader": "^1.7.2"
     },
     "name": "AuditingApp"
 }
