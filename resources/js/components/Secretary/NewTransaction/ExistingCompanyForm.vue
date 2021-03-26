@@ -396,7 +396,7 @@
                 revisers : [],
                 revisingManagers : [],
 
-                ChoosenReviserID : '',
+                ChoosenReviserID :   '',
                 ChoosenRevisingManagerID : '',
 
             }
