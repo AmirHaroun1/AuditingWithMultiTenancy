@@ -61,7 +61,7 @@ Vue.component('upload-excel-accounts', require('./components/UploadExcelAccounts
 Vue.component('transaction-info', require('./components/TransactionInfo.vue').default);
 Vue.component('employee-signature', require('./components/EmployeeSignature').default);
 Vue.component('sidebarcom', require('./components/sidebar').default);
-Vue.component('ManageEmployees', require('./components/ManageEmployees').default);
+Vue.component('ManageEmployees', require('./components/admin/employees/ManageEmployees').default);
 Vue.component('sysbar', require('./components/systemBar').default);
 
 /**

@@ -9,13 +9,8 @@
 
 @endsection
 @section('content')
-    <div id="app"  style="padding-top: 50px">
-        <div class="row">
-            <div class="col-md-12">
+
                 <account-charts-management></account-charts-management>
-            </div>
-        </div>
-    </div>
 @endsection
 @section('scripts')
 

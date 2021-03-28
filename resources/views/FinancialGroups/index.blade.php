@@ -19,20 +19,13 @@
 
 @endsection
 @section('content')
-    <div  style="padding-top: 50px">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="app">
 
                     @if(auth()->user()->role == 'سوبر')
                         <financial-groups-management :financial-groups="{{($FinancialGroups)}}" :first-lvl-accounts="{{$FirstLVLAccounts}}" ></financial-groups-management>
                     @else
 
                     @endif
-                </div>
-            </div>
-        </div>
-    </div>
+              
 @endsection
 @section('scripts')
 

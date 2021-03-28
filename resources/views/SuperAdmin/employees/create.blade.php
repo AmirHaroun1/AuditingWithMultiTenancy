@@ -2,9 +2,6 @@
 @section('title')
     - أضافة موظف
 @endsection
-@section('PageHeader')
-أضافة موظف
-@endsection
 @section('css')
     <link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
 @endsection
