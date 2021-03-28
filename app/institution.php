@@ -9,7 +9,9 @@ class institution extends Model
     //
 
     protected $guarded = [];
-
+    protected $casts = [
+        'managers' => 'array',
+    ];
     public static function boot() {
         parent::boot();
 

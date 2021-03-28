@@ -142,12 +142,12 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pull-right">
-                    <button @click="UpdateTransactionStatus('مدير المراجعة')"  class="btn btn-success btn-lg">ارسال الى مدير المراجعة</button>
+                    <button @click="UpdateTransactionStatus('revising_manager')"  class="btn btn-success btn-lg">إرسال الى مدير المراجعة</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="pull-left">
-                    <button @click="UpdateTransactionStatus('المدقق')"  class="btn btn-danger btn-lg">ارسال الى المدقق</button>
+                    <button @click="UpdateTransactionStatus('auditor')"  class="btn btn-danger btn-lg">إرسال الى المدقق</button>
                 </div>
             </div>
         </div>

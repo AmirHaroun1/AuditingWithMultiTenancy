@@ -1,7 +1,7 @@
 <template>
     <div class="box" style="margin-top: 20px">
         <div class="box-header">
-            <h2 class="pb-3">بيانات مندوب المنشأة </h2>
+            <h2 class="pb-3"> بيانات ضابط الأتصال</h2>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -86,21 +86,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" style="padding-bottom: 20px">
-                            <div class="form-group ">
-                                <label class="float-right">الرقم السرى</label>
-                                <input v-model="Agent.password" type="password" class="form-control pb-5"  placeholder="الرقم السرى" required>
-
-                                <div v-if="ValidationErrors.password"   style="margin-top:10px">
-                                    <h4 class="  font-weight-bold" style="color:red">
-                                        {{ ValidationErrors.password[0] }}
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-
-
-
                     </div>
 
                 </div>
@@ -152,7 +137,6 @@
                 formData.append('birth_date', this.Agent.birth_date);
                 formData.append('email', this.Agent.email);
                 formData.append('phone', this.Agent.phone);
-                formData.append('password', this.Agent.password);
                 formData.append('role', 'مندوب شركة');
 
                 axios.post(route('agent.store',this.$parent.Institution),

@@ -49,7 +49,7 @@
 
         <div class="row">
             <div class="text-center">
-                <button @click="UpdateTransactionStatus('تم الأعتماد')"  class="btn btn-success btn-lg">اعتماد المعاملة</button>
+                <button @click="UpdateTransactionStatus('finished')"  class="btn btn-success btn-lg">اعتماد المعاملة</button>
             </div>
         </div>
     </div>

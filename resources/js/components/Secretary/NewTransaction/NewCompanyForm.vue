@@ -29,8 +29,15 @@
 
                     </div>
                 </div>
-                <!------ تاريخ السجل ------>
+                <!------ رقم 700 ------>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="float-right">الرقم 700</label>
+                        <input type="text" class="form-control" v-model="institution.number700">
+                    </div>
+                </div>
 
+                <!------ تاريخ السجل ------>
                 <div class="row">
                     <div class="form-group col-md-6" style="padding-bottom: 20px">
                         <label class="float-right">تاريخ السجل الرئيسى</label>
@@ -39,21 +46,25 @@
 
                     </div>
                 </div>
+                <!------ النوع ------>
                 <div class="row">
-
-                    <div class="form-group col-md-6" style="padding-bottom: 20px">
-                        <label class="float-right">مكان اصدار السجل الرئيسى</label>
-
-                        <input v-model="MainTradeRegister.production_place" type="text" class="form-control" required >
+                    <div class="form-group col-md-6">
+                        <label class="float-right">الكيان القانوني</label>
+                        <select class="form-control" v-model="InstitutionType">
+                            <option selected value=""></option>
+                            <option  value="organization">مؤسسة</option>
+                            <option  value="company">شركة</option>
+                            <option  value="other">اخرى</option>
+                        </select>
                     </div>
                 </div>
 
-                <!-----Create-Institution Form Content -->
-                <hr>
-                <div class="row" id="NewCompanyInformation">
-                    <!------ أسم المنشأة ------>
+                <!-----بيانات المؤسسة -->
+                <div v-if="InstitutionType=='organization'" class="row" id="NewOrganizationInformation">
+                    <hr>
+                    <!------ الإسم التجاري للمؤسسة ------>
                     <div class="col-md-6" style="padding-bottom: 20px">
-                        <label class="float-right">أسم المنشأة</label>
+                        <label class="float-right">الإسم التجاري للمؤسسة</label>
                         <input v-model="institution.name" type="text" class="form-control" required >
 
                         <div v-if="ValidationErrors.name"   style="margin-top:10px">
@@ -62,105 +73,10 @@
                             </h4>
                         </div>
                     </div>
-                    <!------ أسم المنشأة/. ------>
-
-                    <!------ رقم المنشأة ------>
-                    <div class="col-md-6" style="padding-bottom: 20px">
-                        <label class="float-right">رقم المنشأة</label>
-                        <input v-model="institution.company_number" type="number" class="form-control" required >
-
-                        <div v-if="ValidationErrors.number && CompanyError==true"   style="margin-top:10px">
-                            <h4 class="  font-weight-bold" style="color:red">
-                                {{ ValidationErrors.number[0] }}
-                            </h4>
-                        </div>
-                    </div>
-                    <!------ رقم المنشأة/. ------>
-
-                    <!------ الكيان القانوني ------>
-                    <div class="col-md-3" style="padding-bottom: 20px">
-                        <label class="float-right">الكيان القانوني</label>
-                        <select class="form-control" v-model="institution.legal_entity" required >
-                            <option disabled></option>
-                            <option v-for="option in legal_entityOptions" :value="option.value">{{option.value}}</option>
-
-
-                        </select>
-                        <div v-if="ValidationErrors.legal_entity"   style="margin-top:10px">
-                            <h4 class="  font-weight-bold" style="color:red">
-                                {{ ValidationErrors.legal_entity[0] }}
-                            </h4>
-                        </div>
-                    </div>
-                    <!------ الكيان القانوني/. ------>
-
-                    <!------ اهتمامات الملاك ------>
-                    <div class="col-md-3" style="padding-bottom: 20px">
-                        <label class="float-right">اهتمامات الملاك</label>
-                        <select class="form-control" v-model="institution.angel_interests" required>
-                            <option disabled></option>
-                            <option  v-for="option in angel_interestsOptions" :value="option.value">{{option.value}}</option>
-
-                        </select>
-                        <div v-if="ValidationErrors.angel_interests"   style="margin-top:10px">
-                            <h4 class="  font-weight-bold" style="color:red">
-                                {{ ValidationErrors.angel_interests[0] }}
-                            </h4>
-                        </div>
-                    </div>
-                    <!------ اهتمامات الملاك/. ------>
-
-                    <!------ طبيعة ملكية المنشأة وكيفية تمويلها ------>
-                    <div class="col-md-3" style="padding-bottom: 20px">
-                        <label class="float-right">طبيعة ملكية المنشأة وكيفية تمويلها</label>
-                        <select class="form-control" v-model="institution.nature" required >
-                            <option disabled ></option>
-                            <option  v-for="option in natureOptions" :value="option.value">{{option.value}}</option>
-                        </select>
-
-                        <div v-if="ValidationErrors.nature"   style="margin-top:10px">
-                            <h4 class="  font-weight-bold" style="color:red">
-                                {{ ValidationErrors.nature[0] }}
-                            </h4>
-                        </div>
-                    </div>
-                    <!------ طبيعة ملكية المنشأة وكيفية تمويلها/. ------>
-
-                    <!------ تقويم العام المالي للمنشأة ------>
-                    <div class="col-md-3" style="padding-bottom: 20px">
-                        <label class="float-right">تقويم العام المالي للمنشأة</label>
-                        <select class="form-control" v-model="institution.date_type" required >
-                            <option disabled ></option>
-                            <option value="ميلادى">ميلادى</option>
-                            <option value="هجري">هجري</option>
-                        </select>
-
-                        <div v-if="ValidationErrors.date_type"   style="margin-top:10px">
-                            <h4 class="  font-weight-bold" style="color:red">
-                                {{ ValidationErrors.date_type[0] }}
-                            </h4>
-                        </div>
-                    </div>
-                    <!------ تقويم العام المالي للمنشأة/. ------>
-
-                    <!------ نشاط المنشأة ------>
-
-                    <div class="col-md-9" style="padding-bottom: 20px">
-                        <label class="float-right">نشاط المنشأة</label>
-                        <textarea class="form-control" v-model="institution.business_activity" rows="6" required >
-
-                            </textarea>
-                        <div v-if="ValidationErrors.business_activity"   style="margin-top:10px">
-                            <h4 class="  font-weight-bold" style="color:red">
-                                {{ ValidationErrors.business_activity[0] }}
-                            </h4>
-                        </div>
-                    </div>
-                    <!------ نشاط المنشأة/. ------>
-
-                    <!------ عنوان المنشأة ------>
+                    <!------ الإسم التجاري للمؤسسة/. ------>
+                    <!---- المركز الرئيسي ------>
                     <div class="col-md-4" style="padding-bottom: 20px">
-                        <label class="float-right mt-2">العنوان: المدينة</label>
+                        <label class="float-right mt-2">المركز الرئيسي : المدينة</label>
                         <select class="form-control" v-model="institution.city" required>
                             <option disabled></option>
                             <option v-for="option in cityOptions" :value="option.value">{{option.value}}</option>
@@ -174,7 +90,7 @@
                         </div>
                     </div>
                     <div class="col-md-4" style="padding-bottom: 20px">
-                        <label class="float-right mt-2">العنوان: الحى</label>
+                        <label class="float-right mt-2"> المركز الرئيسي : الحى</label>
                         <select class="form-control" v-model="institution.district" required >
                             <option disabled></option>
                             <option v-for="option in districtOptions" :value="option.value">{{option.value}}</option>
@@ -197,9 +113,236 @@
                             </h4>
                         </div>
                     </div>
-                    <!------ عنوان المنشأة/. ------>
+                    <!---- المركز الرئيسي/. ------>
+                    <!------ صندوق البريد(ص.ب) ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">صندوق البريد(ص.ب)</label>
+                        <input v-model="institution.postal_box" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.postal_box"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.postal_box[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ صندوق البريد(ص.ب)/. ------>
+                    <!------ الرمز البريدي ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">الرمز البريدي</label>
+                        <input v-model="institution.postal_code" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.postal_code"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.postal_code[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ الرمز البريدي/. ------>
+                    <!------ الهاتف ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">الهاتف</label>
+                        <input v-model="institution.phone" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.phone"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.phone[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ الهاتف/. ------>
+                    <!------ فاكس ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">فاكس</label>
+                        <input v-model="institution.fax" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.fax"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.fax[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ فاكس/. ------>
+                    <!---- اسم التاجر ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">اسم التاجر</label>
+                        <input v-model="institution.merchant_name" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.merchant_name"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.merchant_name[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ اسم التاجر/. ------>
+                    <!---- جنسية التاجر ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">الجنسية</label>
+                        <input v-model="institution.merchant_nationality" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.merchant_nationality"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.merchant_name[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ جنسية التاجر/. ------>
+                    <!---- تاريخ ميلاد التاجر ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">تاريخ ميلاد التاجر</label>
+                        <input v-model="institution.merchant_birth_date" type="date" class="form-control" required >
+
+                        <div v-if="ValidationErrors.merchant_birth_date"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.merchant_birth_date[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ تاريخ ميلاد التاجر/. ------>
+
+                    <!------ رقم المنشأة ------>
+                    <!----<div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">رقم المنشأة</label>
+                        <input v-model="institution.company_number" type="number" class="form-control" required >
+
+                        <div v-if="ValidationErrors.number && CompanyError==true"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.number[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    ------>
+                    <!------ رقم المنشأة/. ------>
+
+                    <!------ نشاط المنشأة ------>
+                    <div class="col-md-9" style="padding-bottom: 20px">
+                        <label class="float-right">نشاط المنشأة</label>
+                        <textarea class="form-control" v-model="institution.business_activity" rows="6" required >
+
+                            </textarea>
+                        <div v-if="ValidationErrors.business_activity"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.business_activity[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ نشاط المنشأة/. ------>
+
+                    <!------ رأس المال ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">رأس المال</label>
+                        <input v-model="institution.capital" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.capital"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.capital[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------رأس المال/. ------>
+
+                    <!------ اسم المدير او الوكيل المفوض ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">اسم المدير او الوكيل المفوض </label>
+                        <input v-model="ManagerTemp.name" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.managers"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.managers[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------اسم المدير او الوكيل المفوض/. ------>
+
+                    <!------ سلطات المدير ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">سلطات المدير</label>
+                        <input v-model="institution.manager_authorities" value="'حسب الضوابط'" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.manager_authorities"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.manager_authorities[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ سلطات المدير ------>
+
+
+                    <!------ الكيان القانوني ------>
+                    <!---------
+                    <div class="col-md-3" style="padding-bottom: 20px">
+                        <label class="float-right">الكيان القانوني</label>
+                        <select class="form-control" v-model="institution.legal_entity" required >
+                            <option disabled></option>
+                            <option v-for="option in legal_entityOptions" :value="option.value">{{option.value}}</option>
+
+
+                        </select>
+                        <div v-if="ValidationErrors.legal_entity"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.legal_entity[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    -------->
+                    <!------ الكيان القانوني/. ------>
+
+                    <!------ اهتمامات الملاك ------>
+                    <!-----
+                    <div class="col-md-3" style="padding-bottom: 20px">
+                        <label class="float-right">اهتمامات الملاك</label>
+                        <select class="form-control" v-model="institution.angel_interests" required>
+                            <option disabled></option>
+                            <option  v-for="option in angel_interestsOptions" :value="option.value">{{option.value}}</option>
+
+                        </select>
+                        <div v-if="ValidationErrors.angel_interests"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.angel_interests[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    ----->
+                    <!------ اهتمامات الملاك/. ------>
+
+                    <!------ طبيعة ملكية المنشأة وكيفية تمويلها ------>
+                    <!---
+                    <div class="col-md-3" style="padding-bottom: 20px">
+                        <label class="float-right">طبيعة ملكية المنشأة وكيفية تمويلها</label>
+                        <select class="form-control" v-model="institution.nature" required >
+                            <option disabled ></option>
+                            <option  v-for="option in natureOptions" :value="option.value">{{option.value}}</option>
+                        </select>
+
+                        <div v-if="ValidationErrors.nature"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.nature[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    ----->
+                    <!------ طبيعة ملكية المنشأة وكيفية تمويلها/. ------>
+
+                    <!------ تقويم العام المالي للمنشأة ------>
+                    <!-------
+                    <div class="col-md-3" style="padding-bottom: 20px">
+                        <label class="float-right">تقويم العام المالي للمنشأة</label>
+                        <select class="form-control" v-model="institution.date_type" required >
+                            <option disabled ></option>
+                            <option value="ميلادى">ميلادى</option>
+                            <option value="هجري">هجري</option>
+                        </select>
+
+                        <div v-if="ValidationErrors.date_type"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.date_type[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    ------>
+                    <!------ تقويم العام المالي للمنشأة/. ------>
 
                     <!------ الرقم المميز لدى هيئة الذكاة ------>
+                    <!----------
                     <div class="col-md-4" style="padding-bottom: 20px">
                         <label class="float-right mt-2">الرقم المميز لدى هيئة الذكاة</label>
                         <input type="number" class="form-control" v-model="institution.charity_num" required>
@@ -210,9 +353,11 @@
                             </h4>
                         </div>
                     </div>
+                    ----------->
                     <!------ الرقم المميز لدى هيئة الذكاة/. ------>
 
                     <!------ رقم الضريبة المضافة ------>
+                    <!-------
                     <div class="col-md-4" style="padding-bottom: 20px">
                         <label class="float-right mt-2">رقم الضريبة المضافة</label>
                         <input type="number" class="form-control" v-model="institution.extra_tax_num" required >
@@ -223,12 +368,233 @@
                             </h4>
                         </div>
                     </div>
+                    ------>
                     <!------ رقم الضريبة المضافة/> ------>
 
                 </div>
+                <!-- /.بيانات المؤسسة -->
+                <!-----بيانات شركة -->
+                <div v-if="InstitutionType == 'company' "class="row" id="NewCompanyInformation">
+                    <hr>
+                    <!------ الكيان القانوني ------>
+                    <div class="col-md-3" style="padding-bottom: 20px">
+                        <label class="float-right">الكيان القانوني</label>
+                        <select class="form-control" v-model="institution.legal_entity" required >
+                            <option disabled></option>
+                            <option v-for="option in legal_entityOptions" :value="option.value">{{option.value}}</option>
 
-                <!-- /.Create-Institution Form Content -->
 
+                        </select>
+                        <div v-if="ValidationErrors.legal_entity"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.legal_entity[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ الكيان القانوني/. ------>
+                    <!---- جنسية الشركة ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">جنسيتها</label>
+                        <input v-model="institution.company_nationality" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.company_nationality"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.company_nationality[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ جنسية الشركة/. ------>
+                    <!---- مدة الشركة ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">مدة الشركة</label>
+                        <input v-model="institution.company_period" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.company_period"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.company_period[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ مدة الشركة/. ------>
+                    <!----تبدأ من ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">تبدأ من</label>
+                        <input v-model="institution.company_start_period" type="date" class="form-control" required >
+
+                        <div v-if="ValidationErrors.company_start_period"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.company_start_period[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ تبدأ من/. ------>
+                    <!----وتنتهي في ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">وتنتهي في</label>
+                        <input v-model="institution.company_end_period" type="date" class="form-control" required >
+
+                        <div v-if="ValidationErrors.company_end_period"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.company_end_period[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ وتنتهي في/. ------>
+                    <!---- المركز الرئيسي ------>
+                    <div class="col-md-4" style="padding-bottom: 20px">
+                        <label class="float-right mt-2">المركز الرئيسي : المدينة</label>
+                        <select class="form-control" v-model="institution.city" required>
+                            <option disabled></option>
+                            <option v-for="option in cityOptions" :value="option.value">{{option.value}}</option>
+
+                        </select>
+
+                        <div v-if="ValidationErrors.address"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.address[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="padding-bottom: 20px">
+                        <label class="float-right mt-2"> المركز الرئيسي : الحى</label>
+                        <select class="form-control" v-model="institution.district" required >
+                            <option disabled></option>
+                            <option v-for="option in districtOptions" :value="option.value">{{option.value}}</option>
+
+                        </select>
+
+                        <div v-if="ValidationErrors.address"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.address[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="padding-bottom: 20px">
+                        <label class="float-right mt-2">باقى العنوان:</label>
+                        <input type="text" class="form-control" v-model="institution.restofadress"required>
+
+                        <div v-if="ValidationErrors.address"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.address[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!---- المركز الرئيسي/. ------>
+                    <!------ صندوق البريد(ص.ب) ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">صندوق البريد(ص.ب)</label>
+                        <input v-model="institution.postal_box" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.postal_box"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.postal_box[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ صندوق البريد(ص.ب)/. ------>
+                    <!------ الرمز البريدي ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">الرمز البريدي</label>
+                        <input v-model="institution.postal_code" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.postal_code"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.postal_code[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ الرمز البريدي/. ------>
+                    <!------ الهاتف ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">الهاتف</label>
+                        <input v-model="institution.phone" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.phone"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.phone[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ الهاتف/. ------>
+                    <!------ فاكس ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">فاكس</label>
+                        <input v-model="institution.fax" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.fax"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.fax[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ فاكس/. ------>
+                    <!------ نشاط المنشأة ------>
+                    <div class="col-md-9" style="padding-bottom: 20px">
+                        <label class="float-right">نشاط المنشأة</label>
+                        <textarea class="form-control" v-model="institution.business_activity" rows="6" required >
+
+                            </textarea>
+                        <div v-if="ValidationErrors.business_activity"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.business_activity[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ نشاط المنشأة/. ------>
+                    <!------ رأس المال ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">رأس المال</label>
+                        <input v-model="institution.capital" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.capital"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.capital[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------رأس المال/. ------>
+                    <!---- المديرون ------>
+                    <div class="col-md-12" style="padding-bottom: 20px">
+                        <form @submit.prevent="AddManagerToList()" id="AddManagerToListForm">
+                            <div class="col-md-8">
+                                <label class="float-right">المديرون</label>
+                                <input v-model="ManagerTemp.name" type="text" class="form-control" required >
+                                <div v-if="ValidationErrors.managers"   style="margin-top:10px">
+                                    <h4 class="  font-weight-bold" style="color:red">
+                                        {{ ValidationErrors.managers[0] }}
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-success" type="submit" form="AddManagerToListForm" >إضافة مدير</button>
+                            </div>
+                            <div class="col-md-12">
+                                <ul v-if="institution.managers.length">
+                                    <li v-for="(manager,index) in institution.managers" >
+                                        <h4>{{manager}}</h4>
+                                        <i style="color:red" class="fa fa-times cursor-pointer" @click="RemoveManagerFromList(index)"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+
+                    </div>
+                    <!------ المديرون/. ------>
+                    <!------ سلطات المدير ------>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <label class="float-right">سلطات المدير</label>
+                        <input v-model="institution.manager_authorities" value="'حسب ما نص عليه العقد'" type="text" class="form-control" required >
+
+                        <div v-if="ValidationErrors.manager_authorities"   style="margin-top:10px">
+                            <h4 class="  font-weight-bold" style="color:red">
+                                {{ ValidationErrors.manager_authorities[0] }}
+                            </h4>
+                        </div>
+                    </div>
+                    <!------ سلطات المدير ------>
+
+                </div>
+                <!-----بيانات شركة./ -->
                 <hr>
                 <!------ تاريخ انتهاء السجل ------>
                 <div class="row">
@@ -245,9 +611,29 @@
                     </div>
                 </div>
                 <!------ تاريخ انتهاء السجل/. ------>
+                <!------ رقم 300 ------>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="float-right">الرقم المميز 300</label>
+                        <input type="text" class="form-control" v-model="institution.number300">
+                    </div>
+                </div>
+                <!------ رقم 300./ ------>
+                <!------ رقم التسجيل الضريبي ------>
+                <div class="col-md-4" style="padding-bottom: 20px">
+                    <label class="float-right mt-2">رقم التسجيل الضريبي</label>
+                    <input type="number" class="form-control" v-model="institution.extra_tax_num" required >
 
-                <!-- Financial info ------>
+                    <div v-if="ValidationErrors.extra_tax_num"   style="margin-top:10px">
+                        <h4 class="  font-weight-bold" style="color:red">
+                            {{ ValidationErrors.extra_tax_num[0] }}
+                        </h4>
+                    </div>
+                </div>
+                <!------ رقم التسجيل الضريبي./ ------>
 
+
+                <!-- Financial Year info ------>
                     <!------   السنة المالية ------>
                         <div class="row">
                             <div class="form-group col-md-6" style="padding-bottom: 20px" >
@@ -283,8 +669,6 @@
                             </div>
                         </div>
                      <!------   الفترة المالية/. ------>
-
-
                     <!------ بداية / نهاية  السنة المالية ------>
                         <div class="row">
                         <div class="form-group col-md-6" style="padding-bottom: 20px">
@@ -311,7 +695,6 @@
                         </div>
                     </div>
                     <!------ بداية / نهاية  السنة المالية/. ------>
-
                 <!-- /.Financial info ------>
 
                 <!------ السجلات الفرعية ------>
@@ -436,7 +819,7 @@
             return{
                 revisers : [],
                 revisingManagers : [],
-
+                InstitutionType:'',
 
                 ChoosenReviserID : '',
                 ChoosenRevisingManagerID : '',
@@ -456,7 +839,27 @@
                    business_activity:'',
                    charity_num:'',
                    extra_tax_num:'',
+                   number700:'',
+                   postal_box:'',
+                   postal_code:'',
+                   fax:'',
+                   number300:'',
+                   capital:'',
+                   managers:[],
+                   phone:'',
+                   merchant_name:'',
+                   merchant_birth_date:'',
+                   merchant_nationality:'',
+                   manager_authorities:'',
+                   company_nationality:'',
+                   company_period:'',
+                   company_start_period:'',
+                   company_end_period:'',
+
                },
+                ManagerTemp:{
+                    'name':'',
+                },
                 legal_entityOptions:[],
                 angel_interestsOptions:[],
                 natureOptions:[],
@@ -499,6 +902,7 @@
                 ValidationErrors: '',
                 MainRegisterError: false,
                 CompanyError: false,
+
             }
         },
         created() {
@@ -556,17 +960,40 @@
                     this.LoadingSpinner=true;
 
                     var formData = new FormData();
-
+                    formData.append('name', this.institution.name);
+                    formData.append('type', this.InstitutionType);
                     formData.append('address', this.getAddress);
+                    formData.append('postal_box', this.institution.postal_box);
+                    formData.append('postal_code', this.institution.postal_code);
+                    formData.append('phone', this.institution.phone);
+                    formData.append('fax', this.institution.fax);
                     formData.append('business_activity', this.institution.business_activity);
-                    formData.append('name',this.institution.name);
-                    formData.append('number',this.institution.company_number);
-                    formData.append('legal_entity', this.institution.legal_entity);
-                    formData.append('angel_interests', this.institution.angel_interests);
-                    formData.append('date_type', this.institution.date_type);
-                    formData.append('nature', this.institution.nature);
-                    formData.append('charity_num', this.institution.charity_num);
+                    formData.append('capital', this.institution.capital);
+                    formData.append('manager_authorities',this.institution.manager_authorities);
                     formData.append('extra_tax_num', this.institution.extra_tax_num);
+                    formData.append('number300', this.institution.number300);
+
+                    if(this.InstitutionType == 'organization'){
+                        formData.append('number700', this.institution.number700);
+                        formData.append('merchant_name', this.institution.merchant_name);
+                        formData.append('merchant_nationality', this.institution.merchant_nationality);
+                        formData.append('merchant_birth_date', this.institution.merchant_birth_date);
+                        //manager
+                        this.institution.managers = [];
+                        let name = this.ManagerTemp.name;
+                        this.institution.managers.push({name});
+                        formData.append('managers', this.institution.managers);
+
+                    }else if(this.InstitutionType == 'company'){
+                        formData.append('legal_entity', this.institution.legal_entity);
+                        formData.append('company_nationality', this.institution.company_nationality);
+                        formData.append('company_period', this.institution.company_period);
+                        formData.append('company_start_period', this.institution.company_start_period);
+                        formData.append('company_end_period', this.institution.company_end_period);
+                        //managers needd to be implemented
+                        formData.append('managers',this.institution.managers);
+
+                    }
                     axios.post(route('Institution.store'),
                         formData
                     ).then((res) => {
@@ -757,6 +1184,13 @@
                     this.transaction.start_financial_year = this.transaction.financial_year+"-01-01";
                     this.transaction.end_financial_year = this.transaction.financial_year+"-12-31";
                 }
+            },
+            AddManagerToList(){
+                    let name = this.ManagerTemp.name;
+                    this.institution.managers.push(name);
+            },
+            RemoveManagerFromList(index){
+                this.institution.managers.splice(index,1);
             }
         },
 

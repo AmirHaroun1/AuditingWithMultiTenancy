@@ -160,7 +160,7 @@
 
         <div class="row">
                 <div class="text-center">
-                    <button @click="UpdateTransactionStatus('تم الأعتماد')"  class="btn btn-success btn-lg">اعتماد المعاملة</button>
+                    <button @click="UpdateTransactionStatus('managing_partner')"  class="btn btn-success btn-lg">إرسال إلى الشريك الإداري</button>
                 </div>
         </div>
     </div>
