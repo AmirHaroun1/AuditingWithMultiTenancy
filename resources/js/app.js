@@ -63,6 +63,7 @@ Vue.component('employee-signature', require('./components/EmployeeSignature').de
 Vue.component('sidebarcom', require('./components/sidebar').default);
 Vue.component('ManageEmployees', require('./components/admin/employees/ManageEmployees').default);
 Vue.component('sysbar', require('./components/systemBar').default);
+Vue.component('office-info', require('./components/admin/OfficeInfo.vue').default);
 
 /**
  * Secretary Components

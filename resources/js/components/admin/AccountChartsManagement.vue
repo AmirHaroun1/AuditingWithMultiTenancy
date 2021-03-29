@@ -14,7 +14,7 @@
                     mdi-pencil
                 </v-icon>
             </v-btn>
-            <v-btn absolute class="floatLeftAction" @click="destroy(LVL1_AccountCharts,first_level_index,FirstLVLAccount.id,1)" fab dark x-small color="error">
+            <v-btn absolute class="floatLeftAction" @click="destroy(LVL1_AccountCharts,first_level_index,FirstLVLAccount.id,1)" outlined fab dark x-small color="error">
                 <v-icon dark>
                     mdi-delete
                 </v-icon>
