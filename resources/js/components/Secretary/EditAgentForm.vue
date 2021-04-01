@@ -9,7 +9,7 @@
                 <div class="row">
                     <div id="NewAgentForTheCompany">
                         <div class="col-md-12">
-                            <h3 class="header" style="padding-bottom: 10px"> بيانات المندوب :</h3>
+                            <h3 class="header" style="padding-bottom: 10px"> ضابط الأتصال :</h3>
                         </div>
                         <div class="col-lg-6" style="padding-bottom: 20px">
                             <label class="float-right">رقم الهوية</label>

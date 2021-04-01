@@ -117,6 +117,7 @@ export default {
             this.$emit('close')
         },
         submit() {
+
             axios.post(route('employees.store'), this.user).then(res => {
                 console.log('res', res)
             })

@@ -18,9 +18,9 @@
 
                         </h3>
                     </div>
-                    <div :id="'collapse'+AccountStatement.id" class="collapse fade">
+                    <div :id="'collapse'+AccountStatement.id" class="collapse fade" @click="AccountsStatements.fourth_level_account_id !== null ? GetInKindOfAccountStatement(AccountStatement):''">
                         <!--------------- if the statement belongs to fourth level account--------->
-                        <div v-if="AccountStatement.fourth_level_account_id !== null" >
+                        <div @change="GetInKindOfAccountStatement(AccountStatement)" v-if="AccountStatement.fourth_level_account_id !== null" >
                             <table class="mt-20 table table-bordered" >
                                 <thead>
                                 <tr>
@@ -125,7 +125,8 @@
                             </div>
                         </div>
                         <!--------------- ./if the statement belongs to fourth level account--------->
-                        <div v-else class="mt-20">
+                        <!--------------- else if the account has branched accounts ----------->
+                        <div @change="GetInKindOfBranchedAccountsStatementsOfParentAccount(AccountStatement)" v-else class="mt-20">
                             <div v-if="AccountStatement.branched_statements.length" v-for="BranchedStatements in AccountStatement.branched_statements">
                                 <div class="mt-20">
                                     <table class=" table table-bordered" >
@@ -232,6 +233,8 @@
 
                             </div>
                         </div>
+                        <!--------------- ./if the account has branched accounts ----------->
+
                     </div>
                 </div>
                 <!------------ Add Inkind Hidden Modal  ---------->
@@ -364,13 +367,13 @@
                 <!------------ /. Edit Inkind Hidden Modal  ---------->
 
                 <div class="pagination text-center">
-                    <button class="btn btn-default" @click="GetAccountsInKind(current_page-1)" :disabled="prev_page_url == null">السابق</button>
+                    <button class="btn btn-default" @click="GetAccountsThatHasInKind(current_page-1)" :disabled="prev_page_url == null">السابق</button>
                     <span>صفحة
                     {{current_page}}
                     من
                     {{last_page}}
                 </span>
-                    <button class="btn btn-default" @click="GetAccountsInKind(current_page+1)" :disabled="next_page_url == null">التالي</button>
+                    <button class="btn btn-default" @click="GetAccountsThatHasInKind(current_page+1)" :disabled="next_page_url == null">التالي</button>
                 </div>
             </div>
         </div>
@@ -400,13 +403,13 @@
             }
         },
         created() {
-            this.GetAccountsInKind();
+            this.GetAccountsThatHasInKind();
             this.GetEndDateOfTransactionInArabic();
         },
         methods: {
-            GetAccountsInKind(page) {
+            GetAccountsThatHasInKind(page) {
                 this.LoadingSpinner = true;
-               axios.get(route('AccountsInKind.index',{TransactionID:this.Transaction.id, page}))
+               axios.get(route('AccountsStatementsHaveInKind.index',{TransactionID:this.Transaction.id, page}))
                    .then(({data}) => {
                        console.log(data);
                        this.current_page = data.current_page;
@@ -419,7 +422,7 @@
 
                             this.V_SelectOptions.push({'label':AccountStatement.code + ' ' + '# ' +AccountStatement.name,'code':AccountStatement.code,'id':AccountStatement.id});
 
-                           if(AccountStatement.branched_statements.length){
+                           if(AccountStatement.hasOwnProperty('branched_statements') && AccountStatement.branched_statements.length){
                                AccountStatement.branched_statements.forEach(BranchedStatement => {
                                    this.V_SelectOptions.push({'label':BranchedStatement.code + ' ' + '# ' +BranchedStatement.name,'id':BranchedStatement.id});
                                })
@@ -435,6 +438,27 @@
                        this.$toast.error('.','حدث خطأ برجاء اعادة المحاولة',{timout:300});
                        this.LoadingSpinner = false;
                    })
+            },
+            GetInKindOfAccountStatement(Account){
+               if(!Account.hasOwnProperty('accounts_in_kind')){
+                   this.LoadingSpinner = true;
+                   axios.get(route('AccountStatementInKind',Account.id))
+                       .then((res)=>{
+                           console.log(res.data.AccountStatementInKind);
+                           Account.accounts_in_kind = [];
+                           Account.accounts_in_kind.push(...res.data.AccountStatementInKind)
+                           this.LoadingSpinner = false;
+                       }).catch(error => {
+                       console.log(error);
+                       this.LoadingSpinner = false;
+
+                   })
+               }
+            },
+            GetInKindOfBranchedAccountsStatementsOfParentAccount(ParentAccount){
+                ParentAccount.branched_statements.forEach(branchedStatement=>{
+                    this.GetInKindOfAccountStatement(branchedStatement);
+                })
             },
             GetEndDateOfTransactionInArabic(){
                 var splitedDate = this.Transaction.end_financial_year.split('-');

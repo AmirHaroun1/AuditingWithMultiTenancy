@@ -9,27 +9,27 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
     @routes
-    <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{global_asset('bootstrap/css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{global_asset('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" href="{{global_asset('dist/css/AdminLTE.min.css')}}">
 
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{{asset('dist/css/skins/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{global_asset('dist/css/skins/_all-skins.min.css')}}">
     <!-- iCheck -->
-    <link rel="stylesheet" href="{{asset('plugins/iCheck/flat/blue.css')}}">
+    <link rel="stylesheet" href="{{global_asset('plugins/iCheck/flat/blue.css')}}">
     <!-- Morris chart -->
-    <link rel="stylesheet" href="{{asset('plugins/morris/morris.css')}}">
+    <link rel="stylesheet" href="{{global_asset('plugins/morris/morris.css')}}">
     <!-- jvectormap -->
-    <link rel="stylesheet" href="{{asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
+    <link rel="stylesheet" href="{{global_asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
 
     <!-- Daterange picker -->
 
-    <link rel="stylesheet" href="{{asset('dist/fonts/fonts-fa.css')}}">
-    <link rel="stylesheet" href="{{asset('dist/css/bootstrap-rtl.min.css')}}">
-    <link rel="stylesheet" href="{{asset('dist/css/rtl.css')}}">
+    <link rel="stylesheet" href="{{global_asset('dist/fonts/fonts-fa.css')}}">
+    <link rel="stylesheet" href="{{global_asset('dist/css/bootstrap-rtl.min.css')}}">
+    <link rel="stylesheet" href="{{global_asset('dist/css/rtl.css')}}">
     <!-- Date Picker -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.9.55/css/materialdesignicons.min.css" integrity="sha512-vIgFb4o1CL8iMGoIF7cYiEVFrel13k/BkTGvs0hGfVnlbV6XjAA0M0oEHdWqGdAVRTDID3vIZPOHmKdrMAUChA==" crossorigin="anonymous" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
@@ -118,7 +118,7 @@
 
 
     <!-- jQuery 2.1.4 -->
-    <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
+    <script src="{{global_asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -126,22 +126,22 @@
         $.widget.bridge('uibutton', $.ui.button);
     </script>
     <!-- Bootstrap 3.3.4 -->
-    <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{global_asset('bootstrap/js/bootstrap.min.js')}}"></script>
 
     @yield('scripts')
 
 @show
 <!-- Sparkline -->
-<script src="{{asset('plugins/sparkline/jquery.sparkline.min.js')}}"></script>
+<script src="{{global_asset('plugins/sparkline/jquery.sparkline.min.js')}}"></script>
 
-<script src="{{asset('plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
+<script src="{{global_asset('plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
 <!-- FastClick -->
-<script src="{{asset('plugins/fastclick/fastclick.min.js')}}"></script>
+<script src="{{global_asset('plugins/fastclick/fastclick.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('dist/js/app.min.js')}}"></script>
+<script src="{{global_asset('dist/js/app.min.js')}}"></script>
 
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('dist/js/demo.js')}}"></script>
+<script src="{{global_asset('dist/js/demo.js')}}"></script>
 
 </body>
 </html>

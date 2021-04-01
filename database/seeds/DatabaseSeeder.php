@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public static function run()
     {
         factory(App\User::class,50)->create();
     }

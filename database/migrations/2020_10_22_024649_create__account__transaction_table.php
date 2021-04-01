@@ -50,6 +50,7 @@ class CreateAccountTransactionTable extends Migration
             $table->string('name')->nullable();
             $table->string('code')->nullable();
 
+            $table->boolean('is_related_party')->default(0);
             $table->text('related_party_type')->nullable();
             $table->text('related_party_branch')->nullable();
 

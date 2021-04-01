@@ -70,6 +70,6 @@ class Kernel extends HttpKernel
         'RevisingManager'=>\App\Http\Middleware\RevisingManager::class,
         'partner'=>\App\Http\Middleware\partner::class,
         'ArchiveSecretary'=>\App\Http\Middleware\ArchiveSecretary::class,
-
+        'TenantAuth' =>\App\Http\Middleware\TenantAuth::class,
     ];
 }

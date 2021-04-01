@@ -48,7 +48,7 @@ class DOMNodeComparator extends ObjectComparator
         $actualAsString   = $this->nodeToText($actual, true, $ignoreCase);
 
         if ($expectedAsString !== $actualAsString) {
-            $type = $expected instanceof DOMDocument ? 'document' : 'nodes';
+            $type = $expected instanceof DOMDocument ? 'documents' : 'nodes';
 
             throw new ComparisonFailure(
                 $expected,

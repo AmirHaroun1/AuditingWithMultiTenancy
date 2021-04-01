@@ -25,7 +25,7 @@ use Elastica\Exception\ExceptionInterface;
  *    $client = new \Elastica\Client();
  *    $options = array(
  *        'index' => 'elastic_index_name',
- *        'type' => 'elastic_doc_type',
+ *        'type' => 'elastic_doc_type', Types have been removed in Elastica 7
  *    );
  *    $handler = new ElasticaHandler($client, $options);
  *    $log = new Logger('application');
@@ -108,7 +108,7 @@ class ElasticaHandler extends AbstractProcessingHandler
     }
 
     /**
-     * Use Elasticsearch bulk API to send list of document
+     * Use Elasticsearch bulk API to send list of documents
      * @throws \RuntimeException
      */
     protected function bulkSend(array $documents): void
