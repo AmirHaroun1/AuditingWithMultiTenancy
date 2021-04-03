@@ -48,7 +48,6 @@
                     </div>
                 @endif
 
-                <div id="app">
                     @if(auth()->user()->role == 'سكرتير')
                         <secretary-transactions-table></secretary-transactions-table>
                         @elseif(auth()->user()->role == 'مراجع فني')
@@ -62,8 +61,6 @@
                         @elseif(auth()->user()->role == 'سكرتير تنفيذي')
                         <archive-transactions-table></archive-transactions-table>
                     @endif
-
-                </div>
             </div>
         </div>
     </div>

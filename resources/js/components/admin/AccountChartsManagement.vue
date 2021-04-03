@@ -1,11 +1,11 @@
 <template>
 <div>
     <v-card-title>
-        {{$t('dropdowns')}}
+        {{$t('AccountManagment')}}
     </v-card-title>
     <!-- First Level -->
     <v-expansion-panels focusable>
-        <v-expansion-panel v-for="(FirstLVLAccount,first_level_index) in LVL1_AccountCharts" :key="FirstLVLAccount.code">
+        <v-expansion-panel color="primary" background-color="primary" v-for="(FirstLVLAccount,first_level_index) in LVL1_AccountCharts" :key="FirstLVLAccount.code">
             <v-expansion-panel-header hide-actions>
                 {{FirstLVLAccount.code}} - {{FirstLVLAccount.name}}
             </v-expansion-panel-header>

@@ -17,6 +17,7 @@
   "newAccountSecondBranch": "إضافة حساب فرعي - مستوي ثاني",
   "newAccountThirdBranch": "إضافة حساب فرعي - مستوي ثالث",
   "newAccountFourthBranch": "إضافة حساب فرعي - مستوي رابع",
+  "AccountManagment": "الدليل المحاسبي",
   "dropdowns": "القوائم المندسلة",
   "setting": "إعدادات البرنامج",
   "isRelated": "اطراف ذات علاقة",
@@ -45,5 +46,27 @@
   "firstNote": "الملاحظه الأولي",
   "secondNote": "الملاحظه الثانيه",
   "addNewBand": "إضافة باند جديد",
-  "groupName": "اسم المجموعه"
+  "groupName": "اسم المجموعه",
+  
+  "officeInfo": "اسم المكتب",
+  "englishName": "الاسم بالإنجليزية",
+  "logo": "اللوجو",
+  "bankName": "اسم البنك",
+  "englishBankName": "اسم البنك بالإنجليزية",
+  "bankAccountNumber": "رقم حساب البنك",
+
+  "transactionsTable": "جدول المعاملات",
+  "newTransaction": "إضافة معامله جديده",
+  "mainItemNumber": "رقم السجل الرئيسي",
+  "TransactionChirstianDate": "تاريخ تسجيل المعاملة (ميلادي)",
+  "TransactionHijriDate": "تاريخ تسجيل المعاملة (هجري)",
+  "status": "الحالة",
+  "financialChristianYear": "السنة المالية (ميلادي)",
+  "financialHijriYear": "السنة المالية (هجري)",
+
+
+  "transactionInfo": "بيانات المعاملة",
+  "contactOfficer": "ضابط الإتصال",
+  "files": "الملفات",
+  "payment": "الدفع"
 }
