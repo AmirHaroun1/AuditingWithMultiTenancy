@@ -7,13 +7,8 @@
 @endsection
 
 @section('content')
-    <div id="app"  style="padding-top: 50px">
-        <div class="row">
-            <div class="col-md-12">
-                <office-info :office-info="{{json_encode($OfficeInfo)}}"></office-info>
-            </div>
-        </div>
-    </div>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quam ex eius vel illo nisi ea sed asperiores voluptatibus modi, corporis, voluptates consequatur. Similique alias pariatur, nesciunt illum laboriosam ad.
+        <office-info :office-info="{{json_encode($OfficeInfo)}}"></office-info>
 @endsection
 @section('scripts')
 

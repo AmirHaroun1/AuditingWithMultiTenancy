@@ -19,20 +19,14 @@
 
 @endsection
 @section('content')
-    <div  style="padding-top: 50px">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="app">
+
                     @if(auth()->user()->role == 'سوبر')
                         <revising-guid-management :All-Revising-Guides="{{$AllRevisingGuides}}"></revising-guid-management>
                     @elseif(auth()->user()->role == 'سكرتير تنفيذي')
                         <archive-edit-transaction :Transaction="{{$Transaction}}"></archive-edit-transaction>
 
                     @endif
-                </div>
-            </div>
-        </div>
-    </div>
+            
 @endsection
 @section('scripts')
 

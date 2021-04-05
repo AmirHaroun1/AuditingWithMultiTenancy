@@ -1,372 +1,389 @@
 <template>
-    <div style="height: 800px">
-        <div class="col-md-3">
-            <div class="box">
-                <div class="box-header text-center main-color-text">
-                    <h5>أوراق المراجعة</h5>
-                </div>
-                <div >
-                    <virtual-list style="height: 500px; overflow-y: auto;"
-                                  v-on="$listeners"
-                                  :data-key="'id'"
-                                  :data-sources="AvailableRevisingGuides"
-                                  :data-component="ItemComponent"
-                    />
-                    <div @click="ShowAddModal()" class="text-center" style="border: 4px #00a65a dashed;cursor:pointer;color: #00a65a">
-                        <h4 >
-                            أضافة نموذج رئيسي
-                            <i class="fa fa-plus" style="margin-right:5px"></i>
-                        </h4>
-                    </div>
-                </div>
+<div>
+    <div class="col-md-3">
+        <div>
+            <v-card-title>
+                {{$t('revisingPapers')}}
+            </v-card-title>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" class="mt-4" @click="ShowAddModal()" dark>
+                    <v-icon>mdi-plus</v-icon> {{$t('addNewGuide')}}
+                </v-btn>
+                <v-spacer></v-spacer>
+            </v-card-actions>
+            <div>
+                <virtual-list style="height: 500px; overflow-y: auto;" v-on="$listeners" :data-key="'id'" :data-sources="AvailableRevisingGuides" :data-component="ItemComponent" />
             </div>
         </div>
-        <div class="col-md-9" v-if="SelectedItem">
-            <div class="box">
-                <div v-if="LoadingSpinner" class="overlay">
-                    <i class="fa fa-refresh fa-spin">
-                    </i>
-                </div>
-
-                <div class="box-header text-center">
-                    <h4 v-if="SelectedItem.code_alias">{{SelectedItem.code_alias}}</h4>
-                    <h4 v-else>{{SelectedItem.code}}</h4>
-
-                    <h4 v-if="SelectedItem.name_alias">{{SelectedItem.name_alias}}</h4>
-                    <h4 v-else>{{SelectedItem.name}}</h4>
-
-                    <input v-if="EditMark" v-on:keyup.enter="updateRevisingGuidMark()" class="form-control" v-model="SelectedItem.mark">
-                    <h4 v-else @click="EditMark=true" class="cursor-pointer">الدرجة : {{SelectedItem.mark}}</h4>
-
-
-                    <br>
-                        <form @submit.prevent="updateRevisingGuidNotes()" id="NotesForm">
-                            <textarea class="form-control" v-model="SelectedItem.first_note" ></textarea>
-                            <textarea class="form-control mt-10" v-model="SelectedItem.second_note"></textarea>
-                                <button form="NotesForm" class="btn btn-success mt-10 ">حفظ</button>
-                        </form>
-                </div>
-
-                <div class="box-header mt-20" >
-                    <!--------------- First Level --------------->
-                        <div class="col-md-12 mt-20" style="border:black dashed 1px;" v-if=" SelectedItem.children.length || child.AddedByUser  "   v-for="child in SelectedItem.children" >
-
-                            <div class="col-md-11" data-toggle="collapse" :href="'#'+child.id">
-                                <h5 v-if=" child.name_alias !== null && child.name_alias !==''" class="pt-10 pb-10 font-weight-bold cursor-pointer"><i class="fa fa-angle-double-left" style="margin-left:10px"></i>{{child.name_alias}}</h5>
-
-                                <h5 v-else class="pt-10 pb-10 font-weight-bold font-weight-bold cursor-pointer"><i class="fa fa-angle-double-left" style="margin-left:10px"></i>{{child.name}}</h5>
-                            </div>
-                            <div class="col-md-1 "style="justify-content: space-between;display: flex;">
-
-                                    <h4 @click="ShowUpdateChildGuidModal(SelectedItem,child,1)"> <i class="fa fa-edit pt-10 pb-10 cursor-pointer"></i></h4>
-                            </div>
-
-                            <!--------------- Second Level --------------->
-                            <div  class="collapse fade " :id="child.id">
-
-                                <div class="col-md-11  mb-20 col-xs-11 col-md-offset-1 col-sm-offset-1 col-lg-offset-1 col-xs-offset-1" style="border:black dashed 1px;" v-if="child.children.length "   v-for="GrandChild in child.children" >
-
-                                    <div class="col-md-11" data-toggle="collapse" :href="'#'+GrandChild.id">
-                                        <h5 v-if=" GrandChild.name_alias !== null && GrandChild.name_alias !==''" class="pt-10 pb-10 font-weight-bold cursor-pointer"><i class="fa fa-angle-double-left" style="margin-left:10px"></i>{{GrandChild.name_alias}}</h5>
-                                        <h5 v-else class="pt-10 pb-10 font-weight-bold font-weight-bold cursor-pointer"><i class="fa fa-angle-double-left" style="margin-left:10px"></i>{{GrandChild.name}}</h5>
-                                    </div>
-                                    <div class="col-md-1 "style="justify-content: space-between;display: flex;">
-
-                                        <h4 @click="ShowUpdateChildGuidModal(child,GrandChild,2)"> <i class="fa fa-edit pt-10 pb-10 cursor-pointer"></i></h4>
-                                    </div>
-
-                                    <!--------------- Third Level --------------->
-                                        <div  class="collapse fade " :id="GrandChild.id">
-
-                                            <div class="col-md-10  mb-20 col-xs-10 col-md-offset-2 col-sm-offset-2 col-lg-offset-2 col-xs-offset-2" style="border:black dashed 1px;" v-if="GrandChild.children.length "   v-for="GreatGrandChild in GrandChild.children" >
-
-                                                <div class="col-md-11" data-toggle="collapse" :href="'#'+GreatGrandChild.id">
-                                                    <h5 v-if=" GreatGrandChild.name_alias !== null && GreatGrandChild.name_alias !==''" class="pt-10 pb-10 font-weight-bold cursor-pointer"><i class="fa fa-angle-double-left" style="margin-left:10px"></i>{{GreatGrandChild.name_alias}}</h5>
-                                                    <h5 v-else class="pt-10 pb-10 font-weight-bold font-weight-bold cursor-pointer"><i class="fa fa-angle-double-left" style="margin-left:10px"></i>{{GreatGrandChild.name}}</h5>
-                                                </div>
-
-                                                <div class="col-md-1 "style="justify-content: space-between;display: flex;">
-
-                                                    <h4 @click="ShowUpdateChildGuidModal(GrandChild,GreatGrandChild,3)"> <i class="fa fa-edit pt-10 pb-10 cursor-pointer"></i></h4>
-                                                </div>
-
-
-
-                                                <!--------------- Fourth Level --------------->
-                                                <div  class="collapse fade " :id="GreatGrandChild.id">
-                                                    <div class="col-md-9  mb-20 col-xs-9 col-md-offset-3 col-sm-offset-3 col-lg-offset-3 col-xs-offset-3" style="border:black dashed 1px;" v-if="GreatGrandChild.children.length && GreatGrandChild.name != '' "   v-for="FinalLevel in GreatGrandChild.children" >
-
-                                                        <div class="col-md-11">
-                                                            <h5 v-if=" FinalLevel.name_alias !== null && FinalLevel.name_alias !==''" class="pt-10 pb-10 font-weight-bold cursor-pointer"><i class="fa fa-angle-double-left" style="margin-left:10px"></i>{{FinalLevel.name_alias}}</h5>
-                                                            <h5 v-else class="pt-10 pb-10 font-weight-bold font-weight-bold cursor-pointer"><i class="fa fa-angle-double-left" style="margin-left:10px"></i>{{FinalLevel.name}}</h5>
-                                                        </div>
-
-                                                        <div class="col-md-1 "style="justify-content: space-between;display: flex;">
-
-                                                            <h4 @click="ShowUpdateChildGuidModal(GreatGrandChild,FinalLevel,4)"> <i class="fa fa-edit pt-10 pb-10 cursor-pointer"></i></h4>
-                                                        </div>
-
-                                                    </div>
-                                                    <!--------------- Add Fourth Level --------------->
-                                                    <div class="col-md-9  mb-20 col-xs-9 col-md-offset-3 col-sm-offset-3 col-lg-offset-3 col-xs-offset-3" style="border:black dashed 1px;" >
-
-                                                        <div @click="ShowAddChildOfRevisingGuidModal(GreatGrandChild)" class="text-center mb-10 mt-10" style="border: 2px #00a65a dashed;cursor:pointer;color: #00a65a">
-                                                            <h5 >
-                                                                أضافة بند جديد
-                                                                <i class="fa fa-plus" style="margin-right:5px"></i>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <!--------------- ./Add Fourth Level --------------->
-
-                                                </div>
-                                                <!--------------- ./Fourth Level --------------->
-                                            </div>
-
-                                            <!--------------- Add ThirdThird Level --------------->
-                                            <div class="col-md-10  mb-20 col-xs-10 col-md-offset-2 col-sm-offset-2 col-lg-offset-2 col-xs-offset-2" style="border:black dashed 1px;" >
-                                                <div @click="ShowAddChildOfRevisingGuidModal(GrandChild)" class="text-center mb-10 mt-10" style="border: 2px #00a65a dashed;cursor:pointer;color: #00a65a">
-                                                    <h5 >
-                                                        أضافة بند جديد
-                                                        <i class="fa fa-plus" style="margin-right:5px"></i>
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                            <!--------------- ./Add ThirdThird Level --------------->
-
-                                        </div>
-
-                                    <!--------------- ./Third Level --------------->
-
-                                </div>
-                                <!--------------- Add Second Level --------------->
-                                    <div class="col-md-11  mb-20 col-xs-11 col-md-offset-1 col-sm-offset-1 col-lg-offset-1 col-xs-offset-1">
-                                        <div @click="ShowAddChildOfRevisingGuidModal(child)" class="text-center mb-10 mt-10" style="border: 2px #00a65a dashed;cursor:pointer;color: #00a65a">
-                                            <h5 >
-                                                أضافة بند جديد
-                                                <i class="fa fa-plus" style="margin-right:5px"></i>
-                                            </h5>
-                                        </div>
-                                    </div>
-                                <!--------------- ./Add Second Level --------------->
-
-                            </div>
-                            <!--------------- ./Second Level --------------->
-
-                        </div>
-                    <!--------------- ./First Level --------------->
-
-
-                    <!--------------- Add First Level --------------->
-                        <div class="col-md-12">
-                            <div @click="ShowAddChildOfRevisingGuidModal(SelectedItem)" class="text-center mb-10 mt-10" style="border: 2px #00a65a dashed;cursor:pointer;color: #00a65a">
-                                <h5 >
-                                    أضافة بند جديد
-                                    <i class="fa fa-plus" style="margin-right:5px"></i>
-                                </h5>
-                            </div>
-                        </div>
-                    <!--------------- ./Add First Level --------------->
-
-                </div>
-
-            </div>
-
-
-
-
-        </div>
-        <!------------ Add Main RevisingGuid Hidden Modal  ---------->
-        <h4 type="button" ref="AddMainModalButton" data-toggle="modal" data-target="#AddMainRevisingGuidModal" style="display: none">
-            اضافة
-        </h4>
-        <div class="modal fade bd-example-modal-lg" id="AddMainRevisingGuidModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">اضافة</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <form @submit.prevent=" Added_revisingGuid.Parent === null ? storeNewRevisingGuid():storeNewChildOfRevisingGuid()">
-                                <div class="row">
-                                    <div class="col-md-12 form-group">
-                                        <label>الرمز</label>
-                                        <input v-model="Added_revisingGuid.code"  class="form-control" required>
-                                    </div>
-
-
-                                    <div class="col-md-12 form-group">
-                                        <label>الاسم</label>
-                                        <input v-model="Added_revisingGuid.name"  class="form-control" required>
-                                    </div>
-
-                                    <div v-if="Added_revisingGuid.Parent" class="col-md-12 form-group">
-                                        <label>النوع</label>
-                                        <select v-model="Added_revisingGuid.isText"  class="form-control" required>
-                                            <option value="0" selected >نعم / لا  / المرجع / لا ينطبق</option>
-                                            <option value="1">حقل كتابة</option>
-                                        </select>
-                                    </div>
-                                    <div v-if="Added_revisingGuid.Parent&&Added_revisingGuid.isText == 0" class="col-md-12  form-group">
-                                        <label>القيمة</label>
-                                        <select v-model="Added_revisingGuid.default_status" class="form-control" required>
-                                            <option value="1">نعم</option>
-                                            <option value="0">لا</option>
-                                            <option value="2">لا ينطبق</option>
-                                        </select>
-                                    </div>
-                                    <div v-if="Added_revisingGuid.Parent&&Added_revisingGuid.isText == 0" class="col-md-12  form-group">
-                                        <label>المرجع</label>
-                                        <v-select :options="vSelectRevisingGuides" v-model="Added_revisingGuid.default_reference"  style="width: 100%" >
-
-                                        </v-select>
-
-                                    </div>
-
-                                </div>
-                                <button type="submit" class="btn btn-block btn-success btn-lg" style="width:130px;height:50px" >حفظ</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button ref="CloseAddRevisingGuidModal" type="button" class="btn btn-secondary" data-dismiss="modal">غلق</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!------------ /. Add RevisingGuid Hidden Modal  ---------->
-
-        <!------------ Edit RevisingGuid Hidden Modal  ---------->
-        <h4 type="button" ref="EditModalButton" data-toggle="modal" data-target="#EditRevisingGuidModal" style="display: none">
-            تعديل
-        </h4>
-        <div class="modal fade" id="EditRevisingGuidModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">تعديل </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <form @submit.prevent="updateRevisingGuid()">
-                                <div class="row">
-                                    <div class="col-md-12 form-group">
-                                        <label>الرمز</label>
-                                        <input v-model="temp_revisingGuid.code_alias"  class="form-control">
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <label>الاسم</label>
-                                        <input v-model="temp_revisingGuid.name_alias"  class="form-control">
-                                    </div>
-                                    <div v-if="temp_revisingGuid.Parent!==null" class="col-md-12 form-group">
-                                        <label>النوع</label>
-                                        <select v-model="temp_revisingGuid.isText"  class="form-control" required>
-                                            <option value="0" selected>نعم / لا  / المرجع / لا ينطبق</option>
-                                            <option value="1">حقل كتابة</option>
-                                        </select>
-                                    </div>
-                                    <div v-if="temp_revisingGuid.Parent!==null&&temp_revisingGuid.isText == 0" class="col-md-12  form-group">
-                                        <label>القيمة</label>
-                                        <select v-model="temp_revisingGuid.default_status" class="form-control" required>
-                                            <option value="1">نعم</option>
-                                            <option value="0">لا</option>
-                                            <option value="2">لا ينطبق</option>
-                                        </select>
-                                    </div>
-                                    <div v-if="temp_revisingGuid.Parent!==null&&temp_revisingGuid.isText == 0" class="col-md-12  form-group">
-                                        <label>المرجع</label>
-                                        <v-select :options="vSelectRevisingGuides" v-model="temp_revisingGuid.default_reference" style="width: 100%" required :required="true"></v-select>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-6">
-                                    <button type="submit" class="btn btn-block btn-success btn-lg" style="width:130px;height:50px" >حفظ</button>
-                                </div>
-                                <div v-if="temp_revisingGuid.AddedByUser||temp_revisingGuid.Parent" class="col-md-6">
-                                    <form id="DeleteForm" @submit.prevent="[ temp_revisingGuid.Parent === null ? DeleteRevisingGuid():DeleteChildOfRevisingGuid()]">
-
-                                        <button type="submit" class="btn btn-block btn-danger btn-lg pull-left" style="width:130px;height:50px" >حذف</button>
-
-                                    </form>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button ref="CloseRevisingGuidModal" type="button" class="btn btn-secondary" data-dismiss="modal">غلق</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!------------ /. Edit RevisingGuid Hidden Modal  ---------->
     </div>
+    <div class="col-md-9" v-if="SelectedItem">
+        <div>
+            <div v-if="LoadingSpinner" class="overlay">
+                <i class="fa fa-refresh fa-spin">
+                </i>
+            </div>
+            <v-card shaped :elevation="24">
+                <v-container>
+
+                    <div class="text-center">
+                        <v-card-subtitle class="text-caption" v-if="SelectedItem.code_alias">{{SelectedItem.code_alias}}</v-card-subtitle>
+                        <v-card-subtitle class="text-caption" v-else>{{SelectedItem.code}}</v-card-subtitle>
+
+                        <v-card-title class="text-h6" v-if="SelectedItem.name_alias">{{SelectedItem.name_alias}}</v-card-title>
+                        <v-card-title class="text-h6" v-else>{{SelectedItem.name}}</v-card-title>
+
+                        <v-row align-content="center" align="center">
+                            <v-col cols="9">
+                                <v-text-field hide-details height="32px" :disabled="!EditMark" v-model="SelectedItem.mark" outlined :label="$t('grade')" v-on:keyup.enter="updateRevisingGuidMark()"></v-text-field>
+                            </v-col>
+                            <v-col cols="3">
+                                <v-btn @click="EditMark=true" class="mr-4 ml-4" color="primary" dark>
+                                    {{$t('enableEdit')}}
+                                </v-btn>
+                            </v-col>
+                        </v-row>
+
+                        <br>
+                        <v-form @submit.prevent="updateRevisingGuidNotes()" id="NotesForm">
+                            <v-row>
+                                <v-col cols="9">
+                                    <v-textarea v-model="SelectedItem.first_note" outlined :label="$t('firstNote')" v-on:keyup.enter="updateRevisingGuidMark()"></v-textarea>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="9">
+                                    <v-textarea v-model="SelectedItem.second_note" outlined :label="$t('secondNote')" v-on:keyup.enter="updateRevisingGuidMark()"></v-textarea>
+                                </v-col>
+                            </v-row>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn type="submit" form="NotesForm" class="mr-4 ml-4" color="primary" dark>
+                                    {{$t('save')}}
+                                </v-btn>
+                                <v-spacer></v-spacer>
+                            </v-card-actions>
+                        </v-form>
+                    </div>
+
+                    <div class="box-header mt-20">
+                        <!-- first Level -->
+                        <v-expansion-panels focusable>
+                            <v-expansion-panel v-for="child in SelectedItem.children" :key="child.code">
+                                <v-expansion-panel-header hide-actions>
+                                    <span class="mainPannelText" v-if=" child.name_alias !== null && child.name_alias !==''">
+                                        {{child.name_alias}}
+                                    </span>
+                                    <span class="mainPannelText" v-else>
+                                        {{child.name}}
+                                    </span>
+                                </v-expansion-panel-header>
+                                <v-btn absolute @click="ShowUpdateChildGuidModal(SelectedItem,child,1)" class="floatLeftAction" fab dark x-small color="primary">
+                                    <v-icon dark>
+                                        mdi-pencil
+                                    </v-icon>
+                                </v-btn>
+                                <v-expansion-panel-content>
+                                    <!-- Second Level -->
+                                    <v-expansion-panels focusable>
+                                        <v-expansion-panel v-for="GrandChild in child.children" :key="GrandChild.code">
+                                            <v-expansion-panel-header hide-actions>
+                                                <span class="mainPannelText" v-if=" GrandChild.name_alias !== null && GrandChild.name_alias !==''">
+                                                    {{GrandChild.name_alias}}
+                                                </span>
+                                                <span class="mainPannelText" v-else>
+                                                    {{GrandChild.name}}
+                                                </span>
+                                            </v-expansion-panel-header>
+                                            <v-btn absolute @click="ShowUpdateChildGuidModal(child,GrandChild,2)" class="floatLeftAction" fab dark x-small color="primary">
+                                                <v-icon dark>
+                                                    mdi-pencil
+                                                </v-icon>
+                                            </v-btn>
+                                            <v-expansion-panel-content>
+                                                <!-- third level -->
+                                                <v-expansion-panels focusable>
+                                                    <v-expansion-panel v-for="GreatGrandChild in GrandChild.children" :key="GreatGrandChild.code">
+                                                        <v-expansion-panel-header hide-actions>
+                                                            <span class="mainPannelText" v-if=" GreatGrandChild.name_alias !== null && GreatGrandChild.name_alias !==''">
+                                                                {{GreatGrandChild.name_alias}}
+                                                            </span>
+                                                            <span class="mainPannelText" v-else>
+                                                                {{GreatGrandChild.name}}
+                                                            </span>
+                                                        </v-expansion-panel-header>
+                                                        <v-btn absolute @click="ShowUpdateChildGuidModal(GrandChild,GreatGrandChild,3)" class="floatLeftAction" fab dark x-small color="primary">
+                                                            <v-icon dark>
+                                                                mdi-pencil
+                                                            </v-icon>
+                                                        </v-btn>
+                                                        <v-expansion-panel-content>
+                                                            <!-- fourth level -->
+                                                            <v-expansion-panels disabled focusable>
+                                                                <v-expansion-panel v-for="FinalLevel in GreatGrandChild.children" :key="FinalLevel.code">
+                                                                    <v-expansion-panel-header hide-actions>
+                                                                        <span class="mainPannelText" v-if=" FinalLevel.name_alias !== null && FinalLevel.name_alias !==''">
+                                                                            {{FinalLevel.name_alias}}
+                                                                        </span>
+                                                                        <span class="mainPannelText" v-else>
+                                                                            {{FinalLevel.name}}
+                                                                        </span>
+                                                                    </v-expansion-panel-header>
+                                                                    <v-btn absolute @click="ShowUpdateChildGuidModal(GreatGrandChild,FinalLevel,4)" class="floatLeftAction" fab dark x-small color="primary">
+                                                                        <v-icon dark>
+                                                                            mdi-pencil
+                                                                        </v-icon>
+                                                                    </v-btn>
+                                                                    <v-expansion-panel-content>
+                                                                        <!-- fourth level -->
+
+                                                                    </v-expansion-panel-content>
+                                                                </v-expansion-panel>
+                                                            </v-expansion-panels>
+                                                            <v-card-actions>
+                                                                <v-spacer></v-spacer>
+                                                                <v-btn color="primary" class="mt-4" @click="ShowAddChildOfRevisingGuidModal(GreatGrandChild)" dark>
+                                                                    <v-icon>mdi-plus</v-icon> {{$t('addNewBand')}}
+                                                                </v-btn>
+                                                                <v-spacer></v-spacer>
+                                                            </v-card-actions>
+                                                        </v-expansion-panel-content>
+                                                    </v-expansion-panel>
+                                                </v-expansion-panels>
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn color="primary" class="mt-4" @click="ShowAddChildOfRevisingGuidModal(GrandChild)" dark>
+                                                        <v-icon>mdi-plus</v-icon> {{$t('addNewBand')}}
+                                                    </v-btn>
+                                                    <v-spacer></v-spacer>
+                                                </v-card-actions>
+                                            </v-expansion-panel-content>
+                                        </v-expansion-panel>
+                                    </v-expansion-panels>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="primary" class="mt-4" @click="ShowAddChildOfRevisingGuidModal(child)" dark>
+                                            <v-icon>mdi-plus</v-icon> {{$t('addNewBand')}}
+                                        </v-btn>
+                                        <v-spacer></v-spacer>
+                                    </v-card-actions>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" class="mt-4" @click="ShowAddChildOfRevisingGuidModal(SelectedItem)" dark>
+                                <v-icon>mdi-plus</v-icon> {{$t('addNewBand')}}
+                            </v-btn>
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
+                    </div>
+                </v-container>
+
+            </v-card>
+
+        </div>
+
+    </div>
+    <!------------ Add Main RevisingGuid Hidden Modal  ---------->
+    <v-dialog v-model="newAccountDialog" max-width="600px">
+        <v-card>
+            <v-container>
+                <v-card-title>
+                    {{$t('addNewGuide')}}
+                </v-card-title>
+                <v-form @submit.prevent=" Added_revisingGuid.Parent === null ? storeNewRevisingGuid():storeNewChildOfRevisingGuid()">
+                    <v-row>
+                        <v-col cols="12">
+                            <v-text-field v-model="Added_revisingGuid.code" outlined :label="$t('code')"></v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field v-model="Added_revisingGuid.name" outlined :label="$t('name')"></v-text-field>
+                        </v-col>
+                        <v-col v-if="Added_revisingGuid.Parent" cols="12">
+                            <v-autocomplete v-model="Added_revisingGuid.isText" :items="isTextMenuItems" outlined :label="$t('type')"></v-autocomplete>
+                        </v-col>
+                        <v-col v-if="Added_revisingGuid.Parent&&Added_revisingGuid.isText == 0" cols="12">
+                            <v-autocomplete v-model="Added_revisingGuid.default_status" :items="defaultStatusMenuItems" outlined :label="$t('value')"></v-autocomplete>
+                        </v-col>
+                        <v-col v-if="Added_revisingGuid.Parent&&Added_revisingGuid.isText == 0" cols="12">
+                            <v-autocomplete v-model="Added_revisingGuid.default_status" item-text="label" item-value="code" :items="vSelectRevisingGuides" outlined :label="$t('revisor')"></v-autocomplete>
+                        </v-col>
+
+                    </v-row>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn type="submit" color="primary" dark>
+                            {{$t('save')}}
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-form>
+            </v-container>
+        </v-card>
+    </v-dialog>
+    <!------------ /. Add RevisingGuid Hidden Modal  ---------->
+
+    <!------------ Edit RevisingGuid Hidden Modal  ---------->
+    <v-dialog v-model="editAccountDialog" max-width="600px">
+        <v-card>
+            <v-container>
+                <v-card-title>
+                    {{$t('editGuide')}}
+                </v-card-title>
+                <v-form @submit.prevent="updateRevisingGuid()">
+                    <v-row>
+                        <v-col cols="12">
+                            <v-text-field v-model="temp_revisingGuid.code_alias" outlined :label="$t('code')"></v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field v-model="temp_revisingGuid.name_alias" outlined :label="$t('name')"></v-text-field>
+                        </v-col>
+                        <v-col v-if="temp_revisingGuid.Parent!==null" cols="12">
+                            <v-autocomplete v-model="temp_revisingGuid.isText" :items="isTextMenuItems" outlined :label="$t('type')"></v-autocomplete>
+                        </v-col>
+                        <v-col v-if="temp_revisingGuid.Parent!==null&&temp_revisingGuid.isText == 0" cols="12">
+                            <v-autocomplete v-model="temp_revisingGuid.default_status" :items="defaultStatusMenuItems" outlined :label="$t('value')"></v-autocomplete>
+                        </v-col>
+                        <v-col v-if="temp_revisingGuid.Parent!==null&&temp_revisingGuid.isText == 0" cols="12">
+                            <v-autocomplete v-model="temp_revisingGuid.default_reference" item-text="label" item-value="code" :items="vSelectRevisingGuides" outlined :label="$t('revisor')"></v-autocomplete>
+                        </v-col>
+
+                    </v-row>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn type="submit" color="primary" dark>
+                            {{$t('save')}}
+                        </v-btn>
+                        <v-btn v-if="temp_revisingGuid.AddedByUser||temp_revisingGuid.Parent" @click="[ temp_revisingGuid.Parent === null ? DeleteRevisingGuid():DeleteChildOfRevisingGuid()]" color="error" dark>
+                            {{$t('delete')}}
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-form>
+            </v-container>
+        </v-card>
+    </v-dialog>
+    <!------------ /. Edit RevisingGuid Hidden Modal  ---------->
+</div>
 </template>
 
 <script>
-    import VirtualList from 'vue-virtual-scroll-list'
-    import MenuItem from './MenuItem'
+import VirtualList from 'vue-virtual-scroll-list'
+import MenuItem from './MenuItem'
 
-    export default {
+export default {
 
-        name: "RevisingGuidManagement",
+    name: "RevisingGuidManagement",
 
-        components: { 'virtual-list': VirtualList ,'MenuItem':MenuItem},
-        props:{'AllRevisingGuides':''},
-        data(){
-            return{
-                AvailableRevisingGuides : this.AllRevisingGuides,
-                vSelectRevisingGuides:[],
-                LoadingSpinner: false,
-                ItemComponent: MenuItem,
-                SelectedItem:null,
-                Added_revisingGuid : {'id':'','name':'','code':'','Parent':null,'children':[],'AddedByUser':1,'isText':'','default_status':'','default_reference':{'label':'','code':''}},
-
-                temp_revisingGuid : {'id':'','name_alias':'','code_alias':'','Parent':null,'level':'','AddedByUser':'','isText':'','default_status':'','default_reference':{'label':'','code':''}},
-
-                edited_item:null,
-                EditMark : false,
-            }
-        },
-        created () {
-
-            this.FlatRevisingGuidArray();
-            // detecting change checked value from item component event.
-            this.$on('UpdateRevisingGuid', (RevisingGuid) => {
-
-                this.ShowUpdateGuidModal(RevisingGuid);
-
-            })
-            this.$on('SelectedRevisingGuid', (RevisingGuid) => {
-
-                this.SelectedItem = RevisingGuid;
-            })
-        },
-        methods : {
-            FlatRevisingGuidArray(){
-                this.LoadingSpinner = true;
-
-                this.AvailableRevisingGuides.forEach( ParentItem =>{
-
-                    this.vSelectRevisingGuides.push({'label': (ParentItem.code_alias ? ParentItem.code_alias : ParentItem.code) + ' - '+  (ParentItem.name_alias ? ParentItem.name_alias : ParentItem.name) , 'code':(ParentItem.code_alias ? ParentItem.code_alias : ParentItem.code) });
-                    ParentItem.children.forEach( ChildItem =>{
-
-                        this.vSelectRevisingGuides.push({'label': (ChildItem.code_alias ? ChildItem.code_alias : ChildItem.code) + ' - '+  (ChildItem.name_alias ? ChildItem.name_alias : ChildItem.name) , 'code':(ChildItem.code_alias ? ChildItem.code_alias : ChildItem.code) });
-                    })
-                })
-                this.LoadingSpinner = false;
+    components: {
+        'virtual-list': VirtualList,
+        'MenuItem': MenuItem
+    },
+    props: {
+        'AllRevisingGuides': ''
+    },
+    data() {
+        return {
+            AvailableRevisingGuides: this.AllRevisingGuides,
+            vSelectRevisingGuides: [],
+            LoadingSpinner: false,
+            newAccountDialog: false,
+            editAccountDialog: false,
+            ItemComponent: MenuItem,
+            SelectedItem: null,
+            isTextMenuItems: [{
+                    text: 'نعم / لا / المرجع / لا ينطبق',
+                    value: "0"
+                },
+                {
+                    text: 'حقل كتابة',
+                    value: "1"
+                },
+            ],
+            defaultStatusMenuItems: [{
+                    text: 'نعم',
+                    value: "1"
+                },
+                {
+                    text: 'لا',
+                    value: "0"
+                },
+                {
+                    text: 'لا ينطبق',
+                    value: "2"
+                },
+            ],
+            Added_revisingGuid: {
+                'id': '',
+                'name': '',
+                'code': '',
+                'Parent': null,
+                'children': [],
+                'AddedByUser': 1,
+                'isText': '',
+                'default_status': '',
+                'default_reference': {
+                    'label': '',
+                    'code': ''
+                }
             },
-            ShowAddModal(){
-                this.Added_revisingGuid.id = '',
+
+            temp_revisingGuid: {
+                'id': '',
+                'name_alias': '',
+                'code_alias': '',
+                'Parent': null,
+                'level': '',
+                'AddedByUser': '',
+                'isText': '',
+                'default_status': '',
+                'default_reference': {
+                    'label': '',
+                    'code': ''
+                }
+            },
+
+            edited_item: null,
+            EditMark: false,
+        }
+    },
+    created() {
+
+        this.FlatRevisingGuidArray();
+        // detecting change checked value from item component event.
+        this.$on('UpdateRevisingGuid', (RevisingGuid) => {
+
+            this.ShowUpdateGuidModal(RevisingGuid);
+
+        })
+        this.$on('SelectedRevisingGuid', (RevisingGuid) => {
+
+            this.SelectedItem = RevisingGuid;
+        })
+    },
+    methods: {
+        FlatRevisingGuidArray() {
+            this.LoadingSpinner = true;
+
+            this.AvailableRevisingGuides.forEach(ParentItem => {
+
+                this.vSelectRevisingGuides.push({
+                    'label': (ParentItem.code_alias ? ParentItem.code_alias : ParentItem.code) + ' - ' + (ParentItem.name_alias ? ParentItem.name_alias : ParentItem.name),
+                    'code': (ParentItem.code_alias ? ParentItem.code_alias : ParentItem.code)
+                });
+                ParentItem.children.forEach(ChildItem => {
+
+                    this.vSelectRevisingGuides.push({
+                        'label': (ChildItem.code_alias ? ChildItem.code_alias : ChildItem.code) + ' - ' + (ChildItem.name_alias ? ChildItem.name_alias : ChildItem.name),
+                        'code': (ChildItem.code_alias ? ChildItem.code_alias : ChildItem.code)
+                    });
+                })
+            })
+            this.LoadingSpinner = false;
+        },
+        ShowAddModal() {
+            this.Added_revisingGuid.id = '',
                 this.Added_revisingGuid.name = '',
                 this.Added_revisingGuid.code = '',
                 this.Added_revisingGuid.id = '',
@@ -376,7 +393,11 @@
                 this.Added_revisingGuid.default_status = '',
                 this.Added_revisingGuid.default_reference = '',
                 this.Added_revisingGuid.Parent = null,
+                this.newAccountDialog = true;
+        },
+        ShowAddChildOfRevisingGuidModal(Parent) {
 
+<<<<<<< HEAD
                 this.$refs.AddMainModalButton.click();
             },
             ShowAddChildOfRevisingGuidModal(Parent){
@@ -577,66 +598,332 @@
                                     console.log(error);
 
                                     this.$toast.warning('.','خطأ يرجى اعادة المحاولة',{timeout:3000});
+=======
+            this.Added_revisingGuid.id = '',
+                this.Added_revisingGuid.name = '',
+                this.Added_revisingGuid.code = '',
+                this.Added_revisingGuid.isText = '',
+                this.Added_revisingGuid.default_status = '',
+                this.Added_revisingGuid.default_reference = '',
+>>>>>>> 304fa7f36ffc795097de4677d9de6d26ba5e9d2d
 
-                                })
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                this.Added_revisingGuid.Parent = Parent,
+                this.newAccountDialog = true;
 
-                        }, true],
-                        ['<button style="padding:10px;margin-left:40px;color:white"><b>غلق</b></button>', function (instance, toast) {
+        },
+        ShowUpdateGuidModal(RevisingGuid) {
+            this.editAccountDialog = true;
+            this.temp_revisingGuid.id = RevisingGuid.id;
+            this.temp_revisingGuid.name_alias = RevisingGuid.name_alias;
+            this.temp_revisingGuid.name = RevisingGuid.name;
+            this.temp_revisingGuid.code_alias = RevisingGuid.code_alias;
+            this.temp_revisingGuid.code = RevisingGuid.code;
+            this.temp_revisingGuid.AddedByUser = RevisingGuid.AddedByUser;
 
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+            this.edited_item = RevisingGuid;
+        },
+        ShowUpdateChildGuidModal(Parent, RevisingGuid, level) {
+            this.editAccountDialog = true;
+            this.temp_revisingGuid.id = RevisingGuid.id;
+            this.temp_revisingGuid.Parent = Parent;
+            this.temp_revisingGuid.level = level;
+            this.temp_revisingGuid.name_alias = RevisingGuid.name_alias;
+            this.temp_revisingGuid.code_alias = RevisingGuid.code_alias;
+            this.temp_revisingGuid.AddedByUser = RevisingGuid.AddedByUser;
+            this.temp_revisingGuid.isText = RevisingGuid.isText;
+            this.temp_revisingGuid.default_status = RevisingGuid.default_status;
+            this.temp_revisingGuid.default_reference = RevisingGuid.default_reference;
 
-                        }],
-                    ],
+            this.edited_item = RevisingGuid;
+        },
+        storeNewRevisingGuid() {
+
+            let formData = new FormData();
+
+            formData.append('name', this.Added_revisingGuid.name);
+            formData.append('code', this.Added_revisingGuid.code);
+            formData.append('AddedByUser', 1);
+
+            axios.post(route('revisingGuid.store.admin'), formData)
+                .then(({
+                    data
+                }) => {
+                    this.AvailableRevisingGuides.push({
+                        'id': data[0].id,
+                        'name': this.Added_revisingGuid.name,
+                        'code': this.Added_revisingGuid.code,
+                        'AddedByUser': 1,
+                        'code_alias': '',
+                        'name_alias': '',
+                        'children': []
+                    });
+                    this.$toast.success('.', 'تم اضافة نموذج بنجاح', {
+                        timeout: 3000
+                    });
+                }).catch(error => {
+                    this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                        timeout: 3000
+                    });
+
+                })
+            this.$refs.CloseAddRevisingGuidModal.click();
+        },
+        storeNewChildOfRevisingGuid() {
+
+            let formData = new FormData();
+
+            formData.append('name_alias', this.Added_revisingGuid.name);
+            formData.append('code_alias', this.Added_revisingGuid.code);
+            formData.append('parent_id', this.Added_revisingGuid.Parent.id);
+            formData.append('isText', this.Added_revisingGuid.isText);
+            formData.append('default_status', this.Added_revisingGuid.default_status);
+            if (this.Added_revisingGuid.default_reference !== null && this.Added_revisingGuid.default_reference !== '' && this.temp_revisingGuid.Added_revisingGuid !== undefined) {
+                formData.append('default_reference', this.temp_revisingGuid.default_reference.code ? this.temp_revisingGuid.default_reference.code : this.temp_revisingGuid.default_reference);
+            } else {
+                formData.append('default_reference', '');
+            }
+            formData.append('AddedByUser', 1);
+
+            axios.post(route('revisingGuid.store.admin'), formData)
+                .then(({
+                    data
+                }) => {
+                    this.Added_revisingGuid.Parent.children.push({
+                        'id': data[0].id,
+                        'name_alias': this.Added_revisingGuid.name,
+                        'code_alias': this.Added_revisingGuid.code,
+                        'AddedByUser': 1,
+                        'code': '',
+                        'name': '',
+                        'isText': this.Added_revisingGuid.isText,
+                        'default_status': this.Added_revisingGuid.default_status,
+                        'default_reference': this.Added_revisingGuid.default_reference.code,
+                        'children': []
+                    });
+                    console.log(this.Added_revisingGuid.Parent.children);
+
+                    this.$toast.success('.', 'تم اضافة نموذج بنجاح', {
+                        timeout: 3000
+                    });
+                }).catch(error => {
+                    this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                        timeout: 3000
+                    });
+
                 });
+            this.$refs.CloseAddRevisingGuidModal.click();
+        },
+        updateRevisingGuid() {
 
-            },
-            DeleteChildOfRevisingGuid(){
-                this.$refs.CloseRevisingGuidModal.click();
+            let formData = new FormData();
+            formData.append('_method', "PATCH");
+            formData.append('code_alias', this.temp_revisingGuid.code_alias ? this.temp_revisingGuid.code_alias : '');
+            formData.append('name_alias', this.temp_revisingGuid.name_alias ? this.temp_revisingGuid.name_alias : '');
+            formData.append('isText', this.temp_revisingGuid.isText);
+            formData.append('default_status', this.temp_revisingGuid.default_status);
+            if (this.temp_revisingGuid.default_reference !== null && this.temp_revisingGuid.default_reference !== '' && this.temp_revisingGuid.default_reference !== undefined) {
+                formData.append('default_reference', this.temp_revisingGuid.default_reference.code ? this.temp_revisingGuid.default_reference.code : this.temp_revisingGuid.default_reference);
+            } else {
+                formData.append('default_reference', '');
+            }
 
-                let i = this.temp_revisingGuid.Parent.children.findIndex(child => child.id === this.temp_revisingGuid.id);
+            axios.post(route('revisingGuid.update.admin', this.temp_revisingGuid.id), formData)
+                .then(res => {
+                    console.log(res);
 
-                this.$toast.question('.','تأكيد الحذف ',{
-                    timeout: 40000,
-                    close: false,
-                    overlay: true,
-                    displayMode: 'once',
-                    id: 'question',
-                    zindex: 999,
-                    position: 'center',
-                    buttons: [
-                        ['<button style="background-color: red;padding:10px;margin-left:40px;color:white"><b>حذف</b></button>', (instance, toast) => {
+                    this.edited_item.code_alias = this.temp_revisingGuid.code_alias;
+                    this.edited_item.name_alias = this.temp_revisingGuid.name_alias;
+                    this.edited_item.isText = this.temp_revisingGuid.isText;
+                    this.edited_item.default_status = this.temp_revisingGuid.default_status;
+                    this.edited_item.default_reference = this.temp_revisingGuid.default_reference;
 
-                            axios.delete(route('revisingGuid.destroy.admin',this.temp_revisingGuid.id))
-                                .then(res =>{
-                                    console.log(res);
+                    this.temp_revisingGuid.code_alias = '';
+                    this.temp_revisingGuid.name_alias = '';
+                    this.temp_revisingGuid.isText = '';
+                    this.temp_revisingGuid.default_status = '';
+                    this.temp_revisingGuid.default_reference = '';
+                    this.$toast.success('.', 'تم التعديل بنجاح', {
+                        timeout: 3000
+                    });
 
-                                    this.temp_revisingGuid.Parent.children.splice(i, 1) // remove it from array
-                                    this.$toast.success('.','تم الحذف بنجاح',{timeout:3000});
+                })
+                .catch(error => {
+                    this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                        timeout: 3000
+                    });
 
-                                })
-                                .catch(error=>{
-                                    console.log(error);
+                    console.log(error);
 
-                                    this.$toast.warning('.','خطأ يرجى اعادة المحاولة',{timeout:3000});
+                    this.edited_item = null;
+                    this.temp_revisingGuid.code_alias = '';
+                    this.temp_revisingGuid.name_alias = '';
+                    this.temp_revisingGuid.isText = '';
+                    this.temp_revisingGuid.default_status = '';
+                    this.temp_revisingGuid.default_reference = '';
+                })
+            this.$refs.CloseRevisingGuidModal.click();
+        },
+        updateRevisingGuidNotes() {
 
-                                })
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+            let formData = new FormData();
+            formData.append('_method', "PATCH");
+            formData.append('first_note', this.SelectedItem.first_note ? this.SelectedItem.first_note : '');
 
-                        }, true],
-                        ['<button style="padding:10px;margin-left:40px;color:white"><b>غلق</b></button>', function (instance, toast) {
+            formData.append('second_note', this.SelectedItem.second_note ? this.SelectedItem.second_note : '');
+            axios.post(route('revisingGuid.update.admin', this.SelectedItem.id), formData)
+                .then(res => {
+                    console.log(res);
+                    this.$toast.success('.', 'تم التعديل بنجاح', {
+                        timeout: 3000
+                    });
 
-                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                })
+                .catch(error => {
+                    this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                        timeout: 3000
+                    });
 
-                        }],
-                    ],
-                });
-            },
+                    console.log(error);
 
-        }
+                })
+
+        },
+        updateRevisingGuidMark() {
+
+            let formData = new FormData();
+            formData.append('_method', "PATCH");
+            formData.append('mark', this.SelectedItem.mark);
+            axios.post(route('revisingGuid.update.admin', this.SelectedItem.id), formData)
+                .then(res => {
+                    console.log(res);
+                    this.$toast.success('.', 'تم التعديل بنجاح', {
+                        timeout: 3000
+                    });
+                })
+                .catch(error => {
+                    this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                        timeout: 3000
+                    });
+
+                    console.log(error);
+                })
+            this.EditMark = false;
+
+        },
+        DeleteRevisingGuid() {
+            this.$refs.CloseRevisingGuidModal.click();
+            let i = this.AvailableRevisingGuides.findIndex(child => child.id === this.temp_revisingGuid.id);
+
+            this.$toast.question('.', 'تأكيد الحذف ', {
+                timeout: 40000,
+                close: false,
+                overlay: true,
+                displayMode: 'once',
+                id: 'question',
+                zindex: 999,
+                position: 'center',
+                buttons: [
+                    ['<button style="background-color: red;padding:10px;margin-left:40px;color:white"><b>حذف</b></button>', (instance, toast) => {
+
+                        axios.delete(route('revisingGuid.destroy.admin', this.temp_revisingGuid.id))
+                            .then(res => {
+                                console.log(res);
+
+                                this.AvailableRevisingGuides.splice(i, 1) // remove it from array
+                                this.$toast.success('.', 'تم الحذف بنجاح', {
+                                    timeout: 3000
+                                });
+
+                            })
+                            .catch(error => {
+                                console.log(error);
+
+                                this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                                    timeout: 3000
+                                });
+
+                            })
+                        instance.hide({
+                            transitionOut: 'fadeOut'
+                        }, toast, 'button');
+
+                    }, true],
+                    ['<button style="padding:10px;margin-left:40px;color:white"><b>غلق</b></button>', function (instance, toast) {
+
+                        instance.hide({
+                            transitionOut: 'fadeOut'
+                        }, toast, 'button');
+
+                    }],
+                ],
+            });
+
+        },
+        DeleteChildOfRevisingGuid() {
+            this.$refs.CloseRevisingGuidModal.click();
+
+            let i = this.temp_revisingGuid.Parent.children.findIndex(child => child.id === this.temp_revisingGuid.id);
+
+            this.$toast.question('.', 'تأكيد الحذف ', {
+                timeout: 40000,
+                close: false,
+                overlay: true,
+                displayMode: 'once',
+                id: 'question',
+                zindex: 999,
+                position: 'center',
+                buttons: [
+                    ['<button style="background-color: red;padding:10px;margin-left:40px;color:white"><b>حذف</b></button>', (instance, toast) => {
+
+                        axios.delete(route('revisingGuid.destroy.admin', this.temp_revisingGuid.id))
+                            .then(res => {
+                                console.log(res);
+
+                                this.temp_revisingGuid.Parent.children.splice(i, 1) // remove it from array
+                                this.$toast.success('.', 'تم الحذف بنجاح', {
+                                    timeout: 3000
+                                });
+
+                            })
+                            .catch(error => {
+                                console.log(error);
+
+                                this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                                    timeout: 3000
+                                });
+
+                            })
+                        instance.hide({
+                            transitionOut: 'fadeOut'
+                        }, toast, 'button');
+
+                    }, true],
+                    ['<button style="padding:10px;margin-left:40px;color:white"><b>غلق</b></button>', function (instance, toast) {
+
+                        instance.hide({
+                            transitionOut: 'fadeOut'
+                        }, toast, 'button');
+
+                    }],
+                ],
+            });
+        },
+
     }
+}
 </script>
-
 <style scoped>
+.floatLeftAction {
+    top: 5px;
+    left: 10px;
+}
 
+.floatLeftAction2 {
+    top: 5px;
+    left: 50px;
+}
+.mainPannelText {
+    margin-left: 20px;
+    line-height: 20px;
+}
 </style>

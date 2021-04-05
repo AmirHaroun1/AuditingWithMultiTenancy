@@ -1,5 +1,6 @@
 {
-  "employeesTable":"جدول الموظفين",
+  "employeesTable":"فريق العمل",
+  "others" : "أخري",
   "search": "بحث",
   "filter": "اختيار العناصر",
   "newEmployee": "موظف جديد",
@@ -20,6 +21,7 @@
   "setting": "إعدادات البرنامج",
   "isRelated": "اطراف ذات علاقة",
   "addNewGroup": "إضافة مجموعه جديده",
+  "editGroup": "تعديل مجموعه",
   "addTo": "إضافة إلي",
   "finanicialGroupsList": "مجموعات القوائم المالية",
   "delete": "مسح",
@@ -30,6 +32,18 @@
   "editEnabled": "بدء التعديل",
   "cancel": "إالغاء",
   "saved": "تم الحفظ",
-  "close": "إغلاق"
-
+  "close": "إغلاق",
+  "revisingPapers": "اوراق المراجعة",
+  "addNewGuide": "إضافة نموذج رئيسى",
+  "editGuide": "تعديل نموذج",
+  "value": "القيمة",
+  "revisor": "المرجع",
+  "type": "النوع",
+  "code": "الرمز",
+  "enableEdit": "تفعيل التعديل",
+  "grade": "الدرجه",
+  "firstNote": "الملاحظه الأولي",
+  "secondNote": "الملاحظه الثانيه",
+  "addNewBand": "إضافة باند جديد",
+  "groupName": "اسم المجموعه"
 }
