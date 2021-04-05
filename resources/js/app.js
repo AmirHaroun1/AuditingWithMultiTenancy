@@ -80,7 +80,7 @@ Vue.component('edit-agent-form', require('./components/Secretary/EditAgentForm.v
 Vue.component('secretary-transactions-table', require('./components/Secretary/SecretaryTransactionsTable.vue').default);
 Vue.component('clearance-table', require('./components/ClearanceTable.vue').default);
 Vue.component('clearance-of-clearances-table', require('./components/ClearanceOfClearancesTable.vue').default);
-
+Vue.component('account-statements-sample',require('./components/TransactionAccountStatementsSample').default);
 
 Vue.component('secretary-edit-transaction-section', require('./components/Secretary/EditTransaction/EditTransactionSection.vue').default);
 Vue.component('edit-transaction-data', require('./components/Secretary/EditTransaction/EditTransactionData.vue').default);

@@ -982,7 +982,7 @@
                         this.institution.managers = [];
                         let name = this.ManagerTemp.name;
                         this.institution.managers.push({name});
-                        formData.append('managers', this.institution.managers);
+                        formData.append('managers', JSON.stringify(this.institution.managers));
 
                     }else if(this.InstitutionType == 'company'){
                         formData.append('legal_entity', this.institution.legal_entity);
@@ -990,8 +990,8 @@
                         formData.append('company_period', this.institution.company_period);
                         formData.append('company_start_period', this.institution.company_start_period);
                         formData.append('company_end_period', this.institution.company_end_period);
-                        //managers needd to be implemented
-                        formData.append('managers',this.institution.managers);
+                        //managers needed to be implemented
+                        formData.append('managers',JSON.stringify(this.institution.managers));
 
                     }
                     axios.post(route('Institution.store'),

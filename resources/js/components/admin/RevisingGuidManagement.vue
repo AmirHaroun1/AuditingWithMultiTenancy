@@ -447,7 +447,7 @@
                 formData.append('isText',this.Added_revisingGuid.isText);
                 formData.append('default_status',this.Added_revisingGuid.default_status);
                 if(this.Added_revisingGuid.default_reference !== null && this.Added_revisingGuid.default_reference !== '' &&  this.temp_revisingGuid.Added_revisingGuid !== undefined){
-                    formData.append('default_reference',this.temp_revisingGuid.default_reference.code ? this.temp_revisingGuid.default_reference.code : this.temp_revisingGuid.default_reference );
+                    formData.append('default_reference',this.temp_revisingGuid.default_reference.hasOwnProperty('code') ? this.temp_revisingGuid.default_reference.code : this.temp_revisingGuid.default_reference );
                 }else{
                     formData.append('default_reference','');
                 }
