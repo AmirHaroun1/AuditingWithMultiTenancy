@@ -1,9 +1,9 @@
 <template>
 <v-form v-model="valid" enctype='multipart/form-data'>
     <v-card>
-    <v-card-title>
-        {{$t('newEmployee')}}
-    </v-card-title>
+        <v-card-title>
+            {{$t('newEmployee')}}
+        </v-card-title>
         <v-card-text>
             <v-container>
                 <v-row>
