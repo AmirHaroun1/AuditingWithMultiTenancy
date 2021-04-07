@@ -11,6 +11,7 @@ class InstitutionController extends Controller
     //
     public function store(StoreInstitutionRequest $request){
 
+        $request['managers'] = json_encode($request['managers']);
         $newCompany =  institution::create($request->except('password_confirmation'));
 
         return response()->json($newCompany,200);

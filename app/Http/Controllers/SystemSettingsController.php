@@ -44,7 +44,7 @@ class SystemSettingsController extends Controller
     public function DropDownIndex(){
 
         if(\request()->expectsJson()){
-            $DropDownsOptions = SystemSettings::where('type','LIKE','قائمة منسدلة')->get();
+            $DropDownsOptions = SystemSettings::where('type','LIKE','قائمة منسدلة')->get(['id','type','name','value']);
 
             return response()->json(['DropDownsOptions'=>$DropDownsOptions],200);
         }

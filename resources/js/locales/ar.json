@@ -69,6 +69,7 @@
   "contactOfficer": "ضابط الإتصال",
   "files": "الملفات",
   "payment": "الدفع",
+  "companyData": "بيانات الشركة",
 
 
   "mainTradeNumber": "رقم السجل الرئيسي",
@@ -140,6 +141,20 @@
   "ReviserCompanyName": "أسم مكتب المراجعة",
   "paymentType": "نوع الدفع",
   "printSalaryContract": "طباعة سند القبض",
-  "printEngagment": "خطاب الأرتباط"
+  "printEngagment": "خطاب الأرتباط",
 
+
+  "enterCopmanyMainNumber": "أدخل رقم السجل الرئيسي للمنشأة" ,
+
+  "newCompanyTransaction": "معاملة لصالح منشأة جديدة",
+  "number700": "الرقم 700",
+  "organization": "organization",
+  "company": "شركة",
+  "other": "اخرى",
+  "organizationName":  "الإسم التجاري للمؤسسة",
+  "postal_box":  "صندوق البريد (ص.ب)",
+  "postal_code": "الرمز البريدى"
+  
+
+  
 }

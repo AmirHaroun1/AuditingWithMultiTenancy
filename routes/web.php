@@ -315,7 +315,9 @@ Route::group(['middleware'=>['auth'] ],function () {
     |  AccountsInKind  Routes
     |--------------------------------------------------------------------------
     */
-    Route::get('/InKind/{TransactionID}','AccountsInKindController@index')->name('AccountsInKind.index');
+    Route::get('/AccountsHasInKind/{TransactionID}','AccountsInKindController@index')->name('AccountsStatementsHaveInKind.index');
+    Route::get('/InKind/{AccountStatementID}','AccountsInKindController@AccountStatementInKind')->name('AccountStatementInKind');
+
     Route::post('/StoreNewInKind','AccountsInKindController@store')->name('AccountsInKind.store');
     Route::patch('/UpdateInKind/{InKindID}','AccountsInKindController@update')->name('AccountsInKind.update');
     Route::delete('/DeleteInKind/{InKindID}/Parent/{ParentStatementID}','AccountsInKindController@destroy')->name('AccountsInKind.destroy');

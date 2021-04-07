@@ -1328,7 +1328,7 @@
                     }
                     formData.append('status',status);
                     if(ArchiveRecord.default_reference !== null){
-                        formData.append('reference',ArchiveRecord.default_reference.code ? ArchiveRecord.default_reference.code : ArchiveRecord.default_reference );
+                        formData.append('reference',ArchiveRecord.default_reference.hasOwnProperty('code') ? ArchiveRecord.default_reference.code : ArchiveRecord.default_reference );
 
                     }
                 }
@@ -1391,7 +1391,7 @@
                 else{
                     formData.append('status',status);
                     if(ArchiveRecord.transactions[0].pivot.reference){
-                        formData.append('reference',(ArchiveRecord.transactions[0].pivot.reference.code?  ArchiveRecord.transactions[0].pivot.reference.code : ArchiveRecord.transactions[0].pivot.reference));
+                        formData.append('reference',(ArchiveRecord.transactions[0].pivot.reference.hasOwnProperty('code')?  ArchiveRecord.transactions[0].pivot.reference.code : ArchiveRecord.transactions[0].pivot.reference));
                     }
                 }
                 axios.post(route('RevisingGuidTransaction.update',this.Transaction.id),formData)

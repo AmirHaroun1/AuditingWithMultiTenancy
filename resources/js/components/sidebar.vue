@@ -118,7 +118,7 @@ export default {
                 {
                     title: 'المعاملات',
                     icon: 'fa fa-open',
-                    path: "Transactions.index.reviser"
+                    path: "Transactions.index.auditor"
                 }
             ]
             const reviseManagerItems = [

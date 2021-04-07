@@ -30,11 +30,9 @@ class employeesController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
         $request['password'] = Hash::make($request->password);
-        employee::create(
-            $request->except('password_confirmation')
-        );
+        $NewEmployee =  employee::create($request->except('password_confirmation'));
 
-        return redirect()->route('employees.index')->with('success', 'قد تم اضافة موظف بنجاح');
+        return response()->json($NewEmployee,200);
     }
     public function edit(employee $employee)
     {
