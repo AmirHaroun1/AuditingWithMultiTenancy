@@ -71,68 +71,6 @@
                 </v-stepper-content>
             </v-stepper-items>
         </v-stepper>
-        <div class="row">
-            <div class="col-md-12">
-                <!-- ٍStages Count Section -->
-                <div id="StagesCount" style="padding-bottom: 70px">
-                    <div class="col-md-2">
-                        <div class="row">
-                            <div class="col-md-2 ">
-                                <div :class="[ (this.SectionStage == 1) ? ActiveCircle : NonActiveCircle]">1</div>
-                            </div>
-                            <div class="col-md-10">
-                                <h4 class="text-center" :class="[(this.SectionStage == 1) ? ActiveHeading : '']">بيانات الشركة</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 ">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div :class="[ (this.SectionStage == 2) ? ActiveCircle : NonActiveCircle]">2</div>
-                            </div>
-                            <div class="col-md-10">
-                                <h4 class="text-center" :class="[(this.SectionStage == 2) ? ActiveHeading : '']">ضابط الأتصال</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 ">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div :class="[ (this.SectionStage == 3) ? ActiveCircle : NonActiveCircle]">3</div>
-                            </div>
-                            <div class="col-md-10">
-                                <h4 class="text-center" :class="[(this.SectionStage == 3) ? ActiveHeading : '']">تحميل المستندات</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 ">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div :class="[ (this.SectionStage == 4) ? ActiveCircle : NonActiveCircle]">4</div>
-                            </div>
-                            <div class="col-md-10">
-                                <h4 class="text-center" :class="[(this.SectionStage == 4) ? ActiveHeading : '']">شاشة الدفع</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./Stages Count Section -->
-                <div v-if="SectionStage == 1" id="NewCompany_TransactionFirstStage">
-                    <new-company-form></new-company-form>
-                </div>
-                <div v-else-if="SectionStage == 2" id="NewAgent_TransactionSecondStage">
-                    <new-agent-form></new-agent-form>
-                </div>
-                <div v-else-if="SectionStage == 3" id="NewDocuments_TransactionFourthStage">
-                    <documents-management-section></documents-management-section>
-                </div>
-                <div v-else-if="SectionStage == 4" id="Payment_TransactionFifthStage">
-                    <payment-details-form :Transaction="Transaction"></payment-details-form>
-                </div>
-
-            </div>
-        </div>
     </div>
 
     <!-- /.New Company Section -->

@@ -48,19 +48,6 @@
             </v-icon>
         </template>
     </v-data-table>
-    <div>
-
-        <div v-if="LoadingSpinner" class="overlay">
-            <i class="fa fa-refresh fa-spin"></i>
-        </div>
-        <div class="box-header">
-            <h2>تحميل ملفات الشركة</h2>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-            <manage-document-form v-for="document in RequiredDocuments" :document="document" :key="document.id"></manage-document-form>
-        </div>
-    </div>
 </div>
 </template>
 

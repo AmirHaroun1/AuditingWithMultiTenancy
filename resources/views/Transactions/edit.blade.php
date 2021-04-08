@@ -17,7 +17,6 @@
 @section('content')
 
 
-    <div id="app" style="padding-top:20px">
 
 
         @if(auth()->user()->role == 'سكرتير')
@@ -31,7 +30,6 @@
             @elseif(auth()->user()->role == 'شريك اداري')
             <partner-edit-transaction :Transaction="{{$Transaction}}"></partner-edit-transaction>
         @endif
-    </div>
 @endsection
 @section('scripts')
     <script src="{{ asset('js/app.js')}}"></script>
