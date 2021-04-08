@@ -75,6 +75,11 @@ export default {
                     path: "employees.index"
                 },
                 {
+                    title: 'بيانات المكتب',
+                    icon: 'fa fa-breifcase',
+                    path: "system.officeInfo"
+                },
+                {
                     title: 'القوائم المنسدلة',
                     icon: 'fa fa-gears',
                     path: "system.DropDowns.index"
