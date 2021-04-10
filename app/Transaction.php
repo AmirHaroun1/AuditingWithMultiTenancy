@@ -21,7 +21,7 @@ class Transaction extends Model
 
     public function getHijriFinancialYearAttribute(){
 
-       return Hijri::Date('Y ','ar',Carbon::createFromDate($this->attributes['financial_year'],1,1) );
+       return $this->attributes['financial_year'];
     }
 
     public function getEngagementLetterDateAttribute(){
@@ -31,12 +31,12 @@ class Transaction extends Model
 
     public function getHijriEngagementLetterDateAttribute(){
 
-        return Hijri::Date('Y / m / j','ar', Carbon::parse($this->attributes['created_at'])->addDays(2)  );
+        return $this->attribute['created_at'];
     }
     public function getHijriCreatedAtAttribute(){
 
 
-       return Hijri::Date('Y /m / j','ar',$this->attributes['created_at']);
+        return $this->attribute['created_at'];
 
     }
     public function getEndFinancialYearAttribute(){

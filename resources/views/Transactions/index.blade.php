@@ -30,24 +30,6 @@
     @endif
 @endsection
 @section('content')
-    <div  style="padding-top: 50px">
-        <div class="row">
-            <div class="col-md-12">
-                @if(auth()->user()->role == 'سكرتير')
-                    <div class="box">
-
-                        <div class="box-header">
-                            <h2 class="box-title pb-3">أضافة معاملة</h2>
-                                <h2 class="box-title pb-3">المعاملات المسندة</h2>
-                        </div>
-                        <div class="box-body">
-                            <div class="col-md-12">
-                                <a class="btn btn-block btn-success btn-lg" href="{{route('Transactions.create')}}">أضافة معاملة جديدة</a>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
                     @if(auth()->user()->role == 'سكرتير')
                         <secretary-transactions-table></secretary-transactions-table>
                         @elseif(auth()->user()->role == 'مراجع فني')
@@ -61,9 +43,6 @@
                         @elseif(auth()->user()->role == 'سكرتير تنفيذي')
                         <archive-transactions-table></archive-transactions-table>
                     @endif
-            </div>
-        </div>
-    </div>
 @endsection
 @section('scripts')
 

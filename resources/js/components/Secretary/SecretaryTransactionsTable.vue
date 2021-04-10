@@ -28,6 +28,11 @@
                         {{item.MainTradeRegisterNumber}}
                     </a>
                 </template>
+                <template :ref="item.id" v-slot:item.action="{ item }">
+                    <v-icon small @click="printRow(item.id)">
+                        mdi-printer
+                    </v-icon>
+                </template>
             </v-data-table>
         </v-card>
     </v-container>
@@ -73,6 +78,54 @@ export default {
                     text: this.$t('financialHijriYear'),
                     value: 'hijri_financial_year'
                 },
+                {
+                    text: this.$t('action'),
+                    value: 'action'
+                },
+                {
+                    text: this.$t('Managing_partner_actualTime'),
+                    value: 'Managing_partner_actualTime'
+                },
+                {
+                    text: this.$t('Managing_partner_time'),
+                    value: 'Managing_partner_time'
+                },
+                {
+                    text: this.$t('agreed_contract_value'),
+                    value: 'agreed_contract_value'
+                },
+                {
+                    text: this.$t('archiveSecretary_notes'),
+                    value: 'archiveSecretary_notes'
+                },
+                {
+                    text: this.$t('auditor_actualTime'),
+                    value: 'auditor_actualTime'
+                },
+                {
+                    text: this.$t('auditor_time'),
+                    value: 'auditor_time'
+                },
+                {
+                    text: this.$t('down_payment'),
+                    value: 'down_payment'
+                },
+                {
+                    text: this.$t('end_financial_year'),
+                    value: 'end_financial_year'
+                },
+                {
+                    text: this.$t('engagement_letter_date'),
+                    value: 'engagement_letter_date'
+                },
+                {
+                    text: this.$t('final_payment'),
+                    value: 'final_payment'
+                },
+                {
+                    text: this.$t('down_payment'),
+                    value: 'down_payment'
+                },
             ],
             headers: [{
                     text: this.$t('mainItemNumber'),
@@ -98,6 +151,10 @@ export default {
                 {
                     text: this.$t('financialHijriYear'),
                     value: 'hijri_financial_year'
+                },
+                {
+                    text: this.$t('action'),
+                    value: 'action'
                 },
             ],
             search: "",
@@ -171,7 +228,9 @@ export default {
                     }
                 })
         },
-
+        printRow (item) {
+            console.log('item', item);
+        }
     },
 }
 </script>

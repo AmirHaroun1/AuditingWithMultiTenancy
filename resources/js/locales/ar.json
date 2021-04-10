@@ -148,7 +148,7 @@
 
   "newCompanyTransaction": "معاملة لصالح منشأة جديدة",
   "number700": "الرقم 700",
-  "organization": "organization",
+  "organization": "مؤسسه",
   "company": "شركة",
   "other": "اخرى",
   "organizationName":  "الإسم التجاري للمؤسسة",
@@ -158,8 +158,29 @@
 
 
   "institutionType": "الكيان القانوني",
-  "mainTradeEndDate": "تاريخ انتهاء المعاملة"
-  
+  "mainTradeEndDate": "تاريخ انتهاء المعاملة",
+
+  "InstitutionType": "الكيان القانوني",
+  "number300": "الرقم 300",
+  "branchTrade": "السجلات الفرعيه",
+  "next": "التالي" ,
+  "merchant_name": "اسم التاجر",
+  "merchant_nationality": "جنسية التاجر",
+  "merchant_birth_date": "تاريخ ميلاد التاجر",
+  "business_activity": "النشاط التجاري",
+  "capital": "رأس المال",
+  "ManagerTempName": "اسم المدير",
+  "manager_authorities": "سلطات المدير",
+  "fax": "فاكس",
+  "phone": "الهاتف",
+  "legal_entity": "الكيان القانوني",
+  "company_nationality": "جنسية الشركة",
+  "company_period": "مدة الشركة",
+  "company_start_period": "تبدأ من",
+  "company_end_period": "تنتهى فى",
+  "addManager": "إضافة مدير",
+  "project": "مشروع"
+
 
   
 }
