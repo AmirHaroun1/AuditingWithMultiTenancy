@@ -255,10 +255,10 @@
                             </v-alert>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                            <v-autocomplete v-model="ChoosenReviserID" outlined :rules="required" :items="revisers" item-text="name" item-value="code" :label="$t('reviser')" required />
+                            <v-autocomplete v-model="ChoosenReviserID" outlined :rules="required" :items="revisers" item-text="name" item-value="id" :label="$t('reviser')" required />
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                            <v-autocomplete v-model="ChoosenRevisingManagerID" outlined :rules="required" :items="revisingManagers" item-text="name" item-value="code" :label="$t('revisingManager')" required />
+                            <v-autocomplete v-model="ChoosenRevisingManagerID" outlined :rules="required" :items="revisingManagers" item-text="name" item-value="id" :label="$t('revisingManager')" required />
                         </v-col>
                     </v-row>
                 </v-container>
