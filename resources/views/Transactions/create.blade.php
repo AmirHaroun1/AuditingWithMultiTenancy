@@ -12,15 +12,7 @@
 @endsection
 @section('content')
 
-
-    <div id="app"  style="padding-top: 50px">
-        <div class="row">
-
-            <div class="col-md-12">
                 <new-transaction></new-transaction>
-            </div>
-        </div>
-    </div>
 @endsection
 @section('scripts')
 

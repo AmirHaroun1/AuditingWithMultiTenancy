@@ -105,9 +105,9 @@
 
 <script>
 export default {
-    props: {
-        'Transaction': Object,
-    },
+    props: [
+        'Transaction',
+    ],
     data() {
         return {
             LoadingSpinner: '',
