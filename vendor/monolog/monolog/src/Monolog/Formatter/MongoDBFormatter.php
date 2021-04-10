@@ -27,14 +27,14 @@ class MongoDBFormatter implements FormatterInterface
 
     /**
      * @param int  $maxNestingLevel        0 means infinite nesting, the $record itself is level 1, $record['context'] is 2
-     * @param bool $exceptionTraceAsString set to false to log exception traces as a sub document instead of strings
+     * @param bool $exceptionTraceAsString set to false to log exception traces as a sub documents instead of strings
      */
     public function __construct(int $maxNestingLevel = 3, bool $exceptionTraceAsString = true)
     {
         $this->maxNestingLevel = max($maxNestingLevel, 0);
         $this->exceptionTraceAsString = $exceptionTraceAsString;
 
-        $this->isLegacyMongoExt = version_compare(phpversion('mongodb'), '1.1.9', '<=');
+        $this->isLegacyMongoExt = extension_loaded('mongodb') && version_compare(phpversion('mongodb'), '1.1.9', '<=');
     }
 
     /**
@@ -118,7 +118,7 @@ class MongoDBFormatter implements FormatterInterface
 
     private function getMongoDbDateTime(\DateTimeInterface $value): UTCDateTime
     {
-        return new UTCDateTime((int) (string) floor($value->format('U.u') * 1000));
+        return new UTCDateTime((int) floor(((float) $value->format('U.u')) * 1000));
     }
 
     /**
@@ -130,7 +130,7 @@ class MongoDBFormatter implements FormatterInterface
      */
     private function legacyGetMongoDbDateTime(\DateTimeInterface $value): UTCDateTime
     {
-        $milliseconds = floor($value->format('U.u') * 1000);
+        $milliseconds = floor(((float) $value->format('U.u')) * 1000);
 
         $milliseconds = (PHP_INT_SIZE == 8) //64-bit OS?
             ? (int) $milliseconds
