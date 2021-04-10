@@ -50,7 +50,6 @@ class TransactionsController extends Controller
 
     public function store(StoreTransactionRequest $request, $institution_id ,$reviser_id){
 
-
         $NewTransaction = Transaction::create($request->all());
         $NewTransaction = Transaction::findOrFail($NewTransaction->id);
         $NewTransaction->institution_id = $institution_id;
