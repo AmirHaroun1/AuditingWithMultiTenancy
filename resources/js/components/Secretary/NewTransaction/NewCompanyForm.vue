@@ -11,7 +11,7 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field disabled v-model="MainTradeRegister.number" outlined :rules="numbersRules" autocomplete="MainTradeRegister" :label="$t('mainTradeNumber')" required />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
+                        <v-col cols="12" v-if="InstitutionType !='chairty'" sm="6" md="3">
                             <v-text-field v-model="institution.number700" outlined autocomplete="number 700" :label="$t('number700')" required />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
@@ -63,6 +63,44 @@
                                     </template>
                                     <v-date-picker v-model="institution.merchant_birth_date" @input="menu3 = false"></v-date-picker>
                                 </v-menu>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-textarea v-model="institution.business_activity" outlined :rules="required" autocomplete="business_activity" :label="$t('business_activity')" required />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field v-model="institution.capital" outlined :rules="required" autocomplete="capital" :label="$t('capital')" required />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field v-model="ManagerTemp.name" outlined :rules="required" autocomplete="managerName" :label="$t('ManagerTempName')" required />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field v-model="institution.manager_authorities" outlined :rules="required" autocomplete="manager_authorities" :label="$t('manager_authorities')" required />
+                            </v-col>
+                        </div>
+                        <div v-if="InstitutionType=='chairty'" class="row">
+                            <v-col cols="12" sm="6" md="3">
+                                <v-text-field v-model="institution.name" :rules="required" outlined autocomplete="organizationName" :label="$t('organizationName')" required></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="3">
+                                <v-autocomplete v-model="institution.city" outlined :rules="required" :items="cityOptions" item-text="value" item-value="value" :label="$t('addressCity')" required />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="3">
+                                <v-autocomplete v-model="institution.district" outlined :rules="required" :items="districtOptions" item-text="value" item-value="value" :label="$t('addressDistrict')" required />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field v-model="institution.restofadress" outlined :rules="required" :label="$t('addressComplete')" required />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="2">
+                                <v-text-field v-model="institution.postal_box" outlined :rules="required" :label="$t('postal_box')" required />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="2">
+                                <v-text-field v-model="institution.postal_code" outlined :rules="required" :label="$t('postal_code')" required />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="3">
+                                <v-text-field v-model="institution.phone" outlined :rules="numbersRules" autocomplete="phone" :label="$t('phone')" required></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="3">
+                                <v-text-field v-model="institution.fax" outlined :rules="required" autocomplete="fax" :label="$t('fax')" required></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
                                 <v-textarea v-model="institution.business_activity" outlined :rules="required" autocomplete="business_activity" :label="$t('business_activity')" required />
@@ -166,6 +204,11 @@
                                 <v-text-field v-model="institution.manager_authorities" outlined :rules="required" autocomplete="manager_authorities" :label="$t('manager_authorities')" required />
                             </v-col>
                         </div>
+                        <div v-if="InstitutionType == 'project' " class="row" id="NewProjectInformation">
+                            <v-col cols="12" sm="6" md="6">
+                                <v-textarea v-model="institution.business_activity" outlined :rules="required" autocomplete="business_activity" :label="$t('business_activity')" required />
+                            </v-col>
+                        </div>
                         <v-col cols="12" sm="6" md="2">
                             <v-menu v-model="menu6" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="auto">
                                 <template v-slot:activator="{ on, attrs2 }">
@@ -175,7 +218,7 @@
                             </v-menu>
                         </v-col>
                         <v-col cols="12" sm="6" md="2">
-                            <v-text-field v-model="institution.number300" outlined autocomplete="number 300" :label="$t('number300')" required />
+                            <v-text-field v-if="InstitutionType !='chairty'" v-model="institution.number300" outlined autocomplete="number 300" :label="$t('number300')" required />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field v-model="institution.extra_tax_num" outlined :rules="numbersRules" :label="$t('extraTaxesNumber')" required />
@@ -297,6 +340,10 @@ export default {
                 {
                     text: this.$t('project'),
                     value: 'project'
+                },
+                {
+                    text: this.$t('chairty'),
+                    value: 'chairty'
                 },
                 {
                     text: this.$t('other'),

@@ -77,71 +77,46 @@
 
     <!-- /.Existing Company Section -->
     <div v-else-if="IsNewRegister == false" id="ExistingCompany" style="padding-top:20px">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- ٍStages Count Section -->
-                <div id="ExistingCompanyStagesCount" style="padding-bottom: 70px">
-                    <div class="col-md-2">
-                        <div class="row">
-                            <div class="col-md-2 ">
-                                <div :class="[ (this.SectionStage == 1) ? ActiveCircle : NonActiveCircle]">1</div>
-                            </div>
-                            <div class="col-md-10">
-                                <h4 class="text-center" :class="[(this.SectionStage == 1) ? ActiveHeading : '']">بيانات الشركة</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 ">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div :class="[ (this.SectionStage == 2) ? ActiveCircle : NonActiveCircle]">2</div>
-                            </div>
-                            <div class="col-md-10">
-                                <h4 class="text-center" :class="[(this.SectionStage == 2) ? ActiveHeading : '']">ضابط الأتصال</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 ">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div :class="[ (this.SectionStage == 3) ? ActiveCircle : NonActiveCircle]">3</div>
-                            </div>
-                            <div class="col-md-10">
-                                <h4 class="text-center" :class="[(this.SectionStage == 3) ? ActiveHeading : '']">تحميل المستندات</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 ">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div :class="[ (this.SectionStage == 4) ? ActiveCircle : NonActiveCircle]">4</div>
-                            </div>
-                            <div class="col-md-10">
-                                <h4 class="text-center" :class="[(this.SectionStage == 4) ? ActiveHeading : '']">شاشة الدفع</h4>
-                            </div>
-                        </div>
-                    </div>
+                <v-stepper v-model="SectionStage">
+            <v-stepper-header>
+                <v-stepper-step :complete="SectionStage > 1" step="1">
+                    {{$t('companyData')}}
+                </v-stepper-step>
 
-                </div>
-                <!-- ./Stages Count Section -->
-                <div v-if="SectionStage == 1" id="ExistingCompany_FirstSection">
+                <v-divider></v-divider>
+
+                <v-stepper-step :complete="SectionStage > 2" step="2">
+                    {{$t('contactOfficer')}}
+                </v-stepper-step>
+
+                <v-divider></v-divider>
+
+                <v-stepper-step step="3">
+                    {{$t('files')}}
+                </v-stepper-step>
+
+                <v-divider></v-divider>
+
+                <v-stepper-step step="4">
+                    {{$t('payment')}}
+                </v-stepper-step>
+            </v-stepper-header>
+
+            <v-stepper-items>
+                <v-stepper-content step="1">
                     <existing-company-form></existing-company-form>
-                </div><!-- ./Stages Count Section -->
-                <div v-if="SectionStage == 2" id="EditAgent_SecondSection">
-
-                    <edit-agent-form v-if="this.Agent"></edit-agent-form>
-                    <new-agent-form v-else-if="this.Agent == null"></new-agent-form>
-                </div>
-                <div v-else-if="SectionStage == 3" id="NewDocumentsExistingCompany_TransactionFourthStage">
+                </v-stepper-content>
+                <v-stepper-content step="2">
+                    <new-agent-form></new-agent-form>
+                </v-stepper-content>
+                <v-stepper-content step="3">
                     <documents-management-section></documents-management-section>
-                </div>
-                <div v-else-if="SectionStage == 4" id="PaymentExistingCompany_TransactionFifthStage">
+                </v-stepper-content>
+                <v-stepper-content step="4">
                     <payment-details-form :Transaction="Transaction"></payment-details-form>
-                </div>
-
-            </div>
-        </div>
-
+                </v-stepper-content>
+            </v-stepper-items>
+        </v-stepper>
     </div>
     <!-- /.Existing Company Section -->
 

@@ -58,14 +58,14 @@
   "transactionsTable": "جدول المعاملات",
   "newTransaction": "إضافة معامله جديده",
   "mainItemNumber": "رقم السجل الرئيسي",
-  "TransactionChirstianDate": "تاريخ تسجيل المعاملة (ميلادي)",
-  "TransactionHijriDate": "تاريخ تسجيل المعاملة (هجري)",
+  "TransactionChirstianDate": "تاريخ تسجيل عقد الارتباط (ميلادي)",
+  "TransactionHijriDate": "تاريخ تسجيل عقد الارتباط (هجري)",
   "status": "الحالة",
   "financialChristianYear": "السنة المالية (ميلادي)",
   "financialHijriYear": "السنة المالية (هجري)",
 
 
-  "transactionInfo": "بيانات المعاملة",
+  "transactionInfo": "بيانات عقد الارتباط",
   "contactOfficer": "ضابط الإتصال",
   "files": "الملفات",
   "payment": "الدفع",
@@ -76,6 +76,7 @@
   "mainTradeDate": "تاريخ السجل الرئيسى",
   "mainTradePlace": "مكان اصدار السجل الرئيسى",
   "copmanyName":  "أسم المنشأة",
+  "copmanyInfo": "بيانات المنشأة",
   "compnayNumber": "رقم المنشأة",
   "lawyalFoundation": "الكيان القانوني",
   "ownersPrefrences": "اهتمامات الملاك",
@@ -117,6 +118,9 @@
   "birthDate": "تاريخ الميلاد",
 
 
+  "chairty": "جمعيه خيريه",
+
+
   "document": "المستند" ,
 
 
@@ -133,7 +137,7 @@
   "clientCode": "كود العميل",
   "transactionStatus": "حالة العملية",
   "ryal": "ريال",
-  "withdrawn": "تم سحب المعاملة ",
+  "withdrawn": "تم سحب عقد الارتباط ",
   "sentToReviser": "ترسل الي المدقق",
   "rejected": "مرفوض",
   "rejectionReason": "سبب الرفض",
@@ -146,7 +150,7 @@
 
   "enterCopmanyMainNumber": "أدخل رقم السجل الرئيسي للمنشأة" ,
 
-  "newCompanyTransaction": "معاملة لصالح منشأة جديدة",
+  "newCompanyTransaction": "عقد ارتباط لصالح منشأة جديدة",
   "number700": "الرقم 700",
   "organization": "مؤسسه",
   "company": "شركة",
@@ -158,7 +162,7 @@
 
 
   "institutionType": "الكيان القانوني",
-  "mainTradeEndDate": "تاريخ انتهاء المعاملة",
+  "mainTradeEndDate": "تاريخ انتهاء عقد الارتباط",
 
   "InstitutionType": "الكيان القانوني",
   "number300": "الرقم 300",
