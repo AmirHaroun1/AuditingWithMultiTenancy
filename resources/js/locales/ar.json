@@ -183,7 +183,10 @@
   "company_start_period": "تبدأ من",
   "company_end_period": "تنتهى فى",
   "addManager": "إضافة مدير",
-  "project": "مشروع"
+  "project": "مشروع",
+
+  "auditortransactionsTable": "جدول معاملات المدقق",
+  "order":"الترتيب"
 
 
   
