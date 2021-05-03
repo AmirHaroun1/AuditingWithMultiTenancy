@@ -1,6 +1,6 @@
 <template>
-    <div style="padding-top: 20px">
-   <v-container>
+<div style="padding-top: 20px">
+    <v-container>
         <v-card>
             <v-card-title class="mb-3">
                 <span class="mr-3 ml-3">{{$t('transactionsTable')}}</span>
@@ -36,22 +36,20 @@
             </v-data-table>
         </v-card>
     </v-container>
-    </div>
-
+</div>
 </template>
 
 <script>
-
-    export default {
-        name: "ArchiveTransactionsTable",
-        data(){
-            return{
-                LoadingSpinner:false,
-                Transactions:[],
-                SearchedTransactions:[],
-                SearchMainRegisterNumber:'',
-                OrderByCase:'latest',
-                            predefinedFilters: [{
+export default {
+    name: "ArchiveTransactionsTable",
+    data() {
+        return {
+            LoadingSpinner: false,
+            Transactions: [],
+            SearchedTransactions: [],
+            SearchMainRegisterNumber: '',
+            OrderByCase: 'latest',
+            predefinedFilters: [{
                     text: this.$t('mainItemNumber'),
                     align: 'start',
                     value: 'MainTradeRegisterNumber',
@@ -157,69 +155,79 @@
             ],
             search: "",
 
-                FetchPaginationData:{
-                    'current_page' : 0,
-                    'last_page' : '',
-                    'next_page_url' : '',
-                    'prev_page_url' : '',
-                },
-                SearchPaginationData:{
-                    'current_page' : 0,
-                    'last_page' : '',
-                    'next_page_url' : '',
-                    'prev_page_url' : '',
-                },
-
-            }
-        },
-        created() {
-            this.fetchTransactions();
-        },
-        methods:
-            {
-                fetchTransactions(page=1){
-                    this.LoadingSpinner = true;
-                    axios.get(route('transactions.index',{OrderByCase:this.OrderByCase,page}))
-                        .then(({data})=>{
-
-                            this.LoadingSpinner = false;
-
-                            this.FetchPaginationData.current_page = data.transactions.current_page;
-                            this.FetchPaginationData.last_page = data.transactions.last_page;
-                            this.FetchPaginationData.next_page_url = data.transactions.next_page_url;
-                            this.FetchPaginationData.prev_page_url = data.transactions.prev_page_url;
-
-                            this.Transactions =[];
-                            this.Transactions.push(...data.transactions.data);
-
-
-                        })
-                },
-                search(page = 1){
-                    this.LoadingSpinner = true;
-
-                    axios.get(route('transactions.index',{OrderByCase:this.OrderByCase,MainRegisterNumber:this.SearchMainRegisterNumber,page}))
-                        .then(({data})=>{
-                            this.LoadingSpinner = false;
-
-                            this.SearchPaginationData.current_page = data.transactions.current_page;
-                            this.SearchPaginationData.last_page = data.transactions.last_page;
-                            this.SearchPaginationData.next_page_url = data.transactions.next_page_url;
-                            this.SearchPaginationData.prev_page_url = data.transactions.prev_page_url;
-
-                            this.SearchedTransactions = [];
-                            this.SearchedTransactions.push(...data.transactions.data);
-
-                            if(!this.SearchedTransactions.length){
-                                this.$toast.warning(',',
-                                    'لا يوجد معاملات تحتوى على رقم السجل'
-                                    ,{timout:2000});
-                            }
-                        })
-                },
-
+            FetchPaginationData: {
+                'current_page': 0,
+                'last_page': '',
+                'next_page_url': '',
+                'prev_page_url': '',
             },
-    }
+            SearchPaginationData: {
+                'current_page': 0,
+                'last_page': '',
+                'next_page_url': '',
+                'prev_page_url': '',
+            },
+
+        }
+    },
+    created() {
+        this.fetchTransactions();
+    },
+    methods: {
+        fetchTransactions(page = 1) {
+            this.LoadingSpinner = true;
+            axios.get(route('transactions.index', {
+                    OrderByCase: this.OrderByCase,
+                    page
+                }))
+                .then(({
+                    data
+                }) => {
+
+                    this.LoadingSpinner = false;
+
+                    this.FetchPaginationData.current_page = data.transactions.current_page;
+                    this.FetchPaginationData.last_page = data.transactions.last_page;
+                    this.FetchPaginationData.next_page_url = data.transactions.next_page_url;
+                    this.FetchPaginationData.prev_page_url = data.transactions.prev_page_url;
+
+                    this.Transactions = [];
+                    this.Transactions.push(...data.transactions.data);
+
+                })
+        },
+        search(page = 1) {
+            this.LoadingSpinner = true;
+
+            axios.get(route('transactions.index', {
+                    OrderByCase: this.OrderByCase,
+                    MainRegisterNumber: this.SearchMainRegisterNumber,
+                    page
+                }))
+                .then(({
+                    data
+                }) => {
+                    this.LoadingSpinner = false;
+
+                    this.SearchPaginationData.current_page = data.transactions.current_page;
+                    this.SearchPaginationData.last_page = data.transactions.last_page;
+                    this.SearchPaginationData.next_page_url = data.transactions.next_page_url;
+                    this.SearchPaginationData.prev_page_url = data.transactions.prev_page_url;
+
+                    this.SearchedTransactions = [];
+                    this.SearchedTransactions.push(...data.transactions.data);
+
+                    if (!this.SearchedTransactions.length) {
+                        this.$toast.warning(',',
+                            'لا يوجد معاملات تحتوى على رقم السجل', {
+                                timout: 2000
+                            });
+                    }
+                })
+        },
+
+    },
+}
 </script>
 
 <style scoped>

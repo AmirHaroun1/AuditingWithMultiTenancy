@@ -398,10 +398,9 @@ export default {
         },
 
         UpdateMainRegister() {
-            if (!this.MainRegisterIS_UPDATED) {
+
                 this.LoadingSpinner = true;
                 var formData = new FormData();
-
                 formData.append('_method', 'PATCH');
                 formData.append('number', this.MainTradeRegister.number);
                 formData.append('date', this.MainTradeRegister.date);
@@ -424,14 +423,11 @@ export default {
                             timout: 2000
                         });
                     })
-            } else {
-                this.UpdateInstitution();
-            }
+
 
         },
 
         UpdateInstitution() {
-            if (!this.InstitutionIS_UPDATED) {
                 this.LoadingSpinner = true;
 
                 var formData = new FormData();
@@ -463,9 +459,7 @@ export default {
                         timout: 2000
                     });
                 });
-            } else {
-                this.UpdateTransaction();
-            }
+
 
         },
 
@@ -480,8 +474,8 @@ export default {
             formData.append('end_financial_year', this.Transaction.end_financial_year);
             formData.append('financial_period', this.Transaction.financial_period);
             formData.append('MainTradeRegisterNumber', this.MainTradeRegister.number);
-            formData.append('reviser_id', (this.ChoosenReviser.code ? this.ChoosenReviser.code : this.ChoosenReviser.id));
-            formData.append('revisingManager_id', (this.ChoosenRevisingManager.code ? this.ChoosenRevisingManager.code : this.ChoosenRevisingManager.id));
+            formData.append('reviser_id', (this.ChoosenReviser.hasOwnProperty('id') ? this.ChoosenReviser.id : this.ChoosenReviser));
+            formData.append('revisingManager_id', (this.ChoosenRevisingManager.hasOwnProperty('id') ? this.ChoosenRevisingManager.id : this.ChoosenRevisingManager));
             axios.post(route('Transactions.update', this.Transaction.id), formData)
                 .then((res) => {
                     this.LoadingSpinner = false;
