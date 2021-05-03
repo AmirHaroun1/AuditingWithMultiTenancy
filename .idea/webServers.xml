@@ -10,6 +10,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="b3fd37a3-764b-41f2-aa2f-6188958562ae" name="Contabo Server" url="http://178.18.243.100">
+        <fileTransfer host="178.18.243.100" port="22" rootFolder="/var/www/audit" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

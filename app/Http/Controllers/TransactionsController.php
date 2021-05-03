@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class TransactionsController extends Controller
 {
     //
-    public function index($orderByCase="latest",$MainRegisterNumber=null)
+    public function index($OrderByCase="latest",$MainRegisterNumber=null)
     {
 
         if(\request()->expectsJson()){
@@ -29,15 +29,15 @@ class TransactionsController extends Controller
                 ->when(!is_null($MainRegisterNumber),function($query) use ($MainRegisterNumber){
                     return $query->where('MainTradeRegisterNumber','=',$MainRegisterNumber);
                 })
-                ->when(!is_null($orderByCase), function($query) use ($orderByCase){
-                    switch ($orderByCase)
+                ->when(!is_null($OrderByCase), function($query) use ($OrderByCase){
+                    switch ($OrderByCase)
                     {
                         case "latest": return $query->latest();
                         case "oldest": return $query->OrderBy('created_at','ASC');
                     }
                 })
                 ->paginate(10)
-                ->appends(['OrderByCase'=> $orderByCase,'MainRegisterNumber'=> $MainRegisterNumber]);
+                ->appends(['OrderByCase'=> $OrderByCase,'MainRegisterNumber'=> $MainRegisterNumber]);
 
             return response()->json(['transactions'=>$transactions],200);
         }

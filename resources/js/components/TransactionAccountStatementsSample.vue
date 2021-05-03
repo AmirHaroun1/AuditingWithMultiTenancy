@@ -440,7 +440,7 @@
                    })
             },
             GetInKindOfAccountStatement(Account){
-               if(!Account.hasOwnProperty('accounts_in_kind')){
+
                    this.LoadingSpinner = true;
                    axios.get(route('AccountStatementInKind',Account.id))
                        .then((res)=>{
@@ -453,7 +453,7 @@
                        this.LoadingSpinner = false;
 
                    })
-               }
+
             },
             GetInKindOfBranchedAccountsStatementsOfParentAccount(ParentAccount){
                 ParentAccount.branched_statements.forEach(branchedStatement=>{
@@ -498,13 +498,10 @@
                 formData.append('detailed_debit',this.AddedInKind.detailed_debit);
                 formData.append('serial',this.AddedInKind.serial);
                 formData.append('date',this.AddedInKind.date);
-
                 this.AddedInKind.corresponding_statement_code = this.AddedInKind.CorrespCode.code;
                 formData.append('corresponding_statement_code',this.AddedInKind.corresponding_statement_code);
                 formData.append('corresponding_statement_id',this.AddedInKind.CorrespCode.id);
-
                 formData.append('statement_id',this.ParentStatement.id);
-
                 axios.post(route('AccountsInKind.store'),formData)
                     .then(({data})=>{
                         this.AddedInKind.id = data.id;
@@ -582,7 +579,6 @@
 
                 })
                 this.$refs.CloseEditInKindModal.click();
-
             }
         }
     }

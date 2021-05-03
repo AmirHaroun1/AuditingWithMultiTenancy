@@ -1,3 +1,4 @@
+<script src="../app.js"></script>
 <template>
     <div>
         <div>
@@ -431,7 +432,6 @@
                 setTimeout(() => this.$htmlToPaper(accountID+'print',options,()=>{
                     this.PrintingMood =false;
                     this.LoadingSpinner = false;
-
                 }), 1000);
 
 
