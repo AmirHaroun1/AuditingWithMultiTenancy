@@ -1,7 +1,7 @@
 <template>
-    <div class="box" style="padding-top: 20px">
+    <div>
         <v-container>
-            <v-card>
+            <v-card style="padding-top: 25px">
                 <v-card-title class="mb-3">
                     <span class="mr-3 ml-3">{{
                         $t("auditortransactionsTable")
@@ -60,7 +60,7 @@
                             :href="
                                 route(
                                     'transactions.edit.auditor',
-                                    transaction.id
+                                    item.id
                                 )
                             "
                         >
