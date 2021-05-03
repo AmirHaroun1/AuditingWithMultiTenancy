@@ -37,7 +37,7 @@ class TransactionsController extends Controller
                     }
                 })
                 ->paginate(10)
-                ->appends(['OrderByCase'=> \request('OrderByCase'),'MainRegisterNumber'=> \request('MainRegisterNumber')]);
+                ->appends(['OrderByCase'=> $orderByCase,'MainRegisterNumber'=> $MainRegisterNumber]);
 
             return response()->json(['transactions'=>$transactions],200);
         }
