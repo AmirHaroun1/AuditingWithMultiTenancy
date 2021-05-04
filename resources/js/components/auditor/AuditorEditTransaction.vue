@@ -27,24 +27,24 @@
                 <!-- بيانات المعاملة./ -->
                 <!-- الملفات -->
                 <v-col cols="12" sm="6" md="3">
-                    <div
-                        class="info-box cursor-pointer"
+                    <v-card
+                        class="mx-auto"
+                        outlined
                         @click="ActivePane = 'الملفات'"
                     >
-                        <span class="info-box-icon bg-green"
-                            ><i class="fa fa-files-o"></i
-                        ></span>
-                        <div class="info-box-content">
-                            <h4
-                                class="font-weight-bold"
-                                style="padding-top:10px;"
-                            >
-                                الملفات
-                            </h4>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
+                        <v-list-item three-line>
+                            <v-list-item-content>
+                                <v-list-item-title class="headline mb-1">
+                                    {{$t('files')}} 
+                                </v-list-item-title>
+                            </v-list-item-content>
+                            <v-list-item-avatar tile size="80" color="blue">
+                                <v-icon dark>
+                                    mdi-file-multiple
+                                </v-icon>
+                            </v-list-item-avatar>
+                        </v-list-item>
+                    </v-card>
                 </v-col>
                 <!-- الملفات/. -->
                 <!-- ميزان المراجعة -->
