@@ -54,6 +54,8 @@
                     :headers="headers"
                     :items="Transactions"
                     :search="SearchMainRegisterNumber"
+                    :loading="LoadingSpinner"
+                    loading-text="Loading... Please wait"
                 >
                     <template v-slot:item.MainTradeRegisterNumber="{ item }">
                         <a

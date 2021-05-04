@@ -11,7 +11,7 @@
                     >
                         <v-list-item three-line>
                             <v-list-item-content>
-                                <v-list-item-title class="headline mb-1">
+                                <v-list-item-title class="headline">
                                     {{$t('transactionsData')}} 
                                 </v-list-item-title>
                             </v-list-item-content>
@@ -34,7 +34,7 @@
                     >
                         <v-list-item three-line>
                             <v-list-item-content>
-                                <v-list-item-title class="headline mb-1">
+                                <v-list-item-title class="headline">
                                     {{$t('files')}} 
                                 </v-list-item-title>
                             </v-list-item-content>
@@ -49,24 +49,24 @@
                 <!-- الملفات/. -->
                 <!-- ميزان المراجعة -->
                 <v-col cols="12" sm="6" md="3">
-                    <div
-                        class="info-box cursor-pointer"
+                    <v-card
+                        class="mx-auto"
+                        outlined
                         @click="ActivePane = 'ميزان المراجعة'"
                     >
-                        <span class="info-box-icon bg-green"
-                            ><i class="fa  fa-balance-scale"></i
-                        ></span>
-                        <div class="info-box-content">
-                            <h4
-                                class="font-weight-bold"
-                                style="padding-top:10px;"
-                            >
-                                ميزان المراجعة
-                            </h4>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
+                        <v-list-item three-line>
+                            <v-list-item-content>
+                                <v-list-item-title class="headline">
+                                    ميزان المراجعة 
+                                </v-list-item-title>
+                            </v-list-item-content>
+                            <v-list-item-avatar tile size="80" color="blue">
+                                <v-icon dark>
+                                    mdi-scale-balance
+                                </v-icon>
+                            </v-list-item-avatar>
+                        </v-list-item>
+                    </v-card>
                 </v-col>
                 <!-- ميزان المراجعة/. -->
                 <!-- الحسابات -->
@@ -281,4 +281,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-list-item .v-list-item__subtitle, .v-list-item .v-list-item__title {
+    line-height: 1.5;
+}
+</style>

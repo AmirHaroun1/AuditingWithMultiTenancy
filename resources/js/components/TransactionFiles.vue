@@ -6,11 +6,16 @@
             <span class="mr-3 ml-3"> الملفات الخاصة بالمراجعة </span>
         </v-card-title>
         <v-card-text>
-            <v-data-table :headers="headers" :items="documents">
+            <v-data-table
+                :loading="LoadingSpinner"
+                loading-text="Loading... Please wait"
+                :headers="headers"
+                :items="documents"
+            >
                 <template v-slot:item.transactions="{ item }">
                     <a
                         v-for="DocumentInfo in item.transactions"
-                        :key="item.id"
+                        :key="DocumentInfo.pivot.DocumentPath"
                         :href="
                             DownloadDocumentLink(
                                 DocumentInfo.pivot.DocumentPath,
