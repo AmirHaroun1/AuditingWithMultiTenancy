@@ -215,7 +215,7 @@ import PieChart from "../PieChart.js";
 export default {
     name: "DashBoard",
     props: {
-        'TransactionsStatus': '',
+        'OfficeBranch': '',
         'Team': '',
     },
     components: {

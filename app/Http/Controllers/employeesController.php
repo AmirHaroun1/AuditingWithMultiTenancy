@@ -7,6 +7,7 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class employeesController extends Controller
@@ -19,7 +20,9 @@ class employeesController extends Controller
     }
     public function getEmployeeType($type){
 
-        $employees = employee::where('role','LIKE',$type)->get();
+        $employees = employee::where('role','LIKE',$type)
+            ->where('branch_office_id',Auth::user()->branch_office_id)
+            ->get();
 
         return response()->json(['employees'=>$employees],200);
     }

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '877fd193ed790525bcaa7ac8a7e31c8bfd465786',
+    'reference' => '4bf1b2a39328436216d44115c0d05542353fb444',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -105,6 +105,15 @@
       array (
       ),
       'reference' => '0dbf5d78455d4d6a41d186da50adc1122ec066f4',
+    ),
+    'erusev/parsedown' => 
+    array (
+      'pretty_version' => '1.7.4',
+      'version' => '1.7.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'cb17b6477dfff935958ba01325f2e8a2bfa6dab3',
     ),
     'ezyang/htmlpurifier' => 
     array (
@@ -440,7 +449,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '877fd193ed790525bcaa7ac8a7e31c8bfd465786',
+      'reference' => '4bf1b2a39328436216d44115c0d05542353fb444',
     ),
     'laravel/tinker' => 
     array (
@@ -523,6 +532,24 @@
       ),
       'reference' => '361c0f545c3172ee26c3d596a0aa03f0cef65e6a',
     ),
+    'mnapoli/front-yaml' => 
+    array (
+      'pretty_version' => '1.8.0',
+      'version' => '1.8.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '76baa8ca538e111bfe53ac49c6a512ec5ea2bf54',
+    ),
+    'mnapoli/silly' => 
+    array (
+      'pretty_version' => '1.7.2',
+      'version' => '1.7.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '66807f87abd2ab8e5708754d70b4b601f5614c32',
+    ),
     'mockery/mockery' => 
     array (
       'pretty_version' => '1.4.3',
@@ -540,6 +567,33 @@
       array (
       ),
       'reference' => '1cb1cde8e8dd0f70cc0fe51354a59acad9302084',
+    ),
+    'mpociot/documentarian' => 
+    array (
+      'pretty_version' => '0.4.0',
+      'version' => '0.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c7dc266b6646a49f82b304a3451e41161cc4b1c3',
+    ),
+    'mpociot/laravel-apidoc-generator' => 
+    array (
+      'pretty_version' => '4.8.2',
+      'version' => '4.8.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9015d39020dc1d7e80b0cd012bc1e999fd2542ca',
+    ),
+    'mpociot/reflection-docblock' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c8b2e2b1f5cebbb06e2b5ccbf2958f2198867587',
     ),
     'myclabs/deep-copy' => 
     array (
@@ -616,6 +670,15 @@
       array (
       ),
       'reference' => 'bae7c545bef187884426f042434e561ab1ddb182',
+    ),
+    'php-di/invoker' => 
+    array (
+      'pretty_version' => '2.3.0',
+      'version' => '2.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '992fec6c56f2d1ad1ad5fee28267867c85bfb8f9',
     ),
     'phpdocumentor/reflection-common' => 
     array (
@@ -804,8 +867,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache' => 
@@ -1243,6 +1306,24 @@
       ),
       'reference' => '89412a68ea2e675b4e44f260a5666729f77f668e',
     ),
+    'symfony/var-exporter' => 
+    array (
+      'pretty_version' => 'v5.2.7',
+      'version' => '5.2.7.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '01184a5ab95eb9500b9b0ef3e525979e003d9c81',
+    ),
+    'symfony/yaml' => 
+    array (
+      'pretty_version' => 'v5.2.7',
+      'version' => '5.2.7.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '76546cbeddd0a9540b4e4e57eddeec3e9bb444a5',
+    ),
     'theseer/tokenizer' => 
     array (
       'pretty_version' => '1.2.0',
@@ -1296,6 +1377,24 @@
       array (
       ),
       'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
+    ),
+    'windwalker/renderer' => 
+    array (
+      'pretty_version' => '3.5.23',
+      'version' => '3.5.23.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b157f2832dac02209db032cb61e21b8264ee4499',
+    ),
+    'windwalker/structure' => 
+    array (
+      'pretty_version' => '3.5.23',
+      'version' => '3.5.23.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '59466adb846685d60463f9c1403df2832d2fcf90',
     ),
   ),
 );

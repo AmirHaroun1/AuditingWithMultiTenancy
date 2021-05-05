@@ -9,23 +9,44 @@ use App\reviser;
 use App\SystemSettings;
 use App\Transaction;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+/**
+ * @group  Manage Transactions
+ *
+ * APIs To Manage Transactions
+ */
 class TransactionsController extends Controller
 {
-    //
+    /**
+     * in case of json response Retrieve The Transactions of the current user in this branch.
+     * <br>
+     * if the Auth User is 'مدير مراجعة ' and his office_branch.is_main all transactions would be retrieved
+     * <br>
+     * and based on the above condition you should show taps of available branches load them through the following end point.
+     * ,route('OfficeBranches.index'), on clicking on any name of the branches send it as query param 'BranchOfficeID'
+     * <br>
+     * in case of non json response Returns Blade Transactions/index.blade.php.
+     * <br>
+     *
+     *
+     *
+     * @urlParam  OrderByCase optional param of the OrderBy [Latest,oldest].
+     * @urlParam  MainRegisterNumber optional param of the Search TreadRegister.
+     * @queryParam BranchOfficeID optional param if the Auth User.role is 'مدير مراجعة' and his User.office_branch.is_main
+     */
     public function index($OrderByCase="latest",$MainRegisterNumber=null)
     {
 
         if(\request()->expectsJson()){
             $transactions = Transaction::
-                when(true, function($query){
-                    switch (auth()->user()->role)
-                    {
-                        case "مراجع فني": return $query->where('reviser_id',auth()->user()->id);
-                        case "مدقق": return $query->where('auditor_id',auth()->user()->id);
-                        case "شريك اداري": return $query->where('partner_id',auth()->user()->id);
-                    }
-                })
+            when(true, function($query){
+                switch (auth()->user()->role)
+                {
+                    case "مراجع فني": return $query->where('reviser_id',auth()->user()->id);
+                    case "مدقق": return $query->where('auditor_id',auth()->user()->id);
+                    case "شريك اداري": return $query->where('partner_id',auth()->user()->id);
+                }
+            })
                 ->when(!is_null($MainRegisterNumber),function($query) use ($MainRegisterNumber){
                     return $query->where('MainTradeRegisterNumber','=',$MainRegisterNumber);
                 })
@@ -36,8 +57,19 @@ class TransactionsController extends Controller
                         case "oldest": return $query->OrderBy('created_at','ASC');
                     }
                 })
+                ->when( true  , function($query){
+                    if(Auth::user()->OfficeBranch->is_main && Auth::user()->role == 'مدير مراجعة'){
+                        if(!is_null(\request('BranchOfficeID'))){
+                            $query->where('branch_office_id',\request('BranchOfficeID'));
+                        }
+                    }else {
+                        $query->where('branch_office_id',Auth::user()->branch_office_id);
+                    }
+                })
                 ->paginate(10)
-                ->appends(['OrderByCase'=> $OrderByCase,'MainRegisterNumber'=> $MainRegisterNumber]);
+                ->appends(['OrderByCase'=> \request('OrderByCase'),
+                    'MainRegisterNumber'=> \request('MainRegisterNumber'),
+                    'BranchOfficeID'=>\request('BranchOfficeID')]);
 
             return response()->json(['transactions'=>$transactions],200);
         }
