@@ -15,7 +15,7 @@
                                     {{$t('transactionsData')}} 
                                 </v-list-item-title>
                             </v-list-item-content>
-                            <v-list-item-avatar tile size="80" color="blue">
+                            <v-list-item-avatar tile size="80" color="indigo">
                                 <v-icon dark>
                                     mdi-archive
                                 </v-icon>
@@ -38,7 +38,7 @@
                                     {{$t('files')}} 
                                 </v-list-item-title>
                             </v-list-item-content>
-                            <v-list-item-avatar tile size="80" color="blue">
+                            <v-list-item-avatar tile size="80" color="indigo">
                                 <v-icon dark>
                                     mdi-file-multiple
                                 </v-icon>
@@ -60,7 +60,7 @@
                                     ميزان المراجعة 
                                 </v-list-item-title>
                             </v-list-item-content>
-                            <v-list-item-avatar tile size="80" color="blue">
+                            <v-list-item-avatar tile size="80" color="indigo">
                                 <v-icon dark>
                                     mdi-scale-balance
                                 </v-icon>
