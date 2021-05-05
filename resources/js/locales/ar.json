@@ -192,7 +192,10 @@
     "typeandnatureofenverioment": "نوع و طبيعة العلاقة",
     "debit": "مدين",
     "credit": "دائن",
-    "balance": "رصيد"
+    "balance": "رصيد",
+    "createAccount": "انشاء حساب",
+    "accountType": "نوع الحساب",
+    "create": "أضافة"
 
 
 }

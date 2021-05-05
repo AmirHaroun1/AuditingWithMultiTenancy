@@ -16,6 +16,7 @@
                             <li
                                 v-for="(LVL1Account,
                                 FirstLVLIndex) in LVL1_AccountCharts"
+                                :key="FirstLVLIndex"
                             >
                                 <h4
                                     @click="
@@ -41,6 +42,7 @@
                                     <li
                                         v-for="(LVL2Account,
                                         SecondLVLIndex) in LVL1Account.second_level_accounts"
+                                        :key="SecondLVLIndex"
                                     >
                                         <h4
                                             @click="
@@ -70,6 +72,7 @@
                                             <li
                                                 v-for="(LVL3Account,
                                                 ThirdLVLIndex) in LVL2Account.third_level_accounts"
+                                                :key="ThirdLVLIndex"
                                             >
                                                 <h4
                                                     @click="
@@ -102,7 +105,9 @@
                                                     style="margin-right:35px"
                                                 >
                                                     <li
-                                                        v-for="LVL4Account in LVL3Account.fourth_level_accounts"
+                                                        v-for="(LVL4Account,
+                                                        fourthLevelIndex) in LVL3Account.fourth_level_accounts"
+                                                        :key="fourthLevelIndex"
                                                     >
                                                         <h4
                                                             @click="
@@ -842,7 +847,10 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <div class="d-flex justify-space-between" style="width:100%">
+                        <div
+                            class="d-flex justify-space-between"
+                            style="width:100%"
+                        >
                             <div>
                                 <v-btn
                                     depressed
@@ -882,643 +890,557 @@
             </v-dialog>
             <!------------ /. Edit Account Hidden Modal  ---------->
             <!------------ determine fixed points Hidden Modal  ---------->
-            <h4
-                type="button"
-                ref="DetermineFixedPointsButton"
-                data-toggle="modal"
-                data-target="#DetermineFixedPointsModal"
-                style="display: none"
-            >
-                أضافة حساب
-            </h4>
-            <div
-                class="modal  fade"
-                id="DetermineFixedPointsModal"
-                tabindex="-1"
-                role="dialog"
-                aria-hidden="true"
-            >
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">تحديد عدد الخانات</h5>
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-label="Close"
-                            >
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
-                                <label>عدد الخانات</label>
-
-                                <select
-                                    v-model="NumberOfFixedPoints"
-                                    class="form-control"
-                                >
-                                    <option value="">1</option>
-                                    <option value="0" selected="selected"
-                                        >2</option
-                                    >
-                                    <option value="00">3</option>
-                                    <option value="000">4</option>
-                                    <option value="0000">5</option>
-                                </select>
-
-                                <button
-                                    @click="
-                                        CloseDetermineFixedPointsModalOpenAddModal()
-                                    "
-                                    type="submit"
-                                    class="btn btn-block btn-success btn-lg mt-20"
-                                    style="width:130px;height:50px"
-                                >
-                                    حفظ
-                                </button>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button
-                                ref="CloseDetermineFixedPointsModal"
-                                type="button"
-                                class="btn btn-secondary"
-                                data-dismiss="modal"
-                            >
-                                غلق
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <v-dialog v-model="fixedPointsModal" persistent max-width="700px">
+                <v-card class="py-4">
+                    <v-card-title>
+                        <span class="headline"> تحديد عدد الخانات</span>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-container>
+                            <v-form ref="fixedPointsForm">
+                                <v-row>
+                                    <v-col cols="12" md="6">
+                                        <v-select
+                                            v-model="NumberOfFixedPoints"
+                                            :options="entriesNumber"
+                                            :reduce="option => option.value"
+                                            label="number"
+                                        >
+                                        </v-select>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
+                        </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            class="mr-5"
+                            depressed
+                            color="blue darken-1 white--text"
+                            type="submit"
+                            @click.native="
+                                CloseDetermineFixedPointsModalOpenAddModal()
+                            "
+                        >
+                            {{ $t("save") }}
+                        </v-btn>
+                        <v-btn
+                            color="blue-grey lighten-3"
+                            outlined
+                            @click.native="fixedPointsModal = false"
+                        >
+                            {{ $t("close") }}
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
             <!------------ /.determine fixed points Hidden Modal  ---------->
 
             <!------------ Add Account Hidden Modal ---------->
-            <h4
-                type="button"
-                ref="AddModalButton"
-                data-toggle="modal"
-                data-target="#AddAccountModal"
-                style="display: none"
-            >
-                انشاء حساب
-            </h4>
-            <div
-                class="modal  fade"
-                id="AddAccountModal"
-                tabindex="-1"
-                role="dialog"
-                aria-hidden="true"
-            >
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">انشاء حساب</h5>
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-label="Close"
+            <v-dialog v-model="createAccountModal" persistent max-width="700px">
+                <v-card class="py-4">
+                    <v-card-title>
+                        <span class="headline"> {{ $t("createAccount") }}</span>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-container>
+                            <v-form
+                                ref="createAccountForm"
+                                @submit.prevent="
+                                    SelectedAccount.level == 4
+                                        ? StoreNewFourthLevelStatement()
+                                        : StoreNewParentStatement()
+                                "
                             >
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
-                                <form
-                                    @submit.prevent="
-                                        SelectedAccount.level == 4
-                                            ? StoreNewFourthLevelStatement()
-                                            : StoreNewParentStatement()
-                                    "
-                                >
-                                    <div class="row ">
-                                        <div class="col-md-12">
-                                            <label>نوع الحساب</label>
-                                            <input
-                                                disabled
-                                                class="form-control"
-                                                v-model="
-                                                    AddedStatement.LinkedAccount
-                                                        .label
-                                                "
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="row pt-10 ">
-                                        <div class="col-md-12">
-                                            <label>رقم الحساب</label>
-                                            <input
-                                                disabled
-                                                type="text"
-                                                class="form-control"
-                                                v-model="AddedStatement.code"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="row pt-10 ">
-                                        <div class="col-md-12">
-                                            <label>اسم الحساب</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                v-model="AddedStatement.name"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="row pt-10 "
+                                <v-row>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedStatement.LinkedAccount
+                                                    .label
+                                            "
+                                            :label="$t('accountType')"
+                                            disabled
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            outlined
+                                            v-model="AddedStatement.code"
+                                            :label="$t('accountNumber')"
+                                            disabled
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            outlined
+                                            :label="$t('accountName')"
+                                            v-model="AddedStatement.name"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
                                         v-if="
                                             AddedStatement.is_related_party &&
                                                 SelectedAccount.level == 4
                                         "
                                     >
-                                        <div class="col-md-12">
-                                            <label>الفرع</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                v-model="
-                                                    AddedStatement.related_party_branch
-                                                "
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="row pt-10 "
+                                        <v-text-field
+                                            outlined
+                                            :label="$t('branch')"
+                                            v-model="
+                                                AddedStatement.related_party_branch
+                                            "
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
                                         v-if="
                                             AddedStatement.is_related_party &&
                                                 SelectedAccount.level == 4
                                         "
                                     >
-                                        <div class="col-md-12">
-                                            <label>نوع و طبيعة العلاقة</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                v-model="
-                                                    AddedStatement.related_party_type
-                                                "
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div
+                                        <v-text-field
+                                            outlined
+                                            :label="
+                                                $t('typeandnatureofenverioment')
+                                            "
+                                            v-model="
+                                                AddedStatement.related_party_type
+                                            "
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
+                                        md="6"
                                         v-if="
                                             SelectedAccount &&
                                                 SelectedAccount.level == 4
                                         "
-                                        class="row  pt-10"
                                     >
-                                        <div class="col-md-6 form-group">
-                                            <label
-                                                >مدين{{
-                                                    Transaction.financial_year
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedStatement.current_year_debtor
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label
-                                                >دائن{{
-                                                    Transaction.financial_year
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedStatement.current_year_creditor
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedStatement.current_year_debtor
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("debit") +
+                                                        " " +
+                                                        Transaction.financial_year
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
+                                        md="6"
                                         v-if="
                                             SelectedAccount &&
                                                 SelectedAccount.level == 4
                                         "
-                                        class="row"
                                     >
-                                        <div class="col-md-12 form-group">
-                                            <label
-                                                >رصيد{{
-                                                    Transaction.financial_year -
-                                                        1
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedStatement.first_past_year
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedStatement.current_year_creditor
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("credit") +
+                                                        " " +
+                                                        Transaction.financial_year
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col
                                         v-if="
                                             SelectedAccount &&
                                                 SelectedAccount.level == 4
                                         "
-                                        class="row"
+                                        cols="12"
                                     >
-                                        <div class="col-md-12 form-group">
-                                            <label
-                                                >رصيد{{
-                                                    Transaction.financial_year -
-                                                        2
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedStatement.second_past_year
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedStatement.first_past_year
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("balance") +
+                                                        " " +
+                                                        (Transaction.financial_year -
+                                                            1)
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col
                                         v-if="
                                             SelectedAccount &&
                                                 SelectedAccount.level == 4
                                         "
-                                        class="row"
+                                        cols="12"
                                     >
-                                        <div class="col-md-12 form-group">
-                                            <label
-                                                >رصيد{{
-                                                    Transaction.financial_year -
-                                                        3
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedStatement.third_past_year
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedStatement.second_past_year
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("balance") +
+                                                        " " +
+                                                        (Transaction.financial_year -
+                                                            2)
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col
                                         v-if="
                                             SelectedAccount &&
                                                 SelectedAccount.level == 4
                                         "
-                                        class="row"
+                                        cols="12"
                                     >
-                                        <div class="col-md-12 form-group">
-                                            <label
-                                                >رصيد{{
-                                                    Transaction.financial_year -
-                                                        4
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedStatement.fourth_past_year
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        class="btn btn-block btn-success btn-lg"
-                                        style="width:130px;height:50px;margin-top:15px"
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedStatement.third_past_year
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("balance") +
+                                                        " " +
+                                                        (Transaction.financial_year -
+                                                            3)
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col
+                                        v-if="
+                                            SelectedAccount &&
+                                                SelectedAccount.level == 4
+                                        "
+                                        cols="12"
                                     >
-                                        أضافة
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button
-                                ref="CloseAddAccountModal"
-                                type="button"
-                                class="btn btn-secondary"
-                                data-dismiss="modal"
-                            >
-                                غلق
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedStatement.fourth_past_year
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("balance") +
+                                                        " " +
+                                                        (Transaction.financial_year -
+                                                            4)
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
+                        </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            depressed
+                            class="mr-5"
+                            color="blue darken-1 white--text"
+                            type="submit"
+                            @click.native="
+                                SelectedAccount.level == 4
+                                    ? StoreNewFourthLevelStatement()
+                                    : StoreNewParentStatement()
+                            "
+                        >
+                            {{ $t("create") }}
+                        </v-btn>
+                        <v-btn
+                            color="blue-grey lighten-3"
+                            outlined
+                            @click.native="createAccountModal = false"
+                        >
+                            {{ $t("close") }}
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
             <!------------ /.Add Account Hidden Modal ---------->
 
             <!------------ Add ChildStatement Hidden Modal ---------->
-            <h4
-                type="button"
-                ref="AddChildStatementModalButton"
-                data-toggle="modal"
-                data-target="#AddChildStatementModal"
-                style="display: none"
+            <v-dialog
+                v-model="AddChildStatementModalButton"
+                persistent
+                max-width="700px"
             >
-                انشاء حساب
-            </h4>
-            <div
-                class="modal  fade"
-                id="AddChildStatementModal"
-                tabindex="-1"
-                role="dialog"
-                aria-hidden="true"
-            >
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">انشاء حساب</h5>
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-label="Close"
+                <v-card class="py-4">
+                    <v-card-title>
+                        <span class="headline"> {{ $t("createAccount") }}</span>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-container>
+                            <v-form
+                                ref="createAccountForm"
+                                @submit.prevent="StoreNewChildStatement()"
+                                v-if="ParentStatement"
                             >
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
-                                <form
-                                    @submit.prevent="StoreNewChildStatement()"
-                                    v-if="ParentStatement"
-                                >
-                                    <div class="row ">
-                                        <div class="col-md-12">
-                                            <label>نوع الحساب</label>
-                                            <input
-                                                disabled
-                                                class="form-control"
-                                                :value="
-                                                    '#' +
-                                                        ParentStatement.code +
-                                                        ' - ' +
-                                                        ParentStatement.name
-                                                "
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="row pt-10 ">
-                                        <div class="col-md-12">
-                                            <label>رقم الحساب</label>
-                                            <input
-                                                disabled
-                                                type="text"
-                                                class="form-control"
-                                                v-model="
-                                                    AddedChildStatement.code
-                                                "
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="row pt-10 ">
-                                        <div class="col-md-12">
-                                            <label>اسم الحساب</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                v-model="
-                                                    AddedChildStatement.name
-                                                "
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="row pt-10 "
+                                <v-row>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            outlined
+                                            disabled
+                                            :label="$t('accountType')"
+                                            :value="
+                                                '#' +
+                                                    ParentStatement.code +
+                                                    ' - ' +
+                                                    ParentStatement.name
+                                            "
+                                        ></v-text-field>
+                                    </v-col>
+
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            outlined
+                                            v-model="AddedChildStatement.code"
+                                            :label="$t('accountNumber')"
+                                            disabled
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            outlined
+                                            :label="$t('accountName')"
+                                            v-model="AddedChildStatement.name"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
                                         v-if="
                                             AddedChildStatement.is_related_party
                                         "
                                     >
-                                        <div class="col-md-12">
-                                            <label>الفرع</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                v-model="
-                                                    AddedChildStatement.related_party_branch
-                                                "
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="row pt-10 "
+                                        <v-text-field
+                                            outlined
+                                            :label="$t('branch')"
+                                            v-model="
+                                                AddedChildStatement.related_party_branch
+                                            "
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
                                         v-if="
                                             AddedChildStatement.is_related_party
                                         "
                                     >
-                                        <div class="col-md-12">
-                                            <label>نوع و طبيعة العلاقة</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                v-model="
-                                                    AddedChildStatement.related_party_type
-                                                "
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="row  pt-10">
-                                        <div class="col-md-6 form-group">
-                                            <label
-                                                >مدين{{
-                                                    Transaction.financial_year
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedChildStatement.current_year_debtor
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label
-                                                >دائن{{
-                                                    Transaction.financial_year
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedChildStatement.current_year_creditor
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div v-if="AddedChildStatement" class="row">
-                                        <div class="col-md-12 form-group">
-                                            <label
-                                                >رصيد{{
-                                                    Transaction.financial_year -
-                                                        1
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedChildStatement.first_past_year
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div v-if="AddedChildStatement" class="row">
-                                        <div class="col-md-12 form-group">
-                                            <label
-                                                >رصيد{{
-                                                    Transaction.financial_year -
-                                                        2
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedChildStatement.second_past_year
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div v-if="AddedChildStatement" class="row">
-                                        <div class="col-md-12 form-group">
-                                            <label
-                                                >رصيد{{
-                                                    Transaction.financial_year -
-                                                        3
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedChildStatement.third_past_year
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div v-if="AddedChildStatement" class="row">
-                                        <div class="col-md-12 form-group">
-                                            <label
-                                                >رصيد{{
-                                                    Transaction.financial_year -
-                                                        4
-                                                }}</label
-                                            >
-                                            <input
-                                                v-model="
-                                                    AddedChildStatement.fourth_past_year
-                                                "
-                                                class="form-control"
-                                            />
-                                        </div>
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        class="btn btn-block btn-success btn-lg"
-                                        style="width:130px;height:50px;margin-top:15px"
-                                    >
-                                        أضافة
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button
-                                ref="CloseAddChildStatementModal"
-                                type="button"
-                                class="btn btn-secondary"
-                                data-dismiss="modal"
-                            >
-                                غلق
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                        <v-text-field
+                                            outlined
+                                            :label="
+                                                $t('typeandnatureofenverioment')
+                                            "
+                                            v-model="
+                                                AddedChildStatement.related_party_type
+                                            "
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" md="6">
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedChildStatement.current_year_debtor
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("debit") +
+                                                        " " +
+                                                        Transaction.financial_year
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" md="6">
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedChildStatement.current_year_creditor
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("credit") +
+                                                        " " +
+                                                        Transaction.financial_year
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col v-if="AddedChildStatement" cols="12">
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedChildStatement.first_past_year
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("balance") +
+                                                        " " +
+                                                        (Transaction.financial_year -
+                                                            1)
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col v-if="AddedChildStatement" cols="12">
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedChildStatement.second_past_year
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("balance") +
+                                                        " " +
+                                                        (Transaction.financial_year -
+                                                            2)
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col v-if="AddedChildStatement" cols="12">
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedChildStatement.third_past_year
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("balance") +
+                                                        " " +
+                                                        (Transaction.financial_year -
+                                                            3)
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col v-if="AddedChildStatement" cols="12">
+                                        <v-text-field
+                                            outlined
+                                            v-model="
+                                                AddedChildStatement.fourth_past_year
+                                            "
+                                        >
+                                            <template v-slot:label>
+                                                {{
+                                                    $t("balance") +
+                                                        " " +
+                                                        (Transaction.financial_year -
+                                                            4)
+                                                }}
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
+                        </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            depressed
+                            class="mr-5"
+                            color="blue darken-1 white--text"
+                            type="submit"
+                            @click.native="StoreNewChildStatement()"
+                        >
+                            {{ $t("create") }}
+                        </v-btn>
+                        <v-btn
+                            color="blue-grey lighten-3"
+                            outlined
+                            @click.native="AddChildStatementModalButton = false"
+                        >
+                            {{ $t("close") }}
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+
             <!------------ /.Add ChildStatement Hidden Modal ---------->
 
             <!------------ determine fixed points For ChildStatement Hidden Modal  ---------->
-            <h4
-                type="button"
-                ref="DetermineFixedPointsForChildStatementsButton"
-                data-toggle="modal"
-                data-target="#DetermineFixedPointsForChildStatements"
-                style="display: none"
+            <v-dialog
+                v-model="DetermineFixedPointsForChildStatementsButton"
+                persistent
+                max-width="700px"
             >
-                أضافة حساب
-            </h4>
-            <div
-                class="modal  fade"
-                id="DetermineFixedPointsForChildStatements"
-                tabindex="-1"
-                role="dialog"
-                aria-hidden="true"
-            >
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">تحديد عدد الخانات</h5>
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-label="Close"
+                <v-card class="py-4">
+                    <v-card-title>
+                        <span class="headline"> تحديد عدد الخانات</span>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-container>
+                            <v-form
+                                ref="DetermineFixedPointsForChildStatementsButton"
                             >
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
-                                <label>عدد الخانات</label>
+                                <v-row>
+                                    <v-col cols="12" md="6">
+                                        <v-select
+                                            v-model="NumberOfFixedPoints"
+                                            :options="entriesNumber"
+                                            :reduce="option => option.value"
+                                            label="number"
+                                        >
+                                        </v-select>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
+                        </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            class="mr-5"
+                            depressed
+                            color="blue darken-1 white--text"
+                            type="submit"
+                            @click.native="
+                                CloseDetermineFixedPointsModalOpenAddChildStatementModal()
+                            "
+                        >
+                            {{ $t("save") }}
+                        </v-btn>
+                        <v-btn
+                            color="blue-grey lighten-3"
+                            outlined
+                            @click.native="
+                                DetermineFixedPointsForChildStatementsButton = false
+                            "
+                        >
+                            {{ $t("close") }}
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
 
-                                <select
-                                    v-model="NumberOfFixedPoints"
-                                    class="form-control"
-                                >
-                                    <option value="">1</option>
-                                    <option value="0" selected="selected"
-                                        >2</option
-                                    >
-                                    <option value="00">3</option>
-                                    <option value="000">4</option>
-                                    <option value="0000">5</option>
-                                </select>
-
-                                <button
-                                    @click="
-                                        CloseDetermineFixedPointsModalOpenAddChildStatementModal()
-                                    "
-                                    type="submit"
-                                    class="btn btn-block btn-success btn-lg mt-20"
-                                    style="width:130px;height:50px"
-                                >
-                                    حفظ
-                                </button>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button
-                                ref="CloseDetermineFixedPointsModalForChildStatements"
-                                type="button"
-                                class="btn btn-secondary"
-                                data-dismiss="modal"
-                            >
-                                غلق
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!------------ ./determine fixed points For ChildStatement Hidden Modal  ---------->
         </div>
     </div>
@@ -1531,8 +1453,19 @@ export default {
     data() {
         return {
             editAccountModal: false,
+            fixedPointsModal: false,
+            createAccountModal: false,
+            AddChildStatementModalButton: false,
+            DetermineFixedPointsForChildStatementsButton: false,
             LoadingSpinner: "",
             LVL1_AccountCharts: [],
+            entriesNumber: [
+                { number: "1", value: "1" },
+                { number: "2", value: "10" },
+                { number: "3", value: "100" },
+                { number: "4", value: "1000" },
+                { number: "5", value: "10000" }
+            ],
             NestedAccountsPaginationData: {
                 current_page: "",
                 last_page: "",
@@ -1724,8 +1657,11 @@ export default {
 
             if (!this.SelectedAccount.statements.length) {
                 this.AddedStatement.code = this.SelectedAccount.code;
-                this.$refs.DetermineFixedPointsButton.click();
+                this.fixedPointsModal = true;
+                // this.$refs.fixedPointsForm.validate();
             } else {
+                // this.$refs.createAccountForm.validate();
+
                 let LastItemCode = this.SelectedAccount.statements[
                     this.SelectedAccount.statements.length - 1
                 ].code;
@@ -1740,7 +1676,7 @@ export default {
 
                 this.AddedStatement.code = NewItemLastCode;
 
-                this.$refs.AddModalButton.click();
+                this.createAccountModal = true;
             }
         },
         OpenAddChildStatementModal() {
@@ -1762,7 +1698,7 @@ export default {
             if (!this.ParentStatement.BranchedStatements.length) {
                 this.AddedChildStatement.code = this.ParentStatement.code;
 
-                this.$refs.DetermineFixedPointsForChildStatementsButton.click();
+                this.DetermineFixedPointsForChildStatementsButton = true;
             } else {
                 let LastItemCode = this.ParentStatement.BranchedStatements[
                     this.ParentStatement.BranchedStatements.length - 1
@@ -1778,7 +1714,7 @@ export default {
 
                 this.AddedChildStatement.code = NewItemLastCode;
 
-                this.$refs.AddChildStatementModalButton.click();
+                this.AddChildStatementModalButton = true;
             }
         },
         CloseDetermineFixedPointsModalOpenAddModal() {
@@ -1787,8 +1723,8 @@ export default {
                 this.NumberOfFixedPoints +
                 (this.SelectedAccount.statements.length + 1);
 
-            this.$refs.CloseDetermineFixedPointsModal.click();
-            this.$refs.AddModalButton.click();
+            this.fixedPointsModal = false;
+            this.createAccountModal = true;
         },
         CloseDetermineFixedPointsModalOpenAddChildStatementModal() {
             this.AddedChildStatement.code =
@@ -1796,13 +1732,13 @@ export default {
                 this.NumberOfFixedPoints +
                 (this.ParentStatement.BranchedStatements.length + 1);
 
-            this.$refs.CloseDetermineFixedPointsModalForChildStatements.click();
-            this.$refs.AddChildStatementModalButton.click();
+            this.DetermineFixedPointsForChildStatementsButton = false;
+            this.AddChildStatementModalButton = true;
         },
         EditTransactionAccountStatement() {
             this.LoadingSpinner = true;
-            
-            this.editAccountModal = false
+
+            this.editAccountModal = false;
 
             let formData = new FormData();
             formData.append("_method", "PATCH");
@@ -1885,7 +1821,7 @@ export default {
                     this.$toast.success(".", "تم التعديل بنجاح");
                     console.log(res);
 
-                    this.editAccountModal = false
+                    this.editAccountModal = false;
 
                     this.SetTempAccountDataToEditAccountData();
                     this.LoadingSpinner = false;
@@ -1900,7 +1836,7 @@ export default {
         },
         EditTransactionAccountBranchedStatement() {
             this.LoadingSpinner = true;
-            this.editAccountModal = false
+            this.editAccountModal = false;
 
             let formData = new FormData();
             formData.append("_method", "PATCH");
@@ -1993,7 +1929,7 @@ export default {
                     this.LoadingSpinner = false;
                 });
 
-            this.editAccountModal = false
+            this.editAccountModal = false;
         },
         SetTempAccountDataToEditAccountData() {
             this.edited_deleted_account.id = this.temp_statement.id;
@@ -2073,7 +2009,7 @@ export default {
                     });
                     this.LoadingSpinner = false;
                 });
-            this.editAccountModal = false
+            this.editAccountModal = false;
             this.edited_deleted_account = null;
         },
         DeleteBranchedStatement() {
@@ -2103,7 +2039,7 @@ export default {
                     });
                     this.LoadingSpinner = false;
                 });
-            this.editAccountModal = false
+            this.editAccountModal = false;
             this.edited_deleted_account = null;
         },
 
@@ -2533,7 +2469,7 @@ export default {
                     });
                     this.LoadingSpinner = false;
                 });
-            this.editAccountModal = false
+            this.editAccountModal = false;
         }
     },
     computed: {}
