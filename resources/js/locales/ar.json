@@ -195,7 +195,8 @@
     "balance": "رصيد",
     "createAccount": "انشاء حساب",
     "accountType": "نوع الحساب",
-    "create": "أضافة"
-
+    "create": "أضافة",
+    "latest": "الاحدث",
+    "oldest": "الاقدم"
 
 }
