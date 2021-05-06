@@ -12,18 +12,18 @@ export default {
 
         }
     },
-    created() {
-        this.getAllBranches()
-    },
-    methods: {
-        getAllBranches() {
-            axios.get(route('OfficeBranches.index')).then((result) => {
-                console.log('res', result);
-            }).catch((err) => {
-                console.log('err', err);
-            });
-        }
-    }
+   created() {
+            this.GetAllOfficeBranches();
+        },
+        methods:{
+            GetAllOfficeBranches(){
+                axios.get(route('OfficeBranches.index')).then(res => {
+                    console.log(res);
+                }).catch(error => {
+                        console.log(error);
+                })
+            }
+        },
 }
 </script>
 
