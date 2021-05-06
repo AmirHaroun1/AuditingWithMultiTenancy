@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class OfficeBranchesController extends Controller
 {
     /**
-     * In case of  response expects json it retrieves all office_branches
+     * In case of response expects json it retrieves all office_branches
      * <br>
      * In case of normal response it return the blade SuperAdmin/OfficeBranches/index.php
      * , your component is their <office-branches></office-branches> , load all branches through the same endpoint

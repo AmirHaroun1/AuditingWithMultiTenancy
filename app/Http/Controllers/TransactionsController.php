@@ -58,7 +58,8 @@ class TransactionsController extends Controller
                     }
                 })
                 ->when( true  , function($query){
-                    if(Auth::user()->OfficeBranch->is_main && Auth::user()->role == 'مدير مراجعة'){
+                    $CurrentAuth = Auth::user();
+                    if($CurrentAuth->OfficeBranch->is_main && Auth::user()->role == 'مدير مراجعة'){
                         if(!is_null(\request('BranchOfficeID'))){
                             $query->where('branch_office_id',\request('BranchOfficeID'));
                         }
