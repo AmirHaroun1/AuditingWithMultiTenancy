@@ -1,5 +1,5 @@
 <template>
-    <v-card style="padding: 25px">
+    <v-card style="margin: 25px 0px">
         <!-- <div v-if="LoadingSpinner" class="overlay">
         </div> -->
         <v-card-title class="mb-3">

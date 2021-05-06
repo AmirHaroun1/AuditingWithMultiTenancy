@@ -1,92 +1,151 @@
 <template>
-    <div>
-        <div class="row">
+    <v-container>
+        <v-row>
             <!-- بيانات المعاملة -->
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box cursor-pointer" @click="ActivePane = 'بيانات المعاملة' ">
-                    <span class="info-box-icon bg-green"><i class="fa fa-archive"></i></span>
-                    <div class="info-box-content">
-                        <h4 class="font-weight-bold" style="padding-top:10px;" >بيانات المعاملة</h4>
-                    </div><!-- /.info-box-content -->
-                </div><!-- /.info-box -->
-            </div>
-            <!-- بيانات المعاملة./ -->
+            <v-col cols="12" sm="6" md="3">
+                <v-card
+                    class="mx-auto rounded-xl"
+                    outlined
+                    @click="ActivePane = 'بيانات المعاملة'"
+                >
+                    <v-list-item three-line>
+                        <v-list-item-content>
+                            <v-list-item-title class="headline">
+                                {{ $t("transactionsData") }}
+                            </v-list-item-title>
+                        </v-list-item-content>
+                        <v-list-item-avatar size="60">
+                            <v-avatar color="indigo">
+                                <v-icon dark>
+                                    mdi-archive
+                                </v-icon>
+                            </v-avatar>
+                        </v-list-item-avatar>
+                    </v-list-item>
+                </v-card>
+                <!-- /.info-box -->
+            </v-col>
+            <!-- بيانات المعاملة -->
             <!-- الملفات -->
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box cursor-pointer" @click="ActivePane = 'الملفات' ">
-                    <span class="info-box-icon bg-green"><i class="fa fa-files-o"></i></span>
-                    <div class="info-box-content">
-                        <h4 class="font-weight-bold" style="padding-top:10px;" >الملفات</h4>
-                    </div><!-- /.info-box-content -->
-                </div><!-- /.info-box -->
-            </div>
+            <v-col cols="12" sm="6" md="3">
+                <v-card
+                    class="mx-auto rounded-xl"
+                    outlined
+                    @click="ActivePane = 'الملفات'"
+                >
+                    <v-list-item three-line>
+                        <v-list-item-content>
+                            <v-list-item-title class="headline">
+                                {{ $t("files") }}
+                            </v-list-item-title>
+                        </v-list-item-content>
+                        <v-list-item-avatar size="60">
+                            <v-avatar color="indigo">
+                                <v-icon dark>
+                                    mdi-file-multiple
+                                </v-icon>
+                            </v-avatar>
+                        </v-list-item-avatar>
+                    </v-list-item>
+                </v-card>
+                <!-- /.info-box -->
+            </v-col>
             <!-- الملفات/. -->
 
             <!-- الحسابات -->
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box cursor-pointer" @click="ActivePane = 'الحسابات' ">
-                    <span class="info-box-icon bg-green"><i class="fa  fa-book"></i></span>
-                    <div class="info-box-content">
-                        <h4 class="font-weight-bold" style="padding-top:10px;" >الحسابات</h4>
-                    </div><!-- /.info-box-content -->
-                </div><!-- /.info-box -->
-            </div>
+            <v-col cols="12" sm="6" md="3">
+                <v-card
+                    class="mx-auto rounded-xl"
+                    outlined
+                    @click="ActivePane = 'الحسابات'"
+                >
+                    <v-list-item three-line>
+                        <v-list-item-content>
+                            <v-list-item-title class="headline">
+                                الحسابات
+                            </v-list-item-title>
+                        </v-list-item-content>
+                        <v-list-item-avatar size="60">
+                            <v-avatar color="indigo">
+                                <v-icon dark>
+                                    mdi-abacus
+                                </v-icon>
+                            </v-avatar>
+                        </v-list-item-avatar>
+                    </v-list-item>
+                </v-card>
+            </v-col>
             <!-- الحسابات -->
-        </div>
+        </v-row>
 
         <div class="tab-content">
-
-            <div class="tab-pane fade in show" v-if="ActivePane=='بيانات المعاملة'">
+            <div
+                class="tab-pane fade in show"
+                v-if="ActivePane == 'بيانات المعاملة'"
+            >
                 <transaction-info :Transaction="Transaction"></transaction-info>
             </div>
-            <div class="tab-pane fade in show" v-if="ActivePane=='الملفات'">
-                <transaction-files :Transaction="Transaction"></transaction-files>
+            <div class="tab-pane fade in show" v-if="ActivePane == 'الملفات'">
+                <transaction-files
+                    :Transaction="Transaction"
+                ></transaction-files>
             </div>
-            <div class="tab-pane fade in show" v-if="ActivePane=='الحسابات'">
-                <transaction-accounts :Transaction="Transaction"></transaction-accounts>
+            <div class="tab-pane fade in show" v-if="ActivePane == 'الحسابات'">
+                <transaction-accounts
+                    :Transaction="Transaction"
+                ></transaction-accounts>
             </div>
         </div>
 
-        <div class="row">
-            <div class="text-center">
-                <button @click="UpdateTransactionStatus('finished')"  class="btn btn-success btn-lg">اعتماد المعاملة</button>
-            </div>
+        <div class="d-flex justify-center ">
+                <v-btn
+                    @click.native="UpdateTransactionStatus('finished')"
+                    depressed
+                    x-large
+                    color="primary"
+                >
+                    اعتماد المعاملة
+                </v-btn>
         </div>
-    </div>
+    </v-container>
 </template>
 
 <script>
-    export default {
+export default {
+    name: "PartnerEditTransaction.vue",
+    props: {
+        Transaction: ""
+    },
+    data() {
+        return {
+            LoadingSpinner: "",
 
-        name: "PartnerEditTransaction.vue",
-        props:{
-            'Transaction':'',
-        },
-        data(){
-            return{
-                LoadingSpinner:'',
-
-                ActivePane:'بيانات المعاملة',
-
-            }
-        },
-        methods: {
-            UpdateTransactionStatus(status) {
-                let formData = new FormData();
-                formData.append('_method', 'PATCH');
-                formData.append('status', status);
-                axios.post(route('Transactions.update', this.Transaction.id), formData)
-                    .then((res) => {
-                        this.$toast.success('.', 'تم اعتماد المعاملة', {timout: 3000});
-                    }).catch((error) => {
-                    this.$toast.error('.', 'خطأ, برجاء المحاولة مرة أخرى', {timeout: 3000});
+            ActivePane: "بيانات المعاملة"
+        };
+    },
+    methods: {
+        UpdateTransactionStatus(status) {
+            let formData = new FormData();
+            formData.append("_method", "PATCH");
+            formData.append("status", status);
+            axios
+                .post(
+                    route("Transactions.update", this.Transaction.id),
+                    formData
+                )
+                .then(res => {
+                    this.$toast.success(".", "تم اعتماد المعاملة", {
+                        timout: 3000
+                    });
                 })
-            },
+                .catch(error => {
+                    this.$toast.error(".", "خطأ, برجاء المحاولة مرة أخرى", {
+                        timeout: 3000
+                    });
+                });
         }
-
     }
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
