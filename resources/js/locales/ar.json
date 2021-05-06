@@ -123,6 +123,8 @@
 
 
     "document": "المستند",
+    "documentNumber": "رقم المستند",
+    "documentDate": "تاريخ المستند",
 
 
     "measurmentStandardDetemine": "محددات معيار القياس",
@@ -197,6 +199,8 @@
     "accountType": "نوع الحساب",
     "create": "أضافة",
     "latest": "الاحدث",
-    "oldest": "الاقدم"
+    "oldest": "الاقدم",
+    "detail_debit": "تفصيلية - مدين",
+    "detail_credit": "تفصيلية - دائن"
 
 }

@@ -272,7 +272,7 @@ export default {
     },
     data() {
         return {
-            ActivePane: "الإيضاحات"
+            ActivePane: "العينة"
         };
     },
     methods: {
