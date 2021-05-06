@@ -99,96 +99,104 @@
                     </v-card>
                 </v-col>
                 <!-- الحسابات -->
-
                 <!-- الأيضاحات -->
                 <v-col cols="12" sm="6" md="3">
-                    <div
-                        class="info-box cursor-pointer"
+                    <v-card
+                        class="mx-auto rounded-xl"
+                        outlined
                         @click="ActivePane = 'الإيضاحات'"
                     >
-                        <span class="info-box-icon bg-green"
-                            ><i class="fa fa-certificate"></i
-                        ></span>
-                        <div class="info-box-content">
-                            <h4
-                                class="font-weight-bold"
-                                style="padding-top:10px;"
-                            >
-                                الإيضاحات
-                            </h4>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
+                        <v-list-item three-line>
+                            <v-list-item-content>
+                                <v-list-item-title class="headline">
+                                    الإيضاحات
+                                </v-list-item-title>
+                            </v-list-item-content>
+                            <v-list-item-avatar size="60">
+                                <v-avatar color="indigo">
+                                    <v-icon dark>
+                                        mdi-white-balance-sunny
+                                    </v-icon>
+                                </v-avatar>
+                            </v-list-item-avatar>
+                        </v-list-item>
+                    </v-card>
                 </v-col>
-                <!-- إيضاح_الأيضاحات -->
+
+                <!-- الأيضاحات -->
                 <!-- إيضاح_الأيضاحات -->
                 <v-col cols="12" sm="6" md="3">
-                    <div
-                        class="info-box cursor-pointer"
+                    <v-card
+                        class="mx-auto rounded-xl"
+                        outlined
                         @click="ActivePane = 'إيضاح_الأيضاحات'"
                     >
-                        <span class="info-box-icon bg-green"
-                            ><i class="fa fa-info"></i
-                        ></span>
-                        <div class="info-box-content">
-                            <h4
-                                class="font-weight-bold"
-                                style="padding-top:10px;"
-                            >
-                                إيضاح الإيضاحات
-                            </h4>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
+                        <v-list-item three-line>
+                            <v-list-item-content>
+                                <v-list-item-title class="headline">
+                                    إيضاح الإيضاحات
+                                </v-list-item-title>
+                            </v-list-item-content>
+                            <v-list-item-avatar size="60">
+                                <v-avatar color="indigo">
+                                    <v-icon dark>
+                                        mdi-information-outline
+                                    </v-icon>
+                                </v-avatar>
+                            </v-list-item-avatar>
+                        </v-list-item>
+                    </v-card>
                 </v-col>
                 <!-- إيضاح_الأيضاحات -->
-                <!-- الحسابات -->
+                <!-- القوائم -->
                 <v-col cols="12" sm="6" md="3">
-                    <div
-                        class="info-box cursor-pointer"
+                    <v-card
+                        class="mx-auto rounded-xl"
+                        outlined
                         @click="ActivePane = 'القوائم'"
                     >
-                        <span class="info-box-icon bg-green"
-                            ><i class="fa fa-info"></i
-                        ></span>
-                        <div class="info-box-content">
-                            <h4
-                                class="font-weight-bold"
-                                style="padding-top:10px;"
-                            >
-                                القوائم المالية
-                            </h4>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
+                        <v-list-item three-line>
+                            <v-list-item-content>
+                                <v-list-item-title class="headline">
+                                    القوائم المالية
+                                </v-list-item-title>
+                            </v-list-item-content>
+                            <v-list-item-avatar size="60">
+                                <v-avatar color="indigo">
+                                    <v-icon dark>
+                                        mdi-information-outline
+                                    </v-icon>
+                                </v-avatar>
+                            </v-list-item-avatar>
+                        </v-list-item>
+                    </v-card>
                 </v-col>
-                <!-- الحسابات -->
+                <!-- القوائم -->
 
-                <!-- الحسابات -->
+                <!-- العينة -->
                 <v-col cols="12" sm="6" md="3">
-                    <div
-                        class="info-box cursor-pointer"
+                    <v-card
+                        class="mx-auto rounded-xl"
+                        outlined
                         @click="ActivePane = 'العينة'"
                     >
-                        <span class="info-box-icon bg-green"
-                            ><i class="fa fa-info"></i
-                        ></span>
-                        <div class="info-box-content">
-                            <h4
-                                class="font-weight-bold"
-                                style="padding-top:10px;"
-                            >
-                                العينة
-                            </h4>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
+                        <v-list-item three-line>
+                            <v-list-item-content>
+                                <v-list-item-title class="headline">
+                                    العينة
+                                </v-list-item-title>
+                            </v-list-item-content>
+                            <v-list-item-avatar size="60">
+                                <v-avatar color="indigo">
+                                    <v-icon dark>
+                                        mdi-information-outline
+                                    </v-icon>
+                                </v-avatar>
+                            </v-list-item-avatar>
+                        </v-list-item>
+                    </v-card>
                 </v-col>
-                <!-- الحسابات -->
+                <!-- العينة -->
             </v-row>
         </v-container>
 
@@ -242,14 +250,17 @@
             </div>
         </div>
 
-        <div class="text-center">
-            <button
-                @click="UpdateTransactionStatus('reviser')"
-                class="btn btn-success btn-lg"
-            >
-                إرسال الى المراجع الفني
-            </button>
+        <div class="d-flex justify-center ">
+                <v-btn
+                    @click.native="UpdateTransactionStatus('reviser')"
+                    depressed
+                    x-large
+                    color="primary"
+                >
+                    إرسال الى المراجع الفني
+                </v-btn>
         </div>
+
     </div>
 </template>
 
