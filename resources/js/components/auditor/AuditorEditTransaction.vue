@@ -272,7 +272,7 @@ export default {
     },
     data() {
         return {
-            ActivePane: "ميزان المراجعة"
+            ActivePane: "بيانات المعاملة"
         };
     },
     methods: {
