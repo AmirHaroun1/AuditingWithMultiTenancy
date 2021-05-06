@@ -5,7 +5,7 @@
         </div>
         <v-card class="row">
             <v-card-title
-                class="box-header d-flex justify-space-between col-md-4 col-12"
+                class="box-header d-flex justify-space-between align-baseline col-md-4 col-12"
             >
                 <h2 style="width:70%" class="v-application">إيضاح الإيضاحات</h2>
                 <v-spacer></v-spacer>
