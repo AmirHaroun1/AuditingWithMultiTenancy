@@ -1,18 +1,13 @@
 <template>
-<div>
+    <div>
 
-</div>
+    </div>
 </template>
 
 <script>
-export default {
-    name: "OfficeBranches",
-    data() {
-        return {
-
-        }
-    },
-   created() {
+    export default {
+        name: "OfficeBranches",
+        created() {
             this.GetAllOfficeBranches();
         },
         methods:{
@@ -24,7 +19,7 @@ export default {
                 })
             }
         },
-}
+    }
 </script>
 
 <style scoped>

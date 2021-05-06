@@ -62,6 +62,14 @@ Route::get('/',function (){
             break;
     }
 })->middleware('auth');
+
+Route::get('/TestMail',function(){
+    return $a = \Illuminate\Support\Facades\URL::signedRoute('result');
+});
+Route::get('/result',function(){
+    return 'result';
+})->name('result')->middleware('signed');
+
 /*
 |--------------------------------------------------------------------------
 | SuperAdmin Routes
