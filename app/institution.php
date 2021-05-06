@@ -25,7 +25,7 @@ class institution extends Model
     }
     public function MainTradeRegister()
     {
-        return $this->hasMany('App\TradeRegister','institution_id')->where('type','LIKE','رئيسي');
+        return $this->hasOne('App\TradeRegister','institution_id')->where('type','LIKE','رئيسي');
     }
     public function BranchedTradeRegister()
     {

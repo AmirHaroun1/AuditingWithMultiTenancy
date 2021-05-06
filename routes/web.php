@@ -78,6 +78,8 @@ Route::group([ 'prefix'=>'SuperAdmin','middleware'=>['auth','SuperAdmin'] ],func
     Route::get('/SearchEmployee/{employeeName}','employeesController@search')->name('employees.search');
     Route::patch('/UpdateEmployee/{employee}','employeesController@update')->name('employees.update');
     Route::delete('/DeleteEmployee/{employee}','employeesController@destroy')->name('employees.destroy');
+    // OfficeBranches Route
+    Route::resource('/OfficeBranches','OfficeBranchesController')->only(['index','store','update']);
     //DropDowns SystemSettings
 
     Route::get('/ManageDropDowns','SystemSettingsController@DropDownIndex')->name('system.DropDowns.index');
@@ -127,7 +129,7 @@ Route::group(['prefix'=>'Secretary','middleware'=>['auth','Secretary'] ],functio
     Route::post('/StoreNewTransaction/institution/{institution}/reviser/{reviser}', 'TransactionsController@store')->name('Transactions.store');
     Route::get('/PrintReceiptVoucher/TransactionYear/{TransactionYear}/CompanyName/{CompanyName}/PaymentType/{PaymentType}/PaymentValue/{PaymentValue}/ReviserCompanyName/{ReviserCompanyName}','TransactionsController@PrintReceiptVoucher')->name('Print.ReceiptVoucher');
     Route::get('/EngagementLetter/institution/{institution}/transaction/{transaction}/','TransactionsController@PrintEngagementLetter')->name('Print.EngagementLetter');
-    Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->name('transactions.edit.secretary');
+    Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->name('transactions.edit.secretary')->middleware('CheckEmployeeHasAccess');
     /*
     |--------------------------------------------------------------------------
     | institution Routes
@@ -169,7 +171,7 @@ Route::group(['prefix'=>'Secretary','middleware'=>['auth','Secretary'] ],functio
 Route::group(['prefix'=>'Reviser','middleware'=>['auth','Reviser'] ],function () {
 
     Route::get('/Transactions', 'TransactionsController@index')->name('Transactions.index.reviser');
-    Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->name('transactions.edit.reviser');
+    Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->name('transactions.edit.reviser')->middleware('CheckEmployeeHasAccess');
 });
 /*
 |--------------------------------------------------------------------------
@@ -179,7 +181,7 @@ Route::group(['prefix'=>'Reviser','middleware'=>['auth','Reviser'] ],function ()
 Route::group(['prefix'=>'TechnicalAuditor','middleware'=>['auth','auditor'] ],function () {
 
     Route::get('/Transactions', 'TransactionsController@index')->name('Transactions.index.auditor');
-    Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->name('transactions.edit.auditor');
+    Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->name('transactions.edit.auditor')->middleware('CheckEmployeeHasAccess');
 
     Route::get('/AccountAvailableForExcelLinking/{TransactionID}','ExcelController@AccountsAvailable')->name('Excel.AvailableAccounts');
     Route::post('/GetUploadedAccountsExcelHeaders','ExcelController@GetExcelHeader')->name('AccountExcel.Header');
@@ -203,7 +205,7 @@ Route::get('/AllTransactions/{OrderByCase?}/{MainRegisterNumber?}','Transactions
 Route::group(['prefix'=>'ManagementPartner','middleware'=>['auth','partner'] ],function () {
 
     Route::get('/Transactions', 'TransactionsController@index')->name('Transactions.index.partner');
-Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->name('transactions.edit.partner');
+Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->name('transactions.edit.partner')->middleware('CheckEmployeeHasAccess');
 
 
 });
@@ -215,7 +217,7 @@ Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->n
 Route::group(['prefix'=>'RevisingManager','middleware'=>['auth','RevisingManager'] ],function () {
 
     Route::get('/Transactions', 'TransactionsController@index')->name('Transactions.index.RevisingManager');
-    Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->name('transactions.edit.RevisingManager');
+    Route::get('/EditTransaction/{Transaction_id}','TransactionsController@edit')->name('transactions.edit.RevisingManager')->middleware('CheckEmployeeHasAccess');
 
 });
 /*

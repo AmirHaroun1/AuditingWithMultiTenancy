@@ -39,6 +39,7 @@ class CreateTransactionsTable extends Migration
 
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
+
             $table->double('secretary_time')->default(0);
             $table->double('fieldDelegate_time')->default(0);
             $table->double('auditor_time')->default(0);

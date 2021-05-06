@@ -5,7 +5,7 @@
 @endsection
 @section('content')
     <div id="app">
-        <dash-board :Transactions-Status="{{$TransactionsStatus}}" :Team="{{$Team}}"></dash-board>
+        <dash-board :Office-Branch="{{$OfficeBranch}}" :Team="{{$Team}}"></dash-board>
     </div>
 @endsection
 @section('scripts')
