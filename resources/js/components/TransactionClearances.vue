@@ -4,12 +4,12 @@
             <i class="fa fa-refresh fa-spin"> </i>
         </div>
         <v-card class="row">
-            <v-card-title class="box-header d-flex justify-space-between col-md-4 col-12" >
+            <v-card-title
+                class="box-header d-flex justify-space-between col-md-4 col-12"
+            >
                 <h2 style="width:50%" class="v-application">الإيضاحات</h2>
                 <v-spacer></v-spacer>
-                <p
-                    v-if="!printFullScreenBoolean"
-                >
+                <p v-if="!printFullScreenBoolean">
                     <v-tooltip bottom>
                         <template
                             v-slot:activator="{
@@ -43,8 +43,8 @@
                             v-if="FirstLVLAccount.ClearanceNumber"
                         >
                             <v-card
-                                class="col-md-12  mt-20 cursor-pointer mb-20 content-between"
-                                style="border: 2px #00a65a dashed;"
+                                class="indigo darken-1  grey--text text--lighten-5 col-md-12  mt-20 mb-20 cursor-pointer  content-between"
+                                style=""
                                 @click="
                                     FirstLVLAccount.MonetaryItems
                                         ? ''
@@ -57,13 +57,19 @@
                                 aria-expanded="true"
                                 :aria-controls="FirstLVLAccount.id"
                             >
-                                <v-card-title class="cursor-pointer">
-                                    إيضاح :
-                                    {{ FirstLVLAccount.ClearanceNumber }}
-                                    ,
-                                    {{ FirstLVLAccount.name }}
+                                <v-card-title
+                                    style="width:100%"
+                                    class="cursor-pointer d-flex justify-space-between"
+                                >
+                                    <div>
+                                        إيضاح :
+                                        {{ FirstLVLAccount.ClearanceNumber }}
+                                        ,
+                                        {{ FirstLVLAccount.name }}
+                                    </div>
                                 </v-card-title>
                             </v-card>
+
                             <!----- collapsed tap content ------->
                             <div
                                 :id="'collapse' + FirstLVLAccount.id"
@@ -90,149 +96,35 @@
                                 FirstLVLAccount.second_level_accounts.length &&
                                     !FirstLVLAccount.ClearanceNumber
                             "
-                            v-for="SecondLVLAccount in FirstLVLAccount.second_level_accounts"
                         >
-                            <!----- if SecondLVLAccount level has clearance number --->
                             <div
-                                :id="SecondLVLAccount.id + 'print'"
-                                v-if="SecondLVLAccount.ClearanceNumber"
+                                v-for="(SecondLVLAccount,
+                                SecondLVLAccountIndex) in FirstLVLAccount.second_level_accounts"
+                                :key="SecondLVLAccountIndex"
                             >
+                                <!----- if SecondLVLAccount level has clearance number --->
                                 <div
-                                    @click="
-                                        SecondLVLAccount.MonetaryItems
-                                            ? ''
-                                            : GetAccountStatements(
-                                                  SecondLVLAccount
-                                              )
-                                    "
-                                    data-toggle="collapse"
-                                    :data-target="
-                                        '#' + 'collapse' + SecondLVLAccount.id
-                                    "
-                                    aria-expanded="true"
-                                    :aria-controls="SecondLVLAccount.id"
-                                    class="col-md-12  mt-20 cursor-pointer mb-20 content-between"
-                                    style="border: 2px #00a65a dashed;"
+                                    :id="SecondLVLAccount.id + 'print'"
+                                    v-if="SecondLVLAccount.ClearanceNumber"
                                 >
-                                    <h3 class="cursor-pointer">
-                                        إيضاح :
-                                        {{ SecondLVLAccount.ClearanceNumber }}
-                                        ,
-                                        {{ SecondLVLAccount.name }}
-                                    </h3>
-                                </div>
-                                <!----- collapsed tap content ------->
-                                <div
-                                    :id="'collapse' + SecondLVLAccount.id"
-                                    :class="[
-                                        printFullScreenBoolean
-                                            ? ''
-                                            : 'collapse fade'
-                                    ]"
-                                >
-                                    <clearance-table
-                                        :Account="SecondLVLAccount"
-                                        :Transaction="Transaction"
-                                        ref="SecondLVLClearances"
-                                    ></clearance-table>
-                                </div>
-                                <!----- ./collapsed tap content ------->
-                            </div>
-                            <!----- if ./SecondLVLAccount level has clearance number --->
-
-                            <!-- if SecondLVLAccount doesn't have clearance number  -->
-                            <!-- check if the third level account has clearance number -->
-                            <div
-                                v-else-if="
-                                    SecondLVLAccount.third_level_accounts.length
-                                "
-                                v-for="ThirdLVLAccount in SecondLVLAccount.third_level_accounts"
-                            >
-                                <!----- if ThirdLVLAccount level doesn't have Fourth level Accounts --->
-                                <!----- if ThirdLVLAccount level has clearance number --->
-                                <div
-                                    :id="ThirdLVLAccount.id + 'print'"
-                                    v-if="
-                                        ThirdLVLAccount.ClearanceNumber &&
-                                            ThirdLVLAccount
-                                                .fourth_level_accounts.length ==
-                                                0
-                                    "
-                                >
-                                    <div
+                                    <v-card
+                                        class="indigo darken-1  grey--text text--lighten-5 col-md-12  mt-20 mb-20 cursor-pointer  content-between"
+                                        style=""
                                         @click="
-                                            ThirdLVLAccount.MonetaryItems
+                                            SecondLVLAccount.MonetaryItems
                                                 ? ''
                                                 : GetAccountStatements(
-                                                      ThirdLVLAccount
+                                                      SecondLVLAccount
                                                   )
                                         "
                                         data-toggle="collapse"
                                         :data-target="
                                             '#' +
                                                 'collapse' +
-                                                ThirdLVLAccount.id
+                                                SecondLVLAccount.id
                                         "
                                         aria-expanded="true"
-                                        :aria-controls="ThirdLVLAccount.id"
-                                        class="col-md-12  mt-20 cursor-pointer mb-20 content-between"
-                                        style="border: 2px #00a65a dashed;"
-                                    >
-                                        <h3 class="cursor-pointer">
-                                            إيضاح :
-                                            {{
-                                                ThirdLVLAccount.ClearanceNumber
-                                            }}
-                                            ,
-                                            {{ ThirdLVLAccount.name }}
-                                        </h3>
-                                    </div>
-                                    <!----- collapsed tap content ------->
-                                    <div
-                                        :id="'collapse' + ThirdLVLAccount.id"
-                                        :class="[
-                                            printFullScreenBoolean
-                                                ? ''
-                                                : 'collapse fade'
-                                        ]"
-                                    >
-                                        <clearance-table
-                                            :Account="ThirdLVLAccount"
-                                            :Transaction="Transaction"
-                                            ref="ThirdLVLClearances"
-                                        ></clearance-table>
-                                    </div>
-                                    <!----- ./collapsed tap content ------->
-                                </div>
-                                <!----- ./if ThirdLVLAccount level has clearance number --->
-                                <!----- ./if ThirdLVLAccount level doesn't have Fourth level Accounts --->
-
-                                <!----- if ThirdLVLAccount level  have Fourth level Accounts --->
-                                <!----- if ThirdLVLAccount level has clearance number --->
-                                <div
-                                    :id="ThirdLVLAccount.id + 'print'"
-                                    v-else-if="
-                                        ThirdLVLAccount.ClearanceNumber &&
-                                            ThirdLVLAccount
-                                                .fourth_level_accounts.length
-                                    "
-                                >
-                                    <v-card
-                                        class="indigo darken-1  grey--text text--lighten-5 col-md-12  mt-20 mb-20 cursor-pointer  content-between"
-                                        style=""
-                                        @click="
-                                            GetFourthLevelAccountsStatementsOfThirdLevelAccount(
-                                                ThirdLVLAccount
-                                            )
-                                        "
-                                        data-toggle="collapse"
-                                        :data-target="
-                                            '#' +
-                                                'collapse' +
-                                                ThirdLVLAccount.id
-                                        "
-                                        aria-expanded="true"
-                                        :aria-controls="ThirdLVLAccount.id"
+                                        :aria-controls="SecondLVLAccount.id"
                                     >
                                         <v-card-title
                                             style="width:100%"
@@ -241,824 +133,1027 @@
                                             <div>
                                                 إيضاح :
                                                 {{
-                                                    ThirdLVLAccount.ClearanceNumber
+                                                    SecondLVLAccount.ClearanceNumber
                                                 }}
                                                 ,
-                                                {{ ThirdLVLAccount.name }}
+                                                {{ SecondLVLAccount.name }}
                                             </div>
-
-                                            <v-tooltip bottom>
-                                                <template
-                                                    v-slot:activator="{
-                                                        on,
-                                                        attrs
-                                                    }"
-                                                >
-                                                    <v-icon
-                                                        @click.stop="
-                                                            printHeading(
-                                                                ThirdLVLAccount.id
-                                                            )
-                                                        "
-                                                        class="cursor-pointer"
-                                                        color="grey lighten-5"
-                                                        v-bind="attrs"
-                                                        v-on="on"
-                                                    >
-                                                        mdi-printer
-                                                    </v-icon>
-                                                </template>
-                                                <span>print heading</span>
-                                            </v-tooltip>
                                         </v-card-title>
                                     </v-card>
-                                    <!--------- div contains all fourth level accounts ----------->
+
+                                    <!----- collapsed tap content ------->
                                     <div
-                                        :id="'collapse' + ThirdLVLAccount.id"
+                                        :id="'collapse' + SecondLVLAccount.id"
                                         :class="[
                                             printFullScreenBoolean
                                                 ? ''
                                                 : 'collapse fade'
                                         ]"
                                     >
-                                        <!------ policies -------->
-                                        <div v-if="!PrintingMood" class="row">
-                                            <v-checkbox
-                                                class="col-md-6"
-                                                v-model="
-                                                    ThirdLVLAccount.ShowPolicies
-                                                "
-                                                label="إظهار السياسة"
-                                            ></v-checkbox>
-                                        </div>
-                                        <div
-                                            v-if="ThirdLVLAccount.ShowPolicies"
-                                            class="row mt-10 "
-                                            style="direction:rtl;margin-top:20px"
-                                        >
-                                            <div class="col-md-2">
-                                                <h3>
-                                                    السياسة :
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div v-if="!PrintingMood">
-                                                    <vue-editor
-                                                        :editorToolbar="
-                                                            customToolbar
-                                                        "
-                                                        v-model="
-                                                            ThirdLVLAccount.policies
-                                                        "
-                                                    ></vue-editor>
-                                                </div>
-                                                <h4
-                                                    v-else
-                                                    v-html="
-                                                        ThirdLVLAccount.policies
-                                                    "
-                                                ></h4>
-                                            </div>
-                                        </div>
-                                        <hr
-                                            v-if="
-                                                ThirdLVLAccount.policies ||
-                                                    !PrintingMood
-                                            "
-                                        />
-                                        <!------ ./policies -------->
-                                        <!------ considerations -------->
-                                        <div v-if="!PrintingMood">
-                                            <v-checkbox
-                                                v-model="
-                                                    ThirdLVLAccount.ShowConsedrations
-                                                "
-                                                label="إظهار لفت انتباه"
-                                            ></v-checkbox>
-                                        </div>
-                                        <div
-                                            v-if="
-                                                ThirdLVLAccount.ShowConsedrations
-                                            "
-                                            class="row mt-20 "
-                                            style="direction:rtl;margin-top:20px"
-                                        >
-                                            <div class="col-md-2">
-                                                <h3>
-                                                    لفت انتباه :
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div v-if="!PrintingMood">
-                                                    <vue-editor
-                                                        :editorToolbar="
-                                                            customToolbar
-                                                        "
-                                                        v-model="
-                                                            ThirdLVLAccount.considerations
-                                                        "
-                                                    ></vue-editor>
-                                                </div>
-                                                <h4
-                                                    v-else
-                                                    v-html="
-                                                        ThirdLVLAccount.considerations
-                                                    "
-                                                ></h4>
-                                            </div>
-                                        </div>
-                                        <hr
-                                            v-if="
-                                                ThirdLVLAccount.consedrations ||
-                                                    !PrintingMood
-                                            "
-                                        />
-                                        <!------ ./considerations -------->
-
-                                        <!------- Table ------------->
-                                        <div
-                                            class="row text-center"
-                                            v-if="!PrintingMood"
-                                        >
-                                            <div
-                                                class="col-md-3 col-6 text-center"
-                                            >
-                                                <v-checkbox
-                                                    v-model="
-                                                        ThirdLVLAccount.ShowFirstPastYear
-                                                    "
-                                                    :label="
-                                                        `1 اظهار رصيد السنة السابقة`
-                                                    "
-                                                ></v-checkbox>
-                                            </div>
-
-                                            <div
-                                                class="col-md-3 col-6 text-center"
-                                            >
-                                                <v-checkbox
-                                                    v-model="
-                                                        ThirdLVLAccount.ShowSecondPastYear
-                                                    "
-                                                    :label="
-                                                        `2 اظهار رصيد السنة السابقة`
-                                                    "
-                                                ></v-checkbox>
-                                            </div>
-
-                                            <div
-                                                class="col-md-3 col-6 text-center"
-                                            >
-                                                <v-checkbox
-                                                    v-model="
-                                                        ThirdLVLAccount.ShowThirdPastYear
-                                                    "
-                                                    :label="
-                                                        `3 اظهار رصيد السنة السابقة`
-                                                    "
-                                                ></v-checkbox>
-                                            </div>
-
-                                            <div
-                                                class="col-md-3 col-6 text-center"
-                                            >
-                                                <v-checkbox
-                                                    v-model="
-                                                        ThirdLVLAccount.ShowFourthPastYear
-                                                    "
-                                                    :label="
-                                                        `4 اظهار رصيد السنة السابقة`
-                                                    "
-                                                ></v-checkbox>
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div
-                                            class=" mt-20 "
-                                            style="direction:rtl"
-                                        >
-                                            <h3 class="mt-20">
-                                                يتكون بند
-                                                {{ ThirdLVLAccount.name }}
-                                                من :
-                                            </h3>
-
-                                            <table
-                                                class="mt-20 table table-bordered"
-                                            >
-                                                <thead>
-                                                    <tr>
-                                                        <th
-                                                            rowspan="2"
-                                                            colspan="1"
-                                                        >
-                                                            .
-                                                        </th>
-                                                        <th
-                                                            rowspan="2"
-                                                            colspan="1"
-                                                        >
-                                                            الأسم
-                                                        </th>
-
-                                                        <th
-                                                            class="text-center"
-                                                            rowspan="1"
-                                                            colspan="2"
-                                                        >
-                                                            حركة
-                                                        </th>
-
-                                                        <th
-                                                            class="text-center"
-                                                            rowspan="1"
-                                                            colspan="2"
-                                                        >
-                                                            تعديل
-                                                        </th>
-                                                        <th
-                                                            class="text-center"
-                                                            rowspan="1"
-                                                            colspan="1"
-                                                        >
-                                                            الرصيد النهائي
-                                                        </th>
-                                                        <th
-                                                            class="text-center"
-                                                            rowspan="1"
-                                                            colspan="1"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowFirstPastYear
-                                                            "
-                                                        >
-                                                            الرصيد النهائي
-                                                        </th>
-
-                                                        <th
-                                                            class="text-center"
-                                                            rowspan="1"
-                                                            colspan="1"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowSecondPastYear
-                                                            "
-                                                        >
-                                                            الرصيد النهائي
-                                                        </th>
-                                                        <th
-                                                            class="text-center"
-                                                            rowspan="1"
-                                                            colspan="1"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowThirdPastYear
-                                                            "
-                                                        >
-                                                            الرصيد النهائي
-                                                        </th>
-                                                        <th
-                                                            class="text-center"
-                                                            rowspan="1"
-                                                            colspan="1"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowFourthPastYear
-                                                            "
-                                                        >
-                                                            الرصيد النهائي
-                                                        </th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>مدين</th>
-                                                        <th>دائن</th>
-
-                                                        <th>مدين</th>
-                                                        <th>دائن</th>
-
-                                                        <th class="text-center">
-                                                            {{
-                                                                Transaction.end_financial_year
-                                                            }}
-                                                        </th>
-                                                        <th
-                                                            class="text-center"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowFirstPastYear
-                                                            "
-                                                        >
-                                                            {{
-                                                                Transaction.FirstPastYearDate
-                                                            }}
-                                                        </th>
-                                                        <th
-                                                            class="text-center"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowSecondPastYear
-                                                            "
-                                                        >
-                                                            {{
-                                                                Transaction.SecondPastYearDate
-                                                            }}
-                                                        </th>
-                                                        <th
-                                                            class="text-center"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowThirdPastYear
-                                                            "
-                                                        >
-                                                            {{
-                                                                Transaction.ThirdPastYearDate
-                                                            }}
-                                                        </th>
-                                                        <th
-                                                            class="text-center"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowFourthPastYear
-                                                            "
-                                                        >
-                                                            {{
-                                                                Transaction.FourthPastYearDate
-                                                            }}
-                                                        </th>
-
-                                                        <th class="text-center">
-                                                            5%
-                                                        </th>
-                                                        <th class="text-center">
-                                                            10%
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr
-                                                        v-for="(item,
-                                                        index) in ThirdLVLAccount.fourth_level_accounts"
-                                                        :key="item.id"
-                                                    >
-                                                        <td>
-                                                            <h5>
-                                                                {{
-                                                                    ThirdLVLAccount.ClearanceNumber +
-                                                                        ".0"
-                                                                }}{{
-                                                                    index + 1
-                                                                }}
-                                                            </h5>
-                                                        </td>
-                                                        <td>
-                                                            <h5>
-                                                                {{ item.name }}
-                                                            </h5>
-                                                        </td>
-
-                                                        <td>
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.CurrentYearDebtorSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td>
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.CurrentYearCreditorSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td>
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.edited_CurrentYearDebtorSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td>
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.edited_CurrentYearCreditorSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-
-                                                        <td class="text-center">
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.CurrentYearSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td
-                                                            class="text-center"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowFirstPastYear
-                                                            "
-                                                        >
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.FirstPastYearSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td
-                                                            class="text-center"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowSecondPastYear
-                                                            "
-                                                        >
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.SecondPastYearSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td
-                                                            class="text-center"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowThirdPastYear
-                                                            "
-                                                        >
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.ThirdPastYearSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td
-                                                            class="text-center"
-                                                            v-if="
-                                                                ThirdLVLAccount.ShowFourthPastYear
-                                                            "
-                                                        >
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.FourthPastYearSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.CurrentYearSum *
-                                                                            0.05
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        item.CurrentYearSum *
-                                                                            0.1
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <h4>
-                                                                الرصيد آخر السنة
-                                                            </h4>
-                                                        </td>
-                                                        <td
-                                                            style="visibility: hidden"
-                                                        ></td>
-
-                                                        <td>
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        ThirdLVLAccount.CurrentYearDebtorSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td>
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        ThirdLVLAccount.CurrentYearCreditorSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td>
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        ThirdLVLAccount.edited_CurrentYearDebtorSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td>
-                                                            <h5
-                                                                v-text="
-                                                                    formatValue(
-                                                                        ThirdLVLAccount.edited_CurrentYearCreditorSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                        <td>
-                                                            <h5
-                                                                class="text-center"
-                                                                v-text="
-                                                                    formatValue(
-                                                                        ThirdLVLAccount.CurrentYearSum
-                                                                    )
-                                                                "
-                                                            ></h5>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!------- ./Table ------------->
-
-                                        <!------ Study -------->
-                                        <div v-if="!PrintingMood">
-                                            <v-checkbox
-                                                v-model="
-                                                    ThirdLVLAccount.ShowStudy
-                                                "
-                                                label="إظهار الدراسة "
-                                            ></v-checkbox>
-                                        </div>
-                                        <div
-                                            v-if="ThirdLVLAccount.ShowStudy"
-                                            class="row mt-10 "
-                                            style="direction:rtl;margin-top:20px"
-                                        >
-                                            <div class="col-md-2">
-                                                <h3>
-                                                    الدراسة :
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div v-if="!PrintingMood">
-                                                    <vue-editor
-                                                        :editorToolbar="
-                                                            customToolbar
-                                                        "
-                                                        v-model="
-                                                            ThirdLVLAccount.study
-                                                        "
-                                                    ></vue-editor>
-                                                </div>
-                                                <h4
-                                                    v-else
-                                                    v-html="
-                                                        ThirdLVLAccount.study
-                                                    "
-                                                ></h4>
-                                            </div>
-                                        </div>
-
-                                        <hr
-                                            v-if="
-                                                ThirdLVLAccount.study ||
-                                                    !PrintingMood
-                                            "
-                                        />
-
-                                        <div v-if="!PrintingMood">
-                                            <v-checkbox
-                                                v-model="
-                                                    ThirdLVLAccount.ShowSecond_study
-                                                "
-                                                label="إظهار الدراسة الثانية"
-                                            ></v-checkbox>
-                                        </div>
-                                        <div
-                                            v-if="
-                                                ThirdLVLAccount.ShowSecond_study
-                                            "
-                                            class="row mt-10 "
-                                            style="direction:rtl;margin-top:20px"
-                                        >
-                                            <div class="col-md-2">
-                                                <h3>
-                                                    الدراسة الثانية :
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div v-if="!PrintingMood">
-                                                    <vue-editor
-                                                        :editorToolbar="
-                                                            customToolbar
-                                                        "
-                                                        v-model="
-                                                            ThirdLVLAccount.second_study
-                                                        "
-                                                    ></vue-editor>
-                                                </div>
-                                                <h4
-                                                    v-else
-                                                    v-html="
-                                                        ThirdLVLAccount.second_study
-                                                    "
-                                                ></h4>
-                                            </div>
-                                        </div>
-                                        <hr
-                                            v-if="
-                                                ThirdLVLAccount.second_study ||
-                                                    !PrintingMood
-                                            "
-                                        />
-                                        <!------ ./Study -------->
-                                        <!------ procedures ------>
-                                        <div v-if="!PrintingMood">
-                                            <v-checkbox
-                                                v-model="
-                                                    ThirdLVLAccount.ShowProcedures
-                                                "
-                                                label="إظهار اجرائات المراجعة"
-                                            ></v-checkbox>
-                                        </div>
-                                        <div
-                                            v-if="
-                                                ThirdLVLAccount.ShowProcedures
-                                            "
-                                            class="row mt-20 "
-                                            style="direction:rtl;margin-top:20px"
-                                        >
-                                            <div class="col-md-2">
-                                                <h3>
-                                                    اجرائات المراجعة :
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div v-if="!PrintingMood">
-                                                    <vue-editor
-                                                        :editorToolbar="
-                                                            customToolbar
-                                                        "
-                                                        v-model="
-                                                            ThirdLVLAccount.procedures
-                                                        "
-                                                    ></vue-editor>
-                                                </div>
-                                                <h4
-                                                    v-else
-                                                    v-html="
-                                                        ThirdLVLAccount.procedures
-                                                    "
-                                                ></h4>
-                                            </div>
-                                        </div>
-                                        <hr
-                                            v-if="
-                                                ThirdLVLAccount.procedures ||
-                                                    !PrintingMood
-                                            "
-                                        />
-                                        <!------ ./procedures ------>
-                                        <!------ international Measurement ----->
-                                        <div v-if="!PrintingMood">
-                                            <v-checkbox
-                                                v-model="
-                                                    ThirdLVLAccount.ShowInternational_measurement
-                                                "
-                                                label="إظهار المعيار الدولي"
-                                            ></v-checkbox>
-                                        </div>
-                                        <div
-                                            v-if="
-                                                ThirdLVLAccount.ShowInternational_measurement
-                                            "
-                                            class="row mt-20 "
-                                            style="direction:rtl;margin-top:20px"
-                                        >
-                                            <div class="col-md-2">
-                                                <h3>
-                                                    المعيار الدولي :
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div v-if="!PrintingMood">
-                                                    <vue-editor
-                                                        :editorToolbar="
-                                                            customToolbar
-                                                        "
-                                                        v-model="
-                                                            ThirdLVLAccount.international_measurement
-                                                        "
-                                                    ></vue-editor>
-                                                </div>
-                                                <h4
-                                                    v-else
-                                                    v-html="
-                                                        ThirdLVLAccount.international_measurement
-                                                    "
-                                                ></h4>
-                                            </div>
-                                        </div>
-                                        <hr
-                                            v-if="
-                                                ThirdLVLAccount.international_measurement ||
-                                                    !PrintingMood
-                                            "
-                                        />
-                                        <!------ ./international Measurement ----->
-                                        <!------ Accounting Term ----->
-                                        <div v-if="!PrintingMood">
-                                            <v-checkbox
-                                                v-model="
-                                                    ThirdLVLAccount.ShowAccounting_term
-                                                "
-                                                label="إظهار التعريف المحاسبي"
-                                            ></v-checkbox>
-                                        </div>
-                                        <div
-                                            v-if="
-                                                ThirdLVLAccount.ShowAccounting_term
-                                            "
-                                            class="row mt-20 "
-                                            style="direction:rtl;margin-top:20px"
-                                        >
-                                            <div class="col-md-2">
-                                                <h3>
-                                                    التعريف المحاسبي :
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div v-if="!PrintingMood">
-                                                    <vue-editor
-                                                        :editorToolbar="
-                                                            customToolbar
-                                                        "
-                                                        v-model="
-                                                            ThirdLVLAccount.accounting_term
-                                                        "
-                                                    ></vue-editor>
-                                                </div>
-
-                                                <h4
-                                                    v-else
-                                                    v-html="
-                                                        ThirdLVLAccount.accounting_term
-                                                    "
-                                                ></h4>
-                                            </div>
-                                        </div>
-                                        <hr
-                                            v-if="
-                                                ThirdLVLAccount.accounting_term ||
-                                                    !PrintingMood
-                                            "
-                                        />
-                                        <!------ ./Accounting Term ----->
-                                        <!------ Save Button ----->
-                                        <div
-                                            v-if="!PrintingMood"
-                                            class="text-center"
-                                        >
-                                            <v-btn
-                                                @click.native="
-                                                    ThirdLVLAccount.GotVueEditorDataFromStatement
-                                                        ? UpdateValuesOfTextAreaOfThirdLVLStatementAfterEditingToStatement(
-                                                              ThirdLVLAccount
-                                                          )
-                                                        : SaveValuesOfTextAreaOfThirdLVLStatementAfterEditingToStatement(
-                                                              ThirdLVLAccount
-                                                          )
-                                                "
-                                                depressed
-                                                x-large
-                                                color="success"
-                                            >
-                                                حفظ
-                                            </v-btn>
-                                        </div>
-                                        <!------ ./Save Button ----->
+                                        <clearance-table
+                                            :Account="SecondLVLAccount"
+                                            :Transaction="Transaction"
+                                            ref="SecondLVLClearances"
+                                        ></clearance-table>
                                     </div>
-                                    <!--------- ./div contains all fourth level accounts ----------->
+                                    <!----- ./collapsed tap content ------->
                                 </div>
-                                <!----- ./if ThirdLVLAccount level has clearance number --->
-                                <!----- ./if ThirdLVLAccount level have Fourth level Accounts --->
-                            </div>
-                            <!-- check if the third level account has clearance number -->
+                                <!----- if ./SecondLVLAccount level has clearance number --->
 
-                            <!-- if ./SecondLVLAccount doesn't have clearance number  -->
+                                <!-- if SecondLVLAccount doesn't have clearance number  -->
+                                <!-- check if the third level account has clearance number -->
+                                <div
+                                    v-else-if="
+                                        SecondLVLAccount.third_level_accounts
+                                            .length
+                                    "
+                                >
+                                    <div
+                                        v-for="(ThirdLVLAccount,
+                                        ThirdLVLAccountIndex) in SecondLVLAccount.third_level_accounts"
+                                        :key="ThirdLVLAccountIndex"
+                                    >
+                                        <!----- if ThirdLVLAccount level doesn't have Fourth level Accounts --->
+                                        <!----- if ThirdLVLAccount level has clearance number --->
+                                        <div
+                                            :id="ThirdLVLAccount.id + 'print'"
+                                            v-if="
+                                                ThirdLVLAccount.ClearanceNumber &&
+                                                    ThirdLVLAccount
+                                                        .fourth_level_accounts
+                                                        .length == 0
+                                            "
+                                        >
+                                            <v-card
+                                                class="indigo darken-1  grey--text text--lighten-5 col-md-12  mt-20 mb-20 cursor-pointer  content-between"
+                                                style=""
+                                                @click="
+                                                    ThirdLVLAccount.MonetaryItems
+                                                        ? ''
+                                                        : GetAccountStatements(
+                                                              ThirdLVLAccount
+                                                          )
+                                                "
+                                                data-toggle="collapse"
+                                                :data-target="
+                                                    '#' +
+                                                        'collapse' +
+                                                        ThirdLVLAccount.id
+                                                "
+                                                aria-expanded="true"
+                                                :aria-controls="
+                                                    ThirdLVLAccount.id
+                                                "
+                                            >
+                                                <v-card-title
+                                                    style="width:100%"
+                                                    class="cursor-pointer d-flex justify-space-between"
+                                                >
+                                                    <div>
+                                                        إيضاح :
+                                                        {{
+                                                            ThirdLVLAccount.ClearanceNumber
+                                                        }}
+                                                        ,
+                                                        {{
+                                                            ThirdLVLAccount.name
+                                                        }}
+                                                    </div>
+                                                </v-card-title>
+                                            </v-card>
+
+                                            <!----- collapsed tap content ------->
+                                            <div
+                                                :id="
+                                                    'collapse' +
+                                                        ThirdLVLAccount.id
+                                                "
+                                                :class="[
+                                                    printFullScreenBoolean
+                                                        ? ''
+                                                        : 'collapse fade'
+                                                ]"
+                                            >
+                                                <clearance-table
+                                                    :Account="ThirdLVLAccount"
+                                                    :Transaction="Transaction"
+                                                    ref="ThirdLVLClearances"
+                                                ></clearance-table>
+                                            </div>
+                                            <!----- ./collapsed tap content ------->
+                                        </div>
+                                        <!----- ./if ThirdLVLAccount level has clearance number --->
+                                        <!----- ./if ThirdLVLAccount level doesn't have Fourth level Accounts --->
+
+                                        <!----- if ThirdLVLAccount level  have Fourth level Accounts --->
+                                        <!----- if ThirdLVLAccount level has clearance number --->
+                                        <div
+                                            :id="ThirdLVLAccount.id + 'print'"
+                                            v-else-if="
+                                                ThirdLVLAccount.ClearanceNumber &&
+                                                    ThirdLVLAccount
+                                                        .fourth_level_accounts
+                                                        .length
+                                            "
+                                        >
+                                            <v-card
+                                                class="indigo darken-1  grey--text text--lighten-5 col-md-12  mt-20 mb-20 cursor-pointer  content-between"
+                                                style=""
+                                                @click="
+                                                    GetFourthLevelAccountsStatementsOfThirdLevelAccount(
+                                                        ThirdLVLAccount
+                                                    )
+                                                "
+                                                data-toggle="collapse"
+                                                :data-target="
+                                                    '#' +
+                                                        'collapse' +
+                                                        ThirdLVLAccount.id
+                                                "
+                                                aria-expanded="true"
+                                                :aria-controls="
+                                                    ThirdLVLAccount.id
+                                                "
+                                            >
+                                                <v-card-title
+                                                    style="width:100%"
+                                                    class="cursor-pointer d-flex justify-space-between"
+                                                >
+                                                    <div>
+                                                        إيضاح :
+                                                        {{
+                                                            ThirdLVLAccount.ClearanceNumber
+                                                        }}
+                                                        ,
+                                                        {{
+                                                            ThirdLVLAccount.name
+                                                        }}
+                                                    </div>
+
+                                                    <v-tooltip bottom>
+                                                        <template
+                                                            v-slot:activator="{
+                                                                on,
+                                                                attrs
+                                                            }"
+                                                        >
+                                                            <v-icon
+                                                                @click.stop="
+                                                                    printHeading(
+                                                                        ThirdLVLAccount.id
+                                                                    )
+                                                                "
+                                                                class="cursor-pointer"
+                                                                color="grey lighten-5"
+                                                                v-bind="attrs"
+                                                                v-on="on"
+                                                            >
+                                                                mdi-printer
+                                                            </v-icon>
+                                                        </template>
+                                                        <span
+                                                            >print heading</span
+                                                        >
+                                                    </v-tooltip>
+                                                </v-card-title>
+                                            </v-card>
+                                            <!--------- div contains all fourth level accounts ----------->
+                                            <div
+                                                :id="
+                                                    'collapse' +
+                                                        ThirdLVLAccount.id
+                                                "
+                                                :class="[
+                                                    printFullScreenBoolean
+                                                        ? ''
+                                                        : 'collapse fade'
+                                                ]"
+                                            >
+                                                <!------ policies -------->
+                                                <div
+                                                    v-if="!PrintingMood"
+                                                    class="row"
+                                                >
+                                                    <v-checkbox
+                                                        class="col-md-6"
+                                                        v-model="
+                                                            ThirdLVLAccount.ShowPolicies
+                                                        "
+                                                        label="إظهار السياسة"
+                                                    ></v-checkbox>
+                                                </div>
+                                                <div
+                                                    v-if="
+                                                        ThirdLVLAccount.ShowPolicies
+                                                    "
+                                                    class="row mt-10 "
+                                                    style="direction:rtl;margin-top:20px"
+                                                >
+                                                    <div class="col-md-2">
+                                                        <h3>
+                                                            السياسة :
+                                                        </h3>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div
+                                                            v-if="!PrintingMood"
+                                                        >
+                                                            <vue-editor
+                                                                :editorToolbar="
+                                                                    customToolbar
+                                                                "
+                                                                v-model="
+                                                                    ThirdLVLAccount.policies
+                                                                "
+                                                            ></vue-editor>
+                                                        </div>
+                                                        <h4
+                                                            v-else
+                                                            v-html="
+                                                                ThirdLVLAccount.policies
+                                                            "
+                                                        ></h4>
+                                                    </div>
+                                                </div>
+                                                <hr
+                                                    v-if="
+                                                        ThirdLVLAccount.policies ||
+                                                            !PrintingMood
+                                                    "
+                                                />
+                                                <!------ ./policies -------->
+                                                <!------ considerations -------->
+                                                <div v-if="!PrintingMood">
+                                                    <v-checkbox
+                                                        v-model="
+                                                            ThirdLVLAccount.ShowConsedrations
+                                                        "
+                                                        label="إظهار لفت انتباه"
+                                                    ></v-checkbox>
+                                                </div>
+                                                <div
+                                                    v-if="
+                                                        ThirdLVLAccount.ShowConsedrations
+                                                    "
+                                                    class="row mt-20 "
+                                                    style="direction:rtl;margin-top:20px"
+                                                >
+                                                    <div class="col-md-2">
+                                                        <h3>
+                                                            لفت انتباه :
+                                                        </h3>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div
+                                                            v-if="!PrintingMood"
+                                                        >
+                                                            <vue-editor
+                                                                :editorToolbar="
+                                                                    customToolbar
+                                                                "
+                                                                v-model="
+                                                                    ThirdLVLAccount.considerations
+                                                                "
+                                                            ></vue-editor>
+                                                        </div>
+                                                        <h4
+                                                            v-else
+                                                            v-html="
+                                                                ThirdLVLAccount.considerations
+                                                            "
+                                                        ></h4>
+                                                    </div>
+                                                </div>
+                                                <hr
+                                                    v-if="
+                                                        ThirdLVLAccount.consedrations ||
+                                                            !PrintingMood
+                                                    "
+                                                />
+                                                <!------ ./considerations -------->
+
+                                                <!------- Table ------------->
+                                                <div
+                                                    class="row text-center"
+                                                    v-if="!PrintingMood"
+                                                >
+                                                    <div
+                                                        class="col-md-3 col-6 text-center"
+                                                    >
+                                                        <v-checkbox
+                                                            v-model="
+                                                                ThirdLVLAccount.ShowFirstPastYear
+                                                            "
+                                                            :label="
+                                                                `1 اظهار رصيد السنة السابقة`
+                                                            "
+                                                        ></v-checkbox>
+                                                    </div>
+
+                                                    <div
+                                                        class="col-md-3 col-6 text-center"
+                                                    >
+                                                        <v-checkbox
+                                                            v-model="
+                                                                ThirdLVLAccount.ShowSecondPastYear
+                                                            "
+                                                            :label="
+                                                                `2 اظهار رصيد السنة السابقة`
+                                                            "
+                                                        ></v-checkbox>
+                                                    </div>
+
+                                                    <div
+                                                        class="col-md-3 col-6 text-center"
+                                                    >
+                                                        <v-checkbox
+                                                            v-model="
+                                                                ThirdLVLAccount.ShowThirdPastYear
+                                                            "
+                                                            :label="
+                                                                `3 اظهار رصيد السنة السابقة`
+                                                            "
+                                                        ></v-checkbox>
+                                                    </div>
+
+                                                    <div
+                                                        class="col-md-3 col-6 text-center"
+                                                    >
+                                                        <v-checkbox
+                                                            v-model="
+                                                                ThirdLVLAccount.ShowFourthPastYear
+                                                            "
+                                                            :label="
+                                                                `4 اظهار رصيد السنة السابقة`
+                                                            "
+                                                        ></v-checkbox>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div
+                                                    class=" mt-20 "
+                                                    style="direction:rtl"
+                                                >
+                                                    <h3 class="mt-20">
+                                                        يتكون بند
+                                                        {{
+                                                            ThirdLVLAccount.name
+                                                        }}
+                                                        من :
+                                                    </h3>
+
+                                                    <table
+                                                        class="mt-20 table table-bordered"
+                                                    >
+                                                        <thead>
+                                                            <tr>
+                                                                <th
+                                                                    rowspan="2"
+                                                                    colspan="1"
+                                                                >
+                                                                    .
+                                                                </th>
+                                                                <th
+                                                                    rowspan="2"
+                                                                    colspan="1"
+                                                                >
+                                                                    الأسم
+                                                                </th>
+
+                                                                <th
+                                                                    class="text-center"
+                                                                    rowspan="1"
+                                                                    colspan="2"
+                                                                >
+                                                                    حركة
+                                                                </th>
+
+                                                                <th
+                                                                    class="text-center"
+                                                                    rowspan="1"
+                                                                    colspan="2"
+                                                                >
+                                                                    تعديل
+                                                                </th>
+                                                                <th
+                                                                    class="text-center"
+                                                                    rowspan="1"
+                                                                    colspan="1"
+                                                                >
+                                                                    الرصيد
+                                                                    النهائي
+                                                                </th>
+                                                                <th
+                                                                    class="text-center"
+                                                                    rowspan="1"
+                                                                    colspan="1"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowFirstPastYear
+                                                                    "
+                                                                >
+                                                                    الرصيد
+                                                                    النهائي
+                                                                </th>
+
+                                                                <th
+                                                                    class="text-center"
+                                                                    rowspan="1"
+                                                                    colspan="1"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowSecondPastYear
+                                                                    "
+                                                                >
+                                                                    الرصيد
+                                                                    النهائي
+                                                                </th>
+                                                                <th
+                                                                    class="text-center"
+                                                                    rowspan="1"
+                                                                    colspan="1"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowThirdPastYear
+                                                                    "
+                                                                >
+                                                                    الرصيد
+                                                                    النهائي
+                                                                </th>
+                                                                <th
+                                                                    class="text-center"
+                                                                    rowspan="1"
+                                                                    colspan="1"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowFourthPastYear
+                                                                    "
+                                                                >
+                                                                    الرصيد
+                                                                    النهائي
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>مدين</th>
+                                                                <th>دائن</th>
+
+                                                                <th>مدين</th>
+                                                                <th>دائن</th>
+
+                                                                <th
+                                                                    class="text-center"
+                                                                >
+                                                                    {{
+                                                                        Transaction.end_financial_year
+                                                                    }}
+                                                                </th>
+                                                                <th
+                                                                    class="text-center"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowFirstPastYear
+                                                                    "
+                                                                >
+                                                                    {{
+                                                                        Transaction.FirstPastYearDate
+                                                                    }}
+                                                                </th>
+                                                                <th
+                                                                    class="text-center"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowSecondPastYear
+                                                                    "
+                                                                >
+                                                                    {{
+                                                                        Transaction.SecondPastYearDate
+                                                                    }}
+                                                                </th>
+                                                                <th
+                                                                    class="text-center"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowThirdPastYear
+                                                                    "
+                                                                >
+                                                                    {{
+                                                                        Transaction.ThirdPastYearDate
+                                                                    }}
+                                                                </th>
+                                                                <th
+                                                                    class="text-center"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowFourthPastYear
+                                                                    "
+                                                                >
+                                                                    {{
+                                                                        Transaction.FourthPastYearDate
+                                                                    }}
+                                                                </th>
+
+                                                                <th
+                                                                    class="text-center"
+                                                                >
+                                                                    5%
+                                                                </th>
+                                                                <th
+                                                                    class="text-center"
+                                                                >
+                                                                    10%
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                v-for="(item,
+                                                                index) in ThirdLVLAccount.fourth_level_accounts"
+                                                                :key="item.id"
+                                                            >
+                                                                <td>
+                                                                    <h5>
+                                                                        {{
+                                                                            ThirdLVLAccount.ClearanceNumber +
+                                                                                ".0"
+                                                                        }}{{
+                                                                            index +
+                                                                                1
+                                                                        }}
+                                                                    </h5>
+                                                                </td>
+                                                                <td>
+                                                                    <h5>
+                                                                        {{
+                                                                            item.name
+                                                                        }}
+                                                                    </h5>
+                                                                </td>
+
+                                                                <td>
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.CurrentYearDebtorSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td>
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.CurrentYearCreditorSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td>
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.edited_CurrentYearDebtorSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td>
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.edited_CurrentYearCreditorSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+
+                                                                <td
+                                                                    class="text-center"
+                                                                >
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.CurrentYearSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td
+                                                                    class="text-center"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowFirstPastYear
+                                                                    "
+                                                                >
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.FirstPastYearSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td
+                                                                    class="text-center"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowSecondPastYear
+                                                                    "
+                                                                >
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.SecondPastYearSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td
+                                                                    class="text-center"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowThirdPastYear
+                                                                    "
+                                                                >
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.ThirdPastYearSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td
+                                                                    class="text-center"
+                                                                    v-if="
+                                                                        ThirdLVLAccount.ShowFourthPastYear
+                                                                    "
+                                                                >
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.FourthPastYearSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td
+                                                                    class="text-center"
+                                                                >
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.CurrentYearSum *
+                                                                                    0.05
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td
+                                                                    class="text-center"
+                                                                >
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                item.CurrentYearSum *
+                                                                                    0.1
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h4>
+                                                                        الرصيد
+                                                                        آخر
+                                                                        السنة
+                                                                    </h4>
+                                                                </td>
+                                                                <td
+                                                                    style="visibility: hidden"
+                                                                ></td>
+
+                                                                <td>
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                ThirdLVLAccount.CurrentYearDebtorSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td>
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                ThirdLVLAccount.CurrentYearCreditorSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td>
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                ThirdLVLAccount.edited_CurrentYearDebtorSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td>
+                                                                    <h5
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                ThirdLVLAccount.edited_CurrentYearCreditorSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                                <td>
+                                                                    <h5
+                                                                        class="text-center"
+                                                                        v-text="
+                                                                            formatValue(
+                                                                                ThirdLVLAccount.CurrentYearSum
+                                                                            )
+                                                                        "
+                                                                    ></h5>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!------- ./Table ------------->
+
+                                                <!------ Study -------->
+                                                <div v-if="!PrintingMood">
+                                                    <v-checkbox
+                                                        v-model="
+                                                            ThirdLVLAccount.ShowStudy
+                                                        "
+                                                        label="إظهار الدراسة "
+                                                    ></v-checkbox>
+                                                </div>
+                                                <div
+                                                    v-if="
+                                                        ThirdLVLAccount.ShowStudy
+                                                    "
+                                                    class="row mt-10 "
+                                                    style="direction:rtl;margin-top:20px"
+                                                >
+                                                    <div class="col-md-2">
+                                                        <h3>
+                                                            الدراسة :
+                                                        </h3>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div
+                                                            v-if="!PrintingMood"
+                                                        >
+                                                            <vue-editor
+                                                                :editorToolbar="
+                                                                    customToolbar
+                                                                "
+                                                                v-model="
+                                                                    ThirdLVLAccount.study
+                                                                "
+                                                            ></vue-editor>
+                                                        </div>
+                                                        <h4
+                                                            v-else
+                                                            v-html="
+                                                                ThirdLVLAccount.study
+                                                            "
+                                                        ></h4>
+                                                    </div>
+                                                </div>
+
+                                                <hr
+                                                    v-if="
+                                                        ThirdLVLAccount.study ||
+                                                            !PrintingMood
+                                                    "
+                                                />
+
+                                                <div v-if="!PrintingMood">
+                                                    <v-checkbox
+                                                        v-model="
+                                                            ThirdLVLAccount.ShowSecond_study
+                                                        "
+                                                        label="إظهار الدراسة الثانية"
+                                                    ></v-checkbox>
+                                                </div>
+                                                <div
+                                                    v-if="
+                                                        ThirdLVLAccount.ShowSecond_study
+                                                    "
+                                                    class="row mt-10 "
+                                                    style="direction:rtl;margin-top:20px"
+                                                >
+                                                    <div class="col-md-2">
+                                                        <h3>
+                                                            الدراسة الثانية :
+                                                        </h3>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div
+                                                            v-if="!PrintingMood"
+                                                        >
+                                                            <vue-editor
+                                                                :editorToolbar="
+                                                                    customToolbar
+                                                                "
+                                                                v-model="
+                                                                    ThirdLVLAccount.second_study
+                                                                "
+                                                            ></vue-editor>
+                                                        </div>
+                                                        <h4
+                                                            v-else
+                                                            v-html="
+                                                                ThirdLVLAccount.second_study
+                                                            "
+                                                        ></h4>
+                                                    </div>
+                                                </div>
+                                                <hr
+                                                    v-if="
+                                                        ThirdLVLAccount.second_study ||
+                                                            !PrintingMood
+                                                    "
+                                                />
+                                                <!------ ./Study -------->
+                                                <!------ procedures ------>
+                                                <div v-if="!PrintingMood">
+                                                    <v-checkbox
+                                                        v-model="
+                                                            ThirdLVLAccount.ShowProcedures
+                                                        "
+                                                        label="إظهار اجرائات المراجعة"
+                                                    ></v-checkbox>
+                                                </div>
+                                                <div
+                                                    v-if="
+                                                        ThirdLVLAccount.ShowProcedures
+                                                    "
+                                                    class="row mt-20 "
+                                                    style="direction:rtl;margin-top:20px"
+                                                >
+                                                    <div class="col-md-2">
+                                                        <h3>
+                                                            اجرائات المراجعة :
+                                                        </h3>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div
+                                                            v-if="!PrintingMood"
+                                                        >
+                                                            <vue-editor
+                                                                :editorToolbar="
+                                                                    customToolbar
+                                                                "
+                                                                v-model="
+                                                                    ThirdLVLAccount.procedures
+                                                                "
+                                                            ></vue-editor>
+                                                        </div>
+                                                        <h4
+                                                            v-else
+                                                            v-html="
+                                                                ThirdLVLAccount.procedures
+                                                            "
+                                                        ></h4>
+                                                    </div>
+                                                </div>
+                                                <hr
+                                                    v-if="
+                                                        ThirdLVLAccount.procedures ||
+                                                            !PrintingMood
+                                                    "
+                                                />
+                                                <!------ ./procedures ------>
+                                                <!------ international Measurement ----->
+                                                <div v-if="!PrintingMood">
+                                                    <v-checkbox
+                                                        v-model="
+                                                            ThirdLVLAccount.ShowInternational_measurement
+                                                        "
+                                                        label="إظهار المعيار الدولي"
+                                                    ></v-checkbox>
+                                                </div>
+                                                <div
+                                                    v-if="
+                                                        ThirdLVLAccount.ShowInternational_measurement
+                                                    "
+                                                    class="row mt-20 "
+                                                    style="direction:rtl;margin-top:20px"
+                                                >
+                                                    <div class="col-md-2">
+                                                        <h3>
+                                                            المعيار الدولي :
+                                                        </h3>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div
+                                                            v-if="!PrintingMood"
+                                                        >
+                                                            <vue-editor
+                                                                :editorToolbar="
+                                                                    customToolbar
+                                                                "
+                                                                v-model="
+                                                                    ThirdLVLAccount.international_measurement
+                                                                "
+                                                            ></vue-editor>
+                                                        </div>
+                                                        <h4
+                                                            v-else
+                                                            v-html="
+                                                                ThirdLVLAccount.international_measurement
+                                                            "
+                                                        ></h4>
+                                                    </div>
+                                                </div>
+                                                <hr
+                                                    v-if="
+                                                        ThirdLVLAccount.international_measurement ||
+                                                            !PrintingMood
+                                                    "
+                                                />
+                                                <!------ ./international Measurement ----->
+                                                <!------ Accounting Term ----->
+                                                <div v-if="!PrintingMood">
+                                                    <v-checkbox
+                                                        v-model="
+                                                            ThirdLVLAccount.ShowAccounting_term
+                                                        "
+                                                        label="إظهار التعريف المحاسبي"
+                                                    ></v-checkbox>
+                                                </div>
+                                                <div
+                                                    v-if="
+                                                        ThirdLVLAccount.ShowAccounting_term
+                                                    "
+                                                    class="row mt-20 "
+                                                    style="direction:rtl;margin-top:20px"
+                                                >
+                                                    <div class="col-md-2">
+                                                        <h3>
+                                                            التعريف المحاسبي :
+                                                        </h3>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div
+                                                            v-if="!PrintingMood"
+                                                        >
+                                                            <vue-editor
+                                                                :editorToolbar="
+                                                                    customToolbar
+                                                                "
+                                                                v-model="
+                                                                    ThirdLVLAccount.accounting_term
+                                                                "
+                                                            ></vue-editor>
+                                                        </div>
+
+                                                        <h4
+                                                            v-else
+                                                            v-html="
+                                                                ThirdLVLAccount.accounting_term
+                                                            "
+                                                        ></h4>
+                                                    </div>
+                                                </div>
+                                                <hr
+                                                    v-if="
+                                                        ThirdLVLAccount.accounting_term ||
+                                                            !PrintingMood
+                                                    "
+                                                />
+                                                <!------ ./Accounting Term ----->
+                                                <!------ Save Button ----->
+                                                <div
+                                                    v-if="!PrintingMood"
+                                                    class="text-center"
+                                                >
+                                                    <v-btn
+                                                        @click.native="
+                                                            ThirdLVLAccount.GotVueEditorDataFromStatement
+                                                                ? UpdateValuesOfTextAreaOfThirdLVLStatementAfterEditingToStatement(
+                                                                      ThirdLVLAccount
+                                                                  )
+                                                                : SaveValuesOfTextAreaOfThirdLVLStatementAfterEditingToStatement(
+                                                                      ThirdLVLAccount
+                                                                  )
+                                                        "
+                                                        depressed
+                                                        x-large
+                                                        color="success"
+                                                    >
+                                                        حفظ
+                                                    </v-btn>
+                                                </div>
+                                                <!------ ./Save Button ----->
+                                            </div>
+                                            <!--------- ./div contains all fourth level accounts ----------->
+                                        </div>
+                                        <!----- ./if ThirdLVLAccount level has clearance number --->
+                                        <!----- ./if ThirdLVLAccount level have Fourth level Accounts --->
+                                    </div>
+                                </div>
+                                <!-- check if the third level account has clearance number -->
+
+                                <!-- if ./SecondLVLAccount doesn't have clearance number  -->
+                            </div>
                         </div>
                         <!-- ./ check if the second level account has clearance number -->
                         <!-- ./if FirstLVLAccount doesn't have clearance number  -->
