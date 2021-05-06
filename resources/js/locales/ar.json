@@ -123,6 +123,8 @@
 
 
     "document": "المستند",
+    "documentNumber": "رقم المستند",
+    "documentDate": "تاريخ المستند",
 
 
     "measurmentStandardDetemine": "محددات معيار القياس",
@@ -201,6 +203,8 @@
 
 
     "transactionInfoAndHours": "بيانات المعاملة و توزيع عدد الساعات",
-    "chooseAuditor": "اختيار مدقق"
+    "chooseAuditor": "اختيار مدقق",
+    "detail_debit": "تفصيلية - مدين",
+    "detail_credit": "تفصيلية - دائن"
 
 }

@@ -22,9 +22,9 @@ class OfficeBranchesController extends Controller
     public function index()
     {
         //
-        if(\response()->expectsJson()){
+        if(\request()->expectsJson()){
            $OfficeBranches =  OfficeBranch::all();
-            return response()->json(['OfficeBranches' => $OfficeBranches]);
+            return request()->json(['OfficeBranches' => $OfficeBranches]);
         }
         return view('SuperAdmin.OfficeBranches.index');
     }
