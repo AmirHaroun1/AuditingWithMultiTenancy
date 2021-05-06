@@ -45,11 +45,16 @@ class TradeRegisterController extends Controller
 
         return response()->json($newTradeRegister,200);
     }
-    public function update(UpadteTradeRegisterRequest $request,TradeRegister $tradeRegister){
+    public function update(UpadteTradeRegisterRequest $request,$tradeRegisterID){
+        $tradeRegister = TradeRegister::findOrFail($tradeRegisterID);
+        $tradeRegister->number = $request->number;
+        $tradeRegister->date = $request->date;
+        $tradeRegister->production_place = $request->production_place;
+        $tradeRegister->EndDate = $request->EndDate;
+        $tradeRegister->type = $request->type;
+        $tradeRegister->save();
+        return response()->json([$tradeRegisterID],200);
 
-        $tradeRegister->update($request->all());
-
-        return response()->json([$tradeRegister],200);
     }
     public function delete($tradeRegisterID){
 
