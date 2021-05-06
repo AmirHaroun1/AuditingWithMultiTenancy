@@ -250,7 +250,7 @@
             </div>
         </div>
 
-        <div class="d-flex justify-center ">
+        <div class="d-flex justify-center mt-5">
                 <v-btn
                     @click.native="UpdateTransactionStatus('reviser')"
                     depressed
@@ -272,7 +272,7 @@ export default {
     },
     data() {
         return {
-            ActivePane: "بيانات المعاملة"
+            ActivePane: "الإيضاحات"
         };
     },
     methods: {
