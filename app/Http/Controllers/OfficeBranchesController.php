@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 class OfficeBranchesController extends Controller
 {
     /**
+     *
      * In case of response expects json it retrieves all office_branches
      * <br>
      * In case of normal response it return the blade SuperAdmin/OfficeBranches/index.php
@@ -22,8 +23,8 @@ class OfficeBranchesController extends Controller
     public function index()
     {
         //
-        if(\response()->expectsJson()){
-           $OfficeBranches =  OfficeBranch::all();
+        if(\request()->expectsJson()){
+            $OfficeBranches =  OfficeBranch::all();
             return response()->json(['OfficeBranches' => $OfficeBranches]);
         }
         return view('SuperAdmin.OfficeBranches.index');

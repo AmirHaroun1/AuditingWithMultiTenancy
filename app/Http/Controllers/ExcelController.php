@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
+use Mockery\Exception;
 
 class ExcelController extends Controller
 {
@@ -31,26 +32,32 @@ class ExcelController extends Controller
     }
     public function store(Request $request){
 
+        DB::beginTransaction();
+        try{
+            $insertedBranchedStatement = account_transaction::create($request->all());
 
-        $insertedBranchedStatement = account_transaction::create($request->all());
-
-        $InsertedBranchedStatementID = DB::table('account_transaction')->where('parent_id',$request->parent_id)->where('code',$request->code)->latest('id')->select('id')->first();
-
-
-        $BranchStatement = account_transaction::findOrFail($request->parent_id);
-        $BranchStatement->current_year += $request->current_year;
-        $BranchStatement->current_year_creditor += $request->current_year_creditor;
-        $BranchStatement->current_year_debtor += $request->current_year_debtor;
-
-        $BranchStatement->first_past_year += $request->first_past_year;
-        $BranchStatement->second_past_year += $request->second_past_year;
-        $BranchStatement->third_past_year += $request->third_past_year;
-        $BranchStatement->fourth_past_year += $request->fourth_past_year;
-
-        $BranchStatement->save();
+            $InsertedBranchedStatementID = DB::table('account_transaction')->where('parent_id',$request->parent_id)->where('code',$request->code)->latest('id')->select('id')->first();
 
 
-        return response()->json(['BranchedStatementID'=>$InsertedBranchedStatementID],200);
+            $BranchStatement = account_transaction::findOrFail($request->parent_id);
+            $BranchStatement->current_year += $request->current_year;
+            $BranchStatement->current_year_creditor += $request->current_year_creditor;
+            $BranchStatement->current_year_debtor += $request->current_year_debtor;
+
+            $BranchStatement->first_past_year += $request->first_past_year;
+            $BranchStatement->second_past_year += $request->second_past_year;
+            $BranchStatement->third_past_year += $request->third_past_year;
+            $BranchStatement->fourth_past_year += $request->fourth_past_year;
+
+            $BranchStatement->save();
+
+            DB::commit();
+            return response()->json(['BranchedStatementID'=>$InsertedBranchedStatementID],200);
+        }catch (Exception $exception){
+            DB::rollBack();
+            return response()->json([],500);
+        }
+
 
     }
     public function destroy($BranchID,$ParentID){
