@@ -51,9 +51,19 @@
                         <i class="fa fa-refresh fa-spin">
                         </i>
                     </div>
-                    <div class="box-body">
+                    <div>
+                        <v-form>
+                        <v-card>
+                            <v-card-title>
+                                {{$t('transactionInfoAndHours')}}
+                            </v-card-title>
+                            <v-form>
+                                
+                            </v-form>
+                        </v-card>
+                        </v-form>
                         <div class="box-header">
-                            <h2>بيانات المعاملة و توزيع عدد الساعات </h2>
+                            <h2> </h2>
                         </div>
                         <form id="EditTransactionForm" class="form-group" @submit.prevent="UpdateTransaction()">
                             <!-- Start / End Date  ------>
@@ -103,6 +113,18 @@
                             </div>
                             <!-- توزيع ساعات العمل/.  ------>
                             <!-- اختيرا المندوب الميدانى و المدقق  ------>
+                            <v-row>
+                                <v-col md="6">
+                                    <v-autocomplete v-model="ChoosenAuditor" :items="auditors" :label="$t('chooseAuditor')" outlined item-text="label" item-value="code" >
+                                        
+                                    </v-autocomplete>
+                                </v-col>
+                                <v-col md="6">
+                                    <v-autocomplete v-model="ChoosenFieldDelegate" :items="fieldDelegates" :label="$t('chooseAuditor')" outlined item-text="label" item-value="code" >
+                                        
+                                    </v-autocomplete>
+                                </v-col>
+                            </v-row>
                             <div class="row">
                                 <div class="col-md-6" style="padding-top: 15px">
                                     <label>اختيار المدقق</label>

@@ -197,6 +197,10 @@
     "accountType": "نوع الحساب",
     "create": "أضافة",
     "latest": "الاحدث",
-    "oldest": "الاقدم"
+    "oldest": "الاقدم",
+
+
+    "transactionInfoAndHours": "بيانات المعاملة و توزيع عدد الساعات",
+    "chooseAuditor": "اختيار مدقق"
 
 }
