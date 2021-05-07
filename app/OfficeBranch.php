@@ -8,8 +8,8 @@ class OfficeBranch extends Model
 {
     //
     protected $table = 'branches';
+    protected $guarded = [];
     public function scopeWithOfficeTransactionsStats($query){
-
         $query->addSelect(['AllTransactions' => function ($query) {
             $query->selectRaw('count(*)  From transactions where branches.id = transactions.branch_office_id');
         }]);

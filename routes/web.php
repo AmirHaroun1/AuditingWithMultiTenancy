@@ -89,13 +89,11 @@ Route::group([ 'prefix'=>'SuperAdmin','middleware'=>['auth','SuperAdmin'] ],func
     // OfficeBranches Route
     Route::resource('/OfficeBranches','OfficeBranchesController')->only(['index','store','update']);
     //DropDowns SystemSettings
-
     Route::get('/ManageDropDowns','SystemSettingsController@DropDownIndex')->name('system.DropDowns.index');
     Route::post('/StoreDropDownsOption','SystemSettingsController@StoreDropDownOption')->name('system.DropDowns.store.option');
     Route::delete('/DeleteDropDownsOption/{id}','SystemSettingsController@DeleteDropDownOption')->name('system.DropDowns.delete.option');
     Route::patch('/UpdateDropDownsOption/{id}','SystemSettingsController@UpdateDropDownOption')->name('system.DropDowns.update.option');
     //AccountCharts SystemSettings
-
     Route::get('/AccountCharts','SystemSettingsController@AccountChartsIndex')->name('system.AccountCharts.index');
     Route::post('/StoreAccountChart','SystemSettingsController@AccountChartsStore')->name('system.AccountCharts.store');
     Route::delete('/DeleteAccountChart/{id}/level/{level}','SystemSettingsController@AccountChartsDelete')->name('system.AccountCharts.delete');

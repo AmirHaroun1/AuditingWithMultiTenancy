@@ -429,8 +429,7 @@ export default {
             this.LoadingSpinner = true;
             let formData = new FormData();
             formData.append("AccountExcelFile", this.excelFile);
-            axios
-                .post(route("AccountExcel.Header"), formData, {
+            axios.post(route("AccountExcel.Header"), formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
