@@ -816,7 +816,7 @@ export default {
                 buttons: [
                     ['<button style="background-color: red;padding:10px;margin-left:40px;color:white"><b>حذف</b></button>', (instance, toast) => {
 
-                        axios.delete(route('revisingGuid.destroy.admin', this.temp_revisingGuid.id))
+                        axios.delete(route('revisingGuid.destroy.admin', {OfficeBranch: this.temp_revisingGuid.id}))
                             .then(res => {
                                 console.log(res);
 

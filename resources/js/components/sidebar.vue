@@ -76,8 +76,13 @@ export default {
                 },
                 {
                     title: 'بيانات المكتب',
-                    icon: 'fa fa-breifcase',
+                    icon: 'fa fa-database',
                     path: "system.officeInfo"
+                },
+                {
+                    title: 'الفروع',
+                    icon: 'fa fa-flag',
+                    path: "OfficeBranches.index"
                 },
                 {
                     title: 'القوائم المنسدلة',

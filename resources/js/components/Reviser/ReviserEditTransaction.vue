@@ -1,48 +1,26 @@
 <template>
 <div>
-    <div class="row">
-        <!-- بيانات المعاملة -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box cursor-pointer" @click="ActivePane = 'بيانات المعاملة' ">
-                <span class="info-box-icon bg-green"><i class="fa fa-archive"></i></span>
-                <div class="info-box-content">
-                    <h4 class="font-weight-bold" style="padding-top:10px;">بيانات المعاملة</h4>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div>
-        <!-- بيانات المعاملة./ -->
-        <!-- عدد ساعات -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box cursor-pointer" @click="ActivePane = 'عدد ساعات المعاملة' ">
-                <span class="info-box-icon bg-green"><i class="fa fa-clock-o"></i></span>
-                <div class="info-box-content">
-                    <h4 class="font-weight-bold" style="padding-top:10px;">عدد ساعات المعاملة</h4>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div>
-        <!-- عدد ساعات/. -->
-        <!-- الملفات -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box cursor-pointer" @click="ActivePane = 'الملفات' ">
-                <span class="info-box-icon bg-green"><i class="fa fa-files-o"></i></span>
-                <div class="info-box-content">
-                    <h4 class="font-weight-bold" style="padding-top:10px;">الملفات</h4>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div>
-        <!-- الملفات/. -->
+    <v-tabs v-model="tab" background-color="primary" dark centered icons-and-text>
+        <v-tab @click="ActivePane = 'بيانات المعاملة' ">
+            {{$t('transactionInfoTitle')}}
+            <v-icon>fa fa-star-o</v-icon>
+        </v-tab>
 
-        <!-- الحسابات -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box cursor-pointer" @click="ActivePane = 'الحسابات' ">
-                <span class="info-box-icon bg-green"><i class="fa  fa-book"></i></span>
-                <div class="info-box-content">
-                    <h4 class="font-weight-bold" style="padding-top:10px;">الحسابات</h4>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div>
-        <!-- الحسابات -->
-    </div>
+        <v-tab @click="ActivePane = 'عدد ساعات المعاملة' ">
+            {{$t('transactionHours')}}
+            <v-icon>fa fa-clock-o</v-icon>
+        </v-tab>
+
+        <v-tab @click="ActivePane = 'الملفات' ">
+            {{$t('files')}}
+            <v-icon>fa fa-files-o</v-icon>
+        </v-tab>
+
+        <v-tab @click="ActivePane = 'الحسابات' ">
+            {{$t('accounts')}}
+            <v-icon>fa fa-book</v-icon>
+        </v-tab>
+    </v-tabs>
 
     <div class="tab-content">
         <div class="tab-pane fade in show" v-if="ActivePane=='عدد ساعات المعاملة'">
@@ -54,104 +32,81 @@
                 <div>
                     <v-form>
                         <v-card>
-                            <v-card-title>
-                                {{$t('transactionInfoAndHours')}}
-                            </v-card-title>
-                            <v-form @submit.prevent="UpdateTransaction()">
-                                <!-- Start / End Date  ------>
-                                <div class="row form-group">
-                                    <div class="col-md-6" style="padding-top: 15px">
-                                        <label>تاريخ بداية المعاملة</label>
-                                        <VueCtkDateTimePicker :format="'YYYY-MM-DD H:mm'" :formatted="'H:mm , Y-M-D '" label="أختر التاريخ و الوقت" v-model="start_date"></VueCtkDateTimePicker>
+                            <v-container>
+                                <v-card-title>
+                                    {{$t('transactionInfoAndHours')}}
+                                </v-card-title>
+                                <v-form @submit.prevent="UpdateTransaction()">
+                                    <!-- Start / End Date  ------>
+                                    <div class="row form-group">
+                                        <div class="col-md-6" style="padding-top: 15px">
+                                            <label>تاريخ بداية المعاملة</label>
+                                            <VueCtkDateTimePicker :format="'YYYY-MM-DD H:mm'" :formatted="'H:mm , Y-M-D '" label="أختر التاريخ و الوقت" v-model="start_date"></VueCtkDateTimePicker>
 
+                                        </div>
+                                        <div class="col-md-6" style="padding-top: 15px">
+                                            <label>تاريخ انتهاء المعاملة</label>
+                                            <VueCtkDateTimePicker :format="'YYYY-MM-DD H:mm'" :formatted="'H:mm , Y-M-D '" label="أختر التاريخ و الوقت" v-model="end_date"></VueCtkDateTimePicker>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6" style="padding-top: 15px">
-                                        <label>تاريخ انتهاء المعاملة</label>
-                                        <VueCtkDateTimePicker :format="'YYYY-MM-DD H:mm'" :formatted="'H:mm , Y-M-D '" label="أختر التاريخ و الوقت" v-model="end_date"></VueCtkDateTimePicker>
+                                    <!-- ./ Start / End Date  ------>
+                                    <!-- توزيع ساعات العمل  ------>
+                                    <div class="row" style="padding-top:15px;padding-bottom:15px">
+                                        <table class="table table-bordered text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th style="color: white;background-color: #00a65a;border-color:white">السكرتارية</th>
+                                                    <th style="color: white;background-color: #00a65a;border-color:white">المندوب الميدانى</th>
+                                                    <th style="color: white;background-color: #00a65a;border-color:white">المراجع الفنى</th>
+                                                    <th style="color: white;background-color: #00a65a;border-color:white">المدقق</th>
+                                                    <th style="color: white;background-color: #00a65a;border-color:white">مدير المراجعة</th>
+                                                    <th style="color: white;background-color: #00a65a;border-color:white">المدير التنفيذي</th>
+                                                    <th style="color: white;background-color: #00a65a;border-color:white">الشريك الإداري</th>
+                                                    <th style="color: white;background-color: #00a65a;border-color:white">المساعد</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+
+                                                    <td>
+                                                        <input type="text" class="form-control" v-model="secretary_time">
+                                                    </td>
+                                                    <td><input type="text" class="form-control" v-model="fieldDelegate_time"></td>
+                                                    <td><input type="text" class="form-control" v-model="reviser_time"></td>
+                                                    <td><input type="text" class="form-control" v-model="auditor_time"></td>
+                                                    <td><input type="text" class="form-control" v-model="revisingManager_time"></td>
+                                                    <td><input type="text" class="form-control" v-model="executiveDirector_time"></td>
+                                                    <td><input type="text" class="form-control" v-model="Managing_partner_time"></td>
+                                                    <td><input type="text" class="form-control" v-model="helper_time"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </div>
-                                <!-- ./ Start / End Date  ------>
-                                <!-- توزيع ساعات العمل  ------>
-                                <div class="row" style="padding-top:15px;padding-bottom:15px">
-                                    <table class="table table-bordered text-center">
-                                        <thead>
-                                            <tr>
-                                                <th style="color: white;background-color: #00a65a;border-color:white">السكرتارية</th>
-                                                <th style="color: white;background-color: #00a65a;border-color:white">المندوب الميدانى</th>
-                                                <th style="color: white;background-color: #00a65a;border-color:white">المراجع الفنى</th>
-                                                <th style="color: white;background-color: #00a65a;border-color:white">المدقق</th>
-                                                <th style="color: white;background-color: #00a65a;border-color:white">مدير المراجعة</th>
-                                                <th style="color: white;background-color: #00a65a;border-color:white">المدير التنفيذي</th>
-                                                <th style="color: white;background-color: #00a65a;border-color:white">الشريك الإداري</th>
-                                                <th style="color: white;background-color: #00a65a;border-color:white">المساعد</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
+                                    <!-- توزيع ساعات العمل/.  ------>
+                                    <!-- اختيرا المندوب الميدانى و المدقق  ------>
+                                    <v-row>
+                                        <v-col md="6">
+                                            <v-autocomplete v-model="ChoosenAuditor" :items="auditors" :label="$t('chooseAuditor')" outlined item-text="label" item-value="code">
 
-                                                <td>
-                                                    <input type="text" class="form-control" v-model="secretary_time">
-                                                </td>
-                                                <td><input type="text" class="form-control" v-model="fieldDelegate_time"></td>
-                                                <td><input type="text" class="form-control" v-model="reviser_time"></td>
-                                                <td><input type="text" class="form-control" v-model="auditor_time"></td>
-                                                <td><input type="text" class="form-control" v-model="revisingManager_time"></td>
-                                                <td><input type="text" class="form-control" v-model="executiveDirector_time"></td>
-                                                <td><input type="text" class="form-control" v-model="Managing_partner_time"></td>
-                                                <td><input type="text" class="form-control" v-model="helper_time"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- توزيع ساعات العمل/.  ------>
-                                <!-- اختيرا المندوب الميدانى و المدقق  ------>
-                                <v-row>
-                                    <v-col md="6">
-                                        <v-autocomplete v-model="ChoosenAuditor" :items="auditors" :label="$t('chooseAuditor')" outlined item-text="label" item-value="code">
+                                            </v-autocomplete>
+                                        </v-col>
+                                        <v-col md="6">
+                                            <v-autocomplete v-model="ChoosenFieldDelegate" :items="fieldDelegates" :label="$t('ChooseFieldDelegate')" outlined item-text="label" item-value="code">
 
-                                        </v-autocomplete>
-                                    </v-col>
-                                    <v-col md="6">
-                                        <v-autocomplete v-model="ChoosenFieldDelegate" :items="fieldDelegates" :label="$t('chooseAuditor')" outlined item-text="label" item-value="code">
-
-                                        </v-autocomplete>
-                                    </v-col>
-                                </v-row>
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn outlined type="submit" color="primary" dark>
-                                        {{$t('save')}}
-                                    </v-btn>
-                                    <v-spacer></v-spacer>
-                                </v-card-actions>
-                            </v-form>
+                                            </v-autocomplete>
+                                        </v-col>
+                                    </v-row>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn type="submit" color="primary" dark>
+                                            {{$t('save')}}
+                                        </v-btn>
+                                        <v-spacer></v-spacer>
+                                    </v-card-actions>
+                                </v-form>
+                            </v-container>
                         </v-card>
                     </v-form>
-                    <div class="box-header">
-                        <h2> </h2>
-                    </div>
-                    <form id="EditTransactionForm" class="form-group" @submit.prevent="UpdateTransaction()">
-
-                        <div class="row">
-                            <div class="col-md-6" style="padding-top: 15px">
-                                <label>اختيار المدقق</label>
-
-                                <v-select :options="auditors" v-model="ChoosenAuditor"></v-select>
-                            </div>
-                            <div class="col-md-6" style="padding-top: 15px">
-                                <label>اختيار المندوب الميداني</label>
-                                <v-select :options="fieldDelegates" v-model="ChoosenFieldDelegate"></v-select>
-
-                            </div>
-                        </div>
-
-                        <!-- اختيرا المندوب الميدانى و المدقق/.  ------>
-                        <div class="row" style="padding-top:20px">
-                            <div class="col-md-12 ">
-                                <button type="submit" class="btn btn-block btn-success btn-lg" style="padding: 15px;width:230px">حفظ</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

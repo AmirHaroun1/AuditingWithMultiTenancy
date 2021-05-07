@@ -204,7 +204,22 @@
 
     "transactionInfoAndHours": "بيانات المعاملة و توزيع عدد الساعات",
     "chooseAuditor": "اختيار مدقق",
+    "ChooseFieldDelegate": "اختيار المندوب الميداني",
     "detail_debit": "تفصيلية - مدين",
-    "detail_credit": "تفصيلية - دائن"
+    "detail_credit": "تفصيلية - دائن",
+
+    "branchAddress":  "عنوان الفرع",
+    "isMainBranch": "فرع رئيسى",
+    "address": "العنوان",
+    "branchesTable": "جدول الفروع",
+    "addNewBranch": "إضافة فرع جديد",
+    "editBranch": "تعديل فرع",
+
+    "transactionInfoTitle": "بيانات المعاملة",
+    "transactionHours": "عدد ساعات المعاملة",
+    "accounts": "الحسابات",
+
+    "managinePartner": "الشريك الإدارى",
+    "chooseManaginPartner": "تحديد الشريك الإداري"
 
 }
