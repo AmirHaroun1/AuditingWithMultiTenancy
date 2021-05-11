@@ -68,7 +68,7 @@
                                 <v-textarea v-model="institution.business_activity" outlined :rules="required" autocomplete="business_activity" :label="$t('business_activity')" required />
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
-                                <v-text-field v-model="institution.capital" outlined :rules="required" autocomplete="capital" :label="$t('capital')" required />
+                                <v-text-field v-model="institution.capital" outlined :rules="numbersRules" autocomplete="capital" :label="$t('capital')" required />
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
                                 <v-text-field v-model="ManagerTemp.name" outlined :rules="required" autocomplete="managerName" :label="$t('ManagerTempName')" required />
@@ -217,6 +217,9 @@
                                 <v-date-picker v-model="MainTradeRegister.EndDate" @input="menu6 = false"></v-date-picker>
                             </v-menu>
                         </v-col>
+                        <v-col cols="12" sm="6" md="3">
+                            <v-text-field v-model="MainTradeRegister.production_place" outlined :rules="required" :label="$t('tradePlace')" required />
+                            </v-col>
                         <v-col cols="12" sm="6" md="2">
                             <v-text-field v-if="InstitutionType !='chairty'" v-model="institution.number300" outlined autocomplete="number 300" :label="$t('number300')" required />
                         </v-col>
