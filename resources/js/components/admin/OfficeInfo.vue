@@ -50,7 +50,7 @@ export default {
     },
     data() {
         return {
-            officeData: this.officeInfo,
+            officeData: (this.officeInfo == null) ? {}: this.officeInfo,
         }
     },
     methods: {
@@ -62,7 +62,7 @@ export default {
                     formData.append(key, element)
                 }
             }
-            if (this.officeInfo.name) {
+            if (!this.officeInfo.name) {
                 axios.patch(route('system.officeInfo.store'), formData).then(res => {
                     console.log('res', res);
                 }).catch(err => {
