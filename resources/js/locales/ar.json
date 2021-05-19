@@ -18,7 +18,7 @@
     "newAccountThirdBranch": "إضافة حساب فرعي - مستوي ثالث",
     "newAccountFourthBranch": "إضافة حساب فرعي - مستوي رابع",
     "AccountManagment": "الدليل المحاسبي",
-    "dropdowns": "القوائم المندسلة",
+    "dropdowns": "القوائم المنسدلة",
     "setting": "إعدادات البرنامج",
     "isRelated": "اطراف ذات علاقة",
     "addNewGroup": "إضافة مجموعه جديده",
@@ -220,6 +220,8 @@
     "accounts": "الحسابات",
 
     "managinePartner": "الشريك الإدارى",
-    "chooseManaginPartner": "تحديد الشريك الإداري"
+    "chooseManaginPartner": "تحديد الشريك الإداري",
+
+    "NumberOfFixedPoints": "عدد الخانات"
 
 }

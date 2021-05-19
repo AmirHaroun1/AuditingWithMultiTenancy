@@ -27,6 +27,17 @@
             </v-dialog>
         </v-card-title>
         <v-data-table :headers="headers" :items="employeesArray" :search="search">
+                <template :ref="item.id" v-slot:item.action="{ item }">
+                    <v-icon small color="primary">
+                        mdi-pencil
+                    </v-icon>
+                    <v-icon small color="error">
+                        mdi-delete
+                    </v-icon>
+                    <v-icon small color="grey">
+                        mdi-printer
+                    </v-icon>
+                </template>
         </v-data-table>
     </v-card>
 </v-container>
@@ -61,6 +72,10 @@ export default {
                     text: this.$t('email'),
                     value: 'email'
                 },
+                {
+                    text: this.$t('action'),
+                    value: 'action'
+                },
             ],
             predefinedFilters: [{
                     text: this.$t('name'),
@@ -78,6 +93,22 @@ export default {
                 {
                     text: this.$t('email'),
                     value: 'email'
+                },
+                {
+                    text: this.$t('birth_date'),
+                    value: 'birth_date'
+                },
+                {
+                    text: this.$t('code'),
+                    value: 'code'
+                },
+                {
+                    text: this.$t('national_id'),
+                    value: 'national_id'
+                },
+                {
+                    text: this.$t('national_id_date'),
+                    value: 'national_id_date'
                 },
             ]
         };

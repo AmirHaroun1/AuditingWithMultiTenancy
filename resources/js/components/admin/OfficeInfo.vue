@@ -29,6 +29,11 @@
                         <v-text-field v-model="officeData.bank_account_number" outlined :label="$t('bankAccountNumber')"></v-text-field>
                     </v-col>
                 </v-row>
+                                <v-card>
+                <v-alert type="primary" outlined>
+                    <office-branches></office-branches>
+                </v-alert>
+                                </v-card>
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn type="submit" color="primary" dark>

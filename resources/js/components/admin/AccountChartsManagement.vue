@@ -77,7 +77,7 @@
                                         </v-expansion-panels>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
-                                            <v-btn color="primary" class="mt-4" @click="ShowAddAccountChartModal(FirstLVLAccount.second_level_accounts,0,0,FirstLVLAccount,2)" dark>
+                                            <v-btn color="primary" class="mt-4" @click="ShowAddAccountChartModal(ThirdLVLAccount.fourth_level_accounts,ThirdLVLAccount.top_parent_id,ThirdLVLAccount.parent_id,ThirdLVLAccount,4)" dark>
                                                 <v-icon>mdi-plus</v-icon> {{$t('newAccountFourthBranch')}}
                                             </v-btn>
                                             <v-spacer></v-spacer>
@@ -87,7 +87,7 @@
                             </v-expansion-panels>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" class="mt-4" @click="ShowAddAccountChartModal(FirstLVLAccount.second_level_accounts,0,0,FirstLVLAccount,2)" dark>
+                                <v-btn color="primary" class="mt-4" @click="ShowAddAccountChartModal(SecondLVLAccount.third_level_accounts,0,SecondLVLAccount.parent_id,SecondLVLAccount,3)" dark>
                                     <v-icon>mdi-plus</v-icon> {{$t('newAccountThirdBranch')}}
                                 </v-btn>
                                 <v-spacer></v-spacer>
@@ -230,6 +230,29 @@
             </v-container>
         </v-card>
     </v-dialog>
+    <v-dialog v-model="NumberOfFixedPointsDialog" max-width="600px">
+        <v-card>
+            <v-container>
+                <v-card-title>
+                    {{$t('editAccount')}}
+                </v-card-title>
+                <v-form @submit.prevent="CloseDetermineFixedPointsModalOpenAddModal()">
+                    <v-row>
+                        <v-col cols="12">
+                            <v-autocomplete v-model="NumberOfFixedPoints" :items="[1,2,3,4,5]"  outlined :label="$t('NumberOfFixedPoints')"></v-autocomplete>
+                        </v-col>
+                    </v-row>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn type="submit" color="primary" dark>
+                            {{$t('save')}}
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-form>
+            </v-container>
+        </v-card>
+    </v-dialog>
 </div>
 </template>
 
@@ -251,6 +274,7 @@ export default {
             LoadingSpinner: false,
             dialog: false,
             newAccountDialog: false,
+            NumberOfFixedPointsDialog: false,
             NumberOfFixedPoints: '',
             ParentAccountArray: [],
             Added_Account: {
@@ -375,8 +399,6 @@ export default {
                 })
         },
         ShowAddAccountChartModal(parentAccountArray, oldest_parent_id, top_parent_id, Parent, level) {
-                this.newAccountDialog = true;
-
             if (oldest_parent_id != 0) {
                 this.Added_Account.oldest_parent_id = oldest_parent_id;
             }
@@ -392,9 +414,11 @@ export default {
             this.ParentAccountArray = parentAccountArray;
             if (Parent == null && !this.ParentAccountArray.length) {
                 this.Added_Account.code = 1;
+                this.newAccountDialog = true;
 
             } else if (!this.ParentAccountArray.length) {
                 this.Added_Account.code = Parent.code;
+                this.NumberOfFixedPointsDialog =  true;
             } else {
 
                 let LastItemCode = this.ParentAccountArray[this.ParentAccountArray.length - 1].code;
@@ -405,15 +429,16 @@ export default {
                 let NewItemLastCode = LastItemCode.substring(0, LastItemCode.length - 1) + NewItemLastChar;
 
                 this.Added_Account.code = NewItemLastCode;
+                this.newAccountDialog = true;
             }
         },
         CloseDetermineFixedPointsModalOpenAddModal() {
 
             this.Added_Account.code = this.Added_Account.code + this.NumberOfFixedPoints + (this.ParentAccountArray.length + 1);
 
-            this.$refs.CloseDetermineFixedPointsModal.click();
-            this.$refs.AddModalButton.click();
-        },
+            this.NumberOfFixedPointsDialog = false;
+            this.newAccountDialog = true;
+            },
         ShowEditAccountChartModal(account, level) {
             this.dialog = true;
             this.Edit_Account = account;
