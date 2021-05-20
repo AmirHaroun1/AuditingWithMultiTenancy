@@ -1,7 +1,7 @@
 <template>
 <div>
     <h3 class="text-center" style="text-align:center;">
-        لوحة التحكم
+        لوحة القيادة
     </h3>
     <v-row class="mb-8" align="center">
         <v-col cols="8">

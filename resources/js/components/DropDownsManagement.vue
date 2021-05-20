@@ -91,13 +91,6 @@ export default {
                     CollapseLink: 4
                 },
                 {
-                    name: 'الحي',
-                    NewOption: '',
-                    type: 'قائمة منسدلة',
-                    CurrentOptions: [],
-                    CollapseLink: 5
-                },
-                {
                     name: 'محددات معيار القياس',
                     NewOption: '',
                     type: 'قائمة منسدلة',
@@ -150,12 +143,10 @@ export default {
                             this.SystemDropDowns[2].CurrentOptions.push(option);
                         } else if (option.name == 'المدينة') {
                             this.SystemDropDowns[3].CurrentOptions.push(option);
-                        } else if (option.name == 'الحي') {
-                            this.SystemDropDowns[4].CurrentOptions.push(option);
                         } else if (option.name == 'محددات معيار القياس') {
-                            this.SystemDropDowns[5].CurrentOptions.push(option);
+                            this.SystemDropDowns[4].CurrentOptions.push(option);
                         } else if (option.name == ' معيار القياس') {
-                            this.SystemDropDowns[6].CurrentOptions.push(option);
+                            this.SystemDropDowns[5].CurrentOptions.push(option);
                         }
                     })
                 })

@@ -12,9 +12,11 @@
                 </v-btn>
                 <v-spacer></v-spacer>
             </v-card-actions>
-            <div>
-                <virtual-list style="height: 500px; overflow-y: auto;" v-on="$listeners" :data-key="'id'" :data-sources="AvailableRevisingGuides" :data-component="ItemComponent" />
-            </div>
+            <draggable v-model="AvailableRevisingGuides" v-on="$listeners" group="people" @start="drag=true" @end="drag=false">
+                <div v-for="(element, index) in AvailableRevisingGuides" :key="element.id">
+                    <MenuItem :source="element" :index="index" />
+                   </div>
+            </draggable>
         </div>
     </div>
     <div class="col-md-9" v-if="SelectedItem">
@@ -269,16 +271,16 @@
 </template>
 
 <script>
-import VirtualList from 'vue-virtual-scroll-list'
 import MenuItem from './MenuItem'
+import draggable from 'vuedraggable'
 
 export default {
 
     name: "RevisingGuidManagement",
 
     components: {
-        'virtual-list': VirtualList,
-        'MenuItem': MenuItem
+        'MenuItem': MenuItem,
+        draggable
     },
     props: {
         'AllRevisingGuides': ''
@@ -289,7 +291,9 @@ export default {
             vSelectRevisingGuides: [],
             LoadingSpinner: false,
             newAccountDialog: false,
+            finalArray: [],
             editAccountDialog: false,
+            drag: false,
             ItemComponent: MenuItem,
             SelectedItem: null,
             isTextMenuItems: [{
@@ -348,6 +352,13 @@ export default {
             EditMark: false,
         }
     },
+    watch: {
+        AvailableRevisingGuides (newVal, oldVal) {
+            if (newVal.length === oldVal.length) {
+                this.updateRevisingGuidIndex()                
+            } 
+        }
+    },
     created() {
 
         this.FlatRevisingGuidArray();
@@ -397,209 +408,252 @@ export default {
         },
         ShowAddChildOfRevisingGuidModal(Parent) {
 
-                this.$refs.AddMainModalButton.click();
-            },
-            ShowAddChildOfRevisingGuidModal(Parent){
+            this.$refs.AddMainModalButton.click();
+        },
+        ShowAddChildOfRevisingGuidModal(Parent) {
 
-                this.Added_revisingGuid.id = '',
-                    this.Added_revisingGuid.name = '',
-                    this.Added_revisingGuid.code = '',
-                    this.Added_revisingGuid.isText = '',
-                    this.Added_revisingGuid.default_status = '',
-                    this.Added_revisingGuid.default_reference = '',
-
-                    this.Added_revisingGuid.Parent = Parent,
-                    this.$refs.AddMainModalButton.click();
-
-            },
-            ShowUpdateGuidModal(RevisingGuid){
-                this.$refs.EditModalButton.click();
-
-                this.temp_revisingGuid.id = RevisingGuid.id;
-                this.temp_revisingGuid.name_alias = RevisingGuid.name_alias;
-                this.temp_revisingGuid.name = RevisingGuid.name;
-                this.temp_revisingGuid.code_alias = RevisingGuid.code_alias;
-                this.temp_revisingGuid.code = RevisingGuid.code;
-                this.temp_revisingGuid.AddedByUser = RevisingGuid.AddedByUser;
-
-                this.edited_item = RevisingGuid;
-            },
-            ShowUpdateChildGuidModal(Parent,RevisingGuid,level){
-                this.$refs.EditModalButton.click();
-
-                this.temp_revisingGuid.id = RevisingGuid.id;
-                this.temp_revisingGuid.Parent = Parent;
-                this.temp_revisingGuid.level = level;
-                this.temp_revisingGuid.name_alias = RevisingGuid.name_alias;
-                this.temp_revisingGuid.code_alias = RevisingGuid.code_alias;
-                this.temp_revisingGuid.AddedByUser = RevisingGuid.AddedByUser;
-                this.temp_revisingGuid.isText = RevisingGuid.isText;
-                this.temp_revisingGuid.default_status = RevisingGuid.default_status;
-                this.temp_revisingGuid.default_reference = RevisingGuid.default_reference;
-
-                this.edited_item = RevisingGuid;
-            },
-            storeNewRevisingGuid(){
-
-                let formData = new FormData();
-
-                formData.append('name',this.Added_revisingGuid.name);
-                formData.append('code',this.Added_revisingGuid.code);
-                formData.append('AddedByUser',1);
-
-                axios.post(route('revisingGuid.store.admin'),formData)
-                    .then(({data})=>{
-                        this.AvailableRevisingGuides.push({'id':data[0].id,'name':this.Added_revisingGuid.name,'code':this.Added_revisingGuid.code,'AddedByUser':1,'code_alias':'','name_alias':'','children':[]});
-                        this.$toast.success('.','تم اضافة نموذج بنجاح',{timeout:3000});
-                    }).catch(error=>{
-                    this.$toast.warning('.','خطأ يرجى اعادة المحاولة',{timeout:3000});
-
-                     })
-                this.$refs.CloseAddRevisingGuidModal.click();
-            },
-            storeNewChildOfRevisingGuid(){
-
-                let formData = new FormData();
-
-                formData.append('name_alias',this.Added_revisingGuid.name);
-                formData.append('code_alias',this.Added_revisingGuid.code);
-                formData.append('parent_id',this.Added_revisingGuid.Parent.id);
-                formData.append('isText',this.Added_revisingGuid.isText);
-                formData.append('default_status',this.Added_revisingGuid.default_status);
-                if(this.Added_revisingGuid.default_reference !== null && this.Added_revisingGuid.default_reference !== '' &&  this.temp_revisingGuid.Added_revisingGuid !== undefined){
-                    formData.append('default_reference',this.temp_revisingGuid.default_reference.hasOwnProperty('code') ? this.temp_revisingGuid.default_reference.code : this.temp_revisingGuid.default_reference );
-                }else{
-                    formData.append('default_reference','');
-                }
-                formData.append('AddedByUser',1);
-
-                axios.post(route('revisingGuid.store.admin'),formData)
-                    .then(({data})=>{
-                        this.Added_revisingGuid.Parent.children.push({'id':data[0].id,'name_alias':this.Added_revisingGuid.name,'code_alias':this.Added_revisingGuid.code,'AddedByUser':1,'code':'','name':'','isText':this.Added_revisingGuid.isText,'default_status':this.Added_revisingGuid.default_status,'default_reference':this.Added_revisingGuid.default_reference.code,'children':[]});
-                        console.log(this.Added_revisingGuid.Parent.children);
-
-                        this.$toast.success('.','تم اضافة نموذج بنجاح',{timeout:3000});
-                    }).catch(error=>{
-                    this.$toast.warning('.','خطأ يرجى اعادة المحاولة',{timeout:3000});
-
-                });
-                this.$refs.CloseAddRevisingGuidModal.click();
-            },
-            updateRevisingGuid(){
-
-                let formData = new FormData();
-                formData.append('_method',"PATCH");
-                formData.append('code_alias',this.temp_revisingGuid.code_alias ? this.temp_revisingGuid.code_alias : '');
-                formData.append('name_alias',this.temp_revisingGuid.name_alias ? this.temp_revisingGuid.name_alias : '');
-                formData.append('isText',this.temp_revisingGuid.isText);
-                formData.append('default_status',this.temp_revisingGuid.default_status);
-                if(this.temp_revisingGuid.default_reference !== null && this.temp_revisingGuid.default_reference !== '' &&  this.temp_revisingGuid.default_reference !== undefined){
-                    formData.append('default_reference',this.temp_revisingGuid.default_reference.code ? this.temp_revisingGuid.default_reference.code : this.temp_revisingGuid.default_reference );
-                }else{
-                    formData.append('default_reference','');
-                }
-
-                axios.post(route('revisingGuid.update.admin',this.temp_revisingGuid.id),formData)
-                    .then(res =>{
-                        console.log(res);
-
-                        this.edited_item.code_alias = this.temp_revisingGuid.code_alias;
-                        this.edited_item.name_alias = this.temp_revisingGuid.name_alias;
-                        this.edited_item.isText = this.temp_revisingGuid.isText;
-                        this.edited_item.default_status = this.temp_revisingGuid.default_status;
-                        this.edited_item.default_reference = this.temp_revisingGuid.default_reference;
-
-                        this.temp_revisingGuid.code_alias = '';
-                        this.temp_revisingGuid.name_alias = '';
-                        this.temp_revisingGuid.isText = '';
-                        this.temp_revisingGuid.default_status = '';
-                        this.temp_revisingGuid.default_reference = '';
-                        this.$toast.success('.','تم التعديل بنجاح',{timeout:3000});
-
-                    })
-                    .catch(error =>{
-                        this.$toast.warning('.','خطأ يرجى اعادة المحاولة',{timeout:3000});
-
-                        console.log(error);
-
-                        this.edited_item = null;
-                        this.temp_revisingGuid.code_alias = '';
-                        this.temp_revisingGuid.name_alias = '';
-                        this.temp_revisingGuid.isText = '';
-                        this.temp_revisingGuid.default_status = '';
-                        this.temp_revisingGuid.default_reference = '';
-                    })
-                this.$refs.CloseRevisingGuidModal.click();
-            },
-            updateRevisingGuidNotes(){
-
-                let formData = new FormData();
-                formData.append('_method',"PATCH");
-                    formData.append('first_note',this.SelectedItem.first_note ? this.SelectedItem.first_note:'' );
-
-                    formData.append('second_note',this.SelectedItem.second_note ? this.SelectedItem.second_note : '');
-                axios.post(route('revisingGuid.update.admin',this.SelectedItem.id),formData)
-                    .then(res =>{
-                        console.log(res);
-                        this.$toast.success('.','تم التعديل بنجاح',{timeout:3000});
-
-                    })
-                    .catch(error =>{
-                        this.$toast.warning('.','خطأ يرجى اعادة المحاولة',{timeout:3000});
-
-                        console.log(error);
-
-                    })
-
-            },
-            updateRevisingGuidMark(){
-
-                let formData = new FormData();
-                formData.append('_method',"PATCH");
-                formData.append('mark',this.SelectedItem.mark);
-                axios.post(route('revisingGuid.update.admin',this.SelectedItem.id),formData)
-                    .then(res =>{
-                        console.log(res);
-                        this.$toast.success('.','تم التعديل بنجاح',{timeout:3000});
-                    })
-                    .catch(error =>{
-                        this.$toast.warning('.','خطأ يرجى اعادة المحاولة',{timeout:3000});
-
-                        console.log(error);
-                    })
-                this.EditMark = false;
-
-            },
-            DeleteRevisingGuid() {
-                this.$refs.CloseRevisingGuidModal.click();
-                let i = this.AvailableRevisingGuides.findIndex(child => child.id === this.temp_revisingGuid.id);
-
-                // this.$toast.question('.','تأكيد الحذف ',{
-                //     timeout: 40000,
-                //     close: false,
-                //     overlay: true,
-                //     displayMode: 'once',
-                //     id: 'question',
-                //     zindex: 999,
-                //     position: 'center',
-                //     buttons: [
-                //         ['<button style="background-color: red;padding:10px;margin-left:40px;color:white"><b>حذف</b></button>', (instance, toast) => {
-
-                //             axios.delete(route('revisingGuid.destroy.admin',this.temp_revisingGuid.id))
-                //                 .then(res =>{
-                //                     console.log(res);
-
-                //                     this.AvailableRevisingGuides.splice(i, 1) // remove it from array
-                //                     this.$toast.success('.','تم الحذف بنجاح',{timeout:3000});
-
-                //                 })
-                //                 .catch(error=>{
-                //                     console.log(error);
-
-                //                     this.$toast.warning('.','خطأ يرجى اعادة المحاولة',{timeout:3000});
+            this.Added_revisingGuid.id = '',
+                this.Added_revisingGuid.name = '',
+                this.Added_revisingGuid.code = '',
+                this.Added_revisingGuid.isText = '',
+                this.Added_revisingGuid.default_status = '',
+                this.Added_revisingGuid.default_reference = '',
 
                 this.Added_revisingGuid.Parent = Parent,
-                this.newAccountDialog = true; 
+                this.$refs.AddMainModalButton.click();
+
+        },
+        ShowUpdateGuidModal(RevisingGuid) {
+            this.$refs.EditModalButton.click();
+
+            this.temp_revisingGuid.id = RevisingGuid.id;
+            this.temp_revisingGuid.name_alias = RevisingGuid.name_alias;
+            this.temp_revisingGuid.name = RevisingGuid.name;
+            this.temp_revisingGuid.code_alias = RevisingGuid.code_alias;
+            this.temp_revisingGuid.code = RevisingGuid.code;
+            this.temp_revisingGuid.AddedByUser = RevisingGuid.AddedByUser;
+
+            this.edited_item = RevisingGuid;
+        },
+        ShowUpdateChildGuidModal(Parent, RevisingGuid, level) {
+            this.$refs.EditModalButton.click();
+
+            this.temp_revisingGuid.id = RevisingGuid.id;
+            this.temp_revisingGuid.Parent = Parent;
+            this.temp_revisingGuid.level = level;
+            this.temp_revisingGuid.name_alias = RevisingGuid.name_alias;
+            this.temp_revisingGuid.code_alias = RevisingGuid.code_alias;
+            this.temp_revisingGuid.AddedByUser = RevisingGuid.AddedByUser;
+            this.temp_revisingGuid.isText = RevisingGuid.isText;
+            this.temp_revisingGuid.default_status = RevisingGuid.default_status;
+            this.temp_revisingGuid.default_reference = RevisingGuid.default_reference;
+
+            this.edited_item = RevisingGuid;
+        },
+        storeNewRevisingGuid() {
+
+            let formData = new FormData();
+
+            formData.append('name', this.Added_revisingGuid.name);
+            formData.append('code', this.Added_revisingGuid.code);
+            formData.append('AddedByUser', 1);
+
+            axios.post(route('revisingGuid.store.admin'), formData)
+                .then(({
+                    data
+                }) => {
+                    this.AvailableRevisingGuides.push({
+                        'id': data[0].id,
+                        'name': this.Added_revisingGuid.name,
+                        'code': this.Added_revisingGuid.code,
+                        'AddedByUser': 1,
+                        'code_alias': '',
+                        'name_alias': '',
+                        'children': []
+                    });
+                    this.$toast.success('.', 'تم اضافة نموذج بنجاح', {
+                        timeout: 3000
+                    });
+                }).catch(error => {
+                    this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                        timeout: 3000
+                    });
+
+                })
+            this.$refs.CloseAddRevisingGuidModal.click();
+        },
+        storeNewChildOfRevisingGuid() {
+
+            let formData = new FormData();
+
+            formData.append('name_alias', this.Added_revisingGuid.name);
+            formData.append('code_alias', this.Added_revisingGuid.code);
+            formData.append('parent_id', this.Added_revisingGuid.Parent.id);
+            formData.append('isText', this.Added_revisingGuid.isText);
+            formData.append('default_status', this.Added_revisingGuid.default_status);
+            if (this.Added_revisingGuid.default_reference !== null && this.Added_revisingGuid.default_reference !== '' && this.temp_revisingGuid.Added_revisingGuid !== undefined) {
+                formData.append('default_reference', this.temp_revisingGuid.default_reference.hasOwnProperty('code') ? this.temp_revisingGuid.default_reference.code : this.temp_revisingGuid.default_reference);
+            } else {
+                formData.append('default_reference', '');
+            }
+            formData.append('AddedByUser', 1);
+
+            axios.post(route('revisingGuid.store.admin'), formData)
+                .then(({
+                    data
+                }) => {
+                    this.Added_revisingGuid.Parent.children.push({
+                        'id': data[0].id,
+                        'name_alias': this.Added_revisingGuid.name,
+                        'code_alias': this.Added_revisingGuid.code,
+                        'AddedByUser': 1,
+                        'code': '',
+                        'name': '',
+                        'isText': this.Added_revisingGuid.isText,
+                        'default_status': this.Added_revisingGuid.default_status,
+                        'default_reference': this.Added_revisingGuid.default_reference.code,
+                        'children': []
+                    });
+                    console.log(this.Added_revisingGuid.Parent.children);
+
+                    this.$toast.success('.', 'تم اضافة نموذج بنجاح', {
+                        timeout: 3000
+                    });
+                }).catch(error => {
+                    this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                        timeout: 3000
+                    });
+
+                });
+            this.$refs.CloseAddRevisingGuidModal.click();
+        },
+        updateRevisingGuid() {
+
+            let formData = new FormData();
+            formData.append('_method', "PATCH");
+            formData.append('code_alias', this.temp_revisingGuid.code_alias ? this.temp_revisingGuid.code_alias : '');
+            formData.append('name_alias', this.temp_revisingGuid.name_alias ? this.temp_revisingGuid.name_alias : '');
+            formData.append('isText', this.temp_revisingGuid.isText);
+            formData.append('default_status', this.temp_revisingGuid.default_status);
+            if (this.temp_revisingGuid.default_reference !== null && this.temp_revisingGuid.default_reference !== '' && this.temp_revisingGuid.default_reference !== undefined) {
+                formData.append('default_reference', this.temp_revisingGuid.default_reference.code ? this.temp_revisingGuid.default_reference.code : this.temp_revisingGuid.default_reference);
+            } else {
+                formData.append('default_reference', '');
+            }
+
+            axios.post(route('revisingGuid.update.admin', this.temp_revisingGuid.id), formData)
+                .then(res => {
+                    console.log(res);
+
+                    this.edited_item.code_alias = this.temp_revisingGuid.code_alias;
+                    this.edited_item.name_alias = this.temp_revisingGuid.name_alias;
+                    this.edited_item.isText = this.temp_revisingGuid.isText;
+                    this.edited_item.default_status = this.temp_revisingGuid.default_status;
+                    this.edited_item.default_reference = this.temp_revisingGuid.default_reference;
+
+                    this.temp_revisingGuid.code_alias = '';
+                    this.temp_revisingGuid.name_alias = '';
+                    this.temp_revisingGuid.isText = '';
+                    this.temp_revisingGuid.default_status = '';
+                    this.temp_revisingGuid.default_reference = '';
+                    this.$toast.success('.', 'تم التعديل بنجاح', {
+                        timeout: 3000
+                    });
+
+                })
+                .catch(error => {
+                    this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                        timeout: 3000
+                    });
+
+                    console.log(error);
+
+                    this.edited_item = null;
+                    this.temp_revisingGuid.code_alias = '';
+                    this.temp_revisingGuid.name_alias = '';
+                    this.temp_revisingGuid.isText = '';
+                    this.temp_revisingGuid.default_status = '';
+                    this.temp_revisingGuid.default_reference = '';
+                })
+            this.$refs.CloseRevisingGuidModal.click();
+        },
+        updateRevisingGuidNotes() {
+
+            let formData = new FormData();
+            formData.append('_method', "PATCH");
+            formData.append('first_note', this.SelectedItem.first_note ? this.SelectedItem.first_note : '');
+
+            formData.append('second_note', this.SelectedItem.second_note ? this.SelectedItem.second_note : '');
+            axios.post(route('revisingGuid.update.admin', this.SelectedItem.id), formData)
+                .then(res => {
+                    console.log(res);
+                    this.$toast.success('.', 'تم التعديل بنجاح', {
+                        timeout: 3000
+                    });
+
+                })
+                .catch(error => {
+                    this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                        timeout: 3000
+                    });
+
+                    console.log(error);
+
+                })
+
+        },
+        updateRevisingGuidMark() {
+
+            let formData = new FormData();
+            formData.append('_method', "PATCH");
+            formData.append('mark', this.SelectedItem.mark);
+            axios.post(route('revisingGuid.update.admin', this.SelectedItem.id), formData)
+                .then(res => {
+                    console.log(res);
+                    this.$toast.success('.', 'تم التعديل بنجاح', {
+                        timeout: 3000
+                    });
+                })
+                .catch(error => {
+                    this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                        timeout: 3000
+                    });
+
+                    console.log(error);
+                })
+            this.EditMark = false;
+
+        },
+        DeleteRevisingGuid() {
+            this.$refs.CloseRevisingGuidModal.click();
+            let i = this.AvailableRevisingGuides.findIndex(child => child.id === this.temp_revisingGuid.id);
+
+            // this.$toast.question('.','تأكيد الحذف ',{
+            //     timeout: 40000,
+            //     close: false,
+            //     overlay: true,
+            //     displayMode: 'once',
+            //     id: 'question',
+            //     zindex: 999,
+            //     position: 'center',
+            //     buttons: [
+            //         ['<button style="background-color: red;padding:10px;margin-left:40px;color:white"><b>حذف</b></button>', (instance, toast) => {
+
+            //             axios.delete(route('revisingGuid.destroy.admin',this.temp_revisingGuid.id))
+            //                 .then(res =>{
+            //                     console.log(res);
+
+            //                     this.AvailableRevisingGuides.splice(i, 1) // remove it from array
+            //                     this.$toast.success('.','تم الحذف بنجاح',{timeout:3000});
+
+            //                 })
+            //                 .catch(error=>{
+            //                     console.log(error);
+
+            //                     this.$toast.warning('.','خطأ يرجى اعادة المحاولة',{timeout:3000});
+
+            this.Added_revisingGuid.Parent = Parent,
+                this.newAccountDialog = true;
 
         },
         ShowUpdateGuidModal(RevisingGuid) {
@@ -816,7 +870,9 @@ export default {
                 buttons: [
                     ['<button style="background-color: red;padding:10px;margin-left:40px;color:white"><b>حذف</b></button>', (instance, toast) => {
 
-                        axios.delete(route('revisingGuid.destroy.admin', {OfficeBranch: this.temp_revisingGuid.id}))
+                        axios.delete(route('revisingGuid.destroy.admin', {
+                                OfficeBranch: this.temp_revisingGuid.id
+                            }))
                             .then(res => {
                                 console.log(res);
 
@@ -899,10 +955,24 @@ export default {
                 ],
             });
         },
+        updateRevisingGuidIndex () {
+           const data = this.AvailableRevisingGuides.map((element, index) => {
+               return {
+                   Id: element.id,
+                   Order: index
+               }
+           }) 
+           const keys = this.AvailableRevisingGuides.map((element) => {
+               return element.id
+           }) 
+           console.log('data', data)
+           console.log('keys', keys)
+        }
 
     }
 }
 </script>
+
 <style scoped>
 .floatLeftAction {
     top: 5px;
@@ -913,6 +983,7 @@ export default {
     top: 5px;
     left: 50px;
 }
+
 .mainPannelText {
     margin-left: 20px;
     line-height: 20px;

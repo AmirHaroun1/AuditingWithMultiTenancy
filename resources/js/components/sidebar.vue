@@ -80,11 +80,6 @@ export default {
                     path: "system.officeInfo"
                 },
                 {
-                    title: 'الفروع',
-                    icon: 'fa fa-flag',
-                    path: "OfficeBranches.index"
-                },
-                {
                     title: 'القوائم المنسدلة',
                     icon: 'fa fa-gears',
                     path: "system.DropDowns.index"
@@ -98,11 +93,6 @@ export default {
                     title: 'دليل المراجعة',
                     icon: 'fa fa-book',
                     path: "revisingGuid.manage.admin"
-                },
-                {
-                    title: 'مجموعات القوائم المالية',
-                    icon: 'fa fa-info',
-                    path: "FinancialGroups.manage.admin"
                 },
             ]
             const secItems = [
