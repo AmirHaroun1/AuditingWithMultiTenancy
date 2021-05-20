@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\OfficeBranch;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Block\Element\Document;
 
@@ -17,7 +18,7 @@ class DashBoardController extends Controller
      */
     public function index()
     {
-
+        //Auth::logout();
         /**
          * By Default in case of no QueryParam 'OfficeBranchNumber' it retrieves the first branch office data.
          * <br>

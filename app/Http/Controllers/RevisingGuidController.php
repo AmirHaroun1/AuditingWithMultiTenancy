@@ -60,6 +60,22 @@ class RevisingGuidController extends Controller
 
         return response()->json([$revisingGuid],200);
     }
+    public function PatchUpdateIndex(Request $request){
+        $array = array(
+            array(
+                'id' => 1,
+                'order_in_list' => 1,
+
+                //...
+            ),
+            array(
+                'id' => 107,
+                'order_in_list' => 3,
+            ),
+        );
+        RevisingGuid::custom_batch_update('id',$array);
+        return ' check now !';
+    }
     public function destroy($RevisingGuidID){
 
         RevisingGuid::destroy($RevisingGuidID);

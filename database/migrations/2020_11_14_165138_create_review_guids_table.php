@@ -32,6 +32,7 @@ class CreateReviewGuidsTable extends Migration
 
             $table->integer('mark')->default(100);
             $table->boolean('AddedByUser')->default(0);
+            $table->integer('order_in_list')->nullable();
 
             $table->foreignId('parent_id')->nullable();
             $table->foreign('parent_id')
