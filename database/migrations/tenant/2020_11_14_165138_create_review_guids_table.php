@@ -23,7 +23,8 @@ class CreateReviewGuidsTable extends Migration
             $table->string('name_alias')->nullable();
 
             $table->boolean('isText')->nullable();
-            $table->integer('mark')->default(100);
+            $table->integer('mark')->default(100)->nullable();
+            $table->integer('order')->nullable();
 
             $table->boolean('AddedByUser')->default(0);
 

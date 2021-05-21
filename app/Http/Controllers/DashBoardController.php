@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\OfficeBranch;
 use App\Transaction;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Block\Element\Document;
 
@@ -12,24 +15,30 @@ class DashBoardController extends Controller
 
     public function index()
     {
-
-        $TransactionsStatus = Transaction::currentStatistics();
+        $RequestOfficeNumber  = request('OfficeBranchNumber');
+         $OfficeBranch = OfficeBranch::WithOfficeTransactionsStats()
+             ->when(!is_null($RequestOfficeNumber),function ($query) use ($RequestOfficeNumber){
+                $query->where('id',$RequestOfficeNumber);
+             })
+             ->first();
+         // $TransactionsStatus = Transaction::currentStatistics();
 
          $Team = DB::table('transactions')
-            ->join('users',function($join){
-                $join->on('users.id', '=', 'transactions.reviser_id')
-                      ->where('transactions.status','reviser');
-                $join->orOn('users.id', '=', 'transactions.auditor_id')
-                      ->Where('transactions.status','auditor');
-                $join->orOn('users.id', '=', 'transactions.revisingManager_id')
-                      ->Where('transactions.status','revising_manager');
-                $join->orOn('users.id', '=', 'transactions.partner_id')
-                       ->Where('transactions.status','managing_partner');
-            })
+             ->where('transactions.branch_office_id',$OfficeBranch->id)
+                ->join('users',function($join){
+                    $join->on('users.id', '=', 'transactions.reviser_id')
+                          ->where('transactions.status','reviser');
+                    $join->orOn('users.id', '=', 'transactions.auditor_id')
+                          ->where('transactions.status','auditor');
+                    $join->orOn('users.id', '=', 'transactions.revisingManager_id')
+                          ->where('transactions.status','revising_manager');
+                    $join->orOn('users.id', '=', 'transactions.partner_id')
+                           ->where('transactions.status','managing_partner');
+                })
+             ->where('users.branch_office_id',$OfficeBranch->id)
             ->select('users.name','users.role',DB::raw('COUNT(*) AS ActiveTransactions'))
-             ->groupBy(['users.name','users.role'])
+            ->groupBy(['users.name','users.role'])
             ->get();
-
-        return view('SuperAdmin.dashboard.index',compact('TransactionsStatus','Team'));
+        return view('SuperAdmin.dashboard.index',compact('OfficeBranch','Team'));
     }
 }

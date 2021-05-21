@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\agent;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -52,7 +52,15 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'string', 'max:13', 'unique:users'],
+            'password' => ['required', 'string', 'min:8','max:255', 'confirmed'],
+        ],[
+            'email.unique'=>'هذا البريد الألكنرونى مسجل بالفعل',
+            'phone.unique'=> 'رقم الجوال مسجل بالفعل',
+
+            'password.min'=>'الرقم السري يجب أن يكون أكثر من 8 أحرف',
+            'password.max'=>'الرقم السري يجب أن لا يكون أكثر من 255 أحرف',
+            'password.confirmed'=>' تأكيد الرقم السرى غير مطابق ',
         ]);
     }
 
@@ -64,10 +72,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return agent::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => ['phone'],
             'password' => Hash::make($data['password']),
+
         ]);
     }
 }

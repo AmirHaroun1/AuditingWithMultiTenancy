@@ -60,7 +60,7 @@ class CreateTransactionsTable extends Migration
             $table->double('reviser_actualTime')->nullable();
             $table->double('revisingManager_actualTime')->nullable();
             $table->double('auditor_actualTime')->nullable();
-            $table->double('Managing_partner_time_actualTime')->nullable();
+            $table->double('Managing_partner_actualTime')->nullable();
 
             $table->string('time_status')->default('acceptable');
             $table->text('rejection_reason')->nullable();

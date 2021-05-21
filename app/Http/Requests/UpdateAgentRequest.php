@@ -32,8 +32,10 @@ class UpdateAgentRequest extends FormRequest
             'national_id' =>['max:10','min:10'],
             'role'=>['required'],
             'name' => [ 'string', 'max:255', 'min:3'],
-            'phone'=>['min:10','max:10'],
-            'email' => ['required','email'],
+            'phone'=>[Rule::unique('users')->ignore($agent->id),'min:10','max:10'],
+
+            'email' =>[Rule::unique('users')->ignore($agent->id),'email'],
+
         ];
     }
     public function messages()
@@ -50,7 +52,9 @@ class UpdateAgentRequest extends FormRequest
             'name.max' => 'الأسم يجب أن يكون 255 حرف على الأكثر',
 
             'name.string' => 'الأسم يجب يتكون من أحرف',
+            'email.unique' => 'هذا البريد الألكترونى مسجل بالفعل',
 
+            'phone.unique' => 'رقم الجوال مسجل بالفعل',
             'phone.max' => 'رقم الجوال يجب أن يتكون من 10 أرقام',
             'phone.min' => 'رقم الجوال يجب أن يتكون من 10 أرقام',
 

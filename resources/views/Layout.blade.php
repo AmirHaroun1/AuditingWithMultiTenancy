@@ -44,7 +44,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
-<body class="skin-blue-light bg-white">
+<body style="background:#eee;">
 
 @section('body')
 <div id="app">
@@ -55,11 +55,12 @@
         @include('layout._Sidebar')
 
     </aside>
-        <v-toolbar
+        <!-- <v-toolbar
         height="30px"
         dense
-        ></v-toolbar>
-    <div class="content-wrapper v-content__wrap" style="background:#ffffff;">
+        color="primary"
+        ></v-toolbar> -->
+    <div class="content-wrapper v-content__wrap">
         <!-- Content Wrapper. Contains the content of the page -->
         <!-- Content Header (Page header) -->
         <!-- <section class="content-header">
@@ -94,18 +95,7 @@
 
             @show
         </section><!-- /.content -->
-        <v-footer background-color="primary" absolute padless>
-    <v-col
-      class="text-center"
-      cols="12"
-    >
-    Copyright ©
-      2021 — <strong>
-      <a href="http://almsaeedstudio.com">Masooud El Rofidy</a>
-      </strong>
-      All rights reserved.
-    </v-col>
-  </v-footer>
+     
         <!-- /.Main-side -->
     </div>
     <!-- ./content-wrapper -->
@@ -142,6 +132,7 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{global_asset('dist/js/demo.js')}}"></script>
+<script src="{{ global_asset('js/app.js')}}"></script>
 
 </body>
 </html>

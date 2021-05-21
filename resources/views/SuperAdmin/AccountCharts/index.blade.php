@@ -12,9 +12,4 @@
 
                 <account-charts-management></account-charts-management>
 @endsection
-@section('scripts')
 
-    <script src="{{ asset('js/app.js')}}"></script>
-
-
-@endsection

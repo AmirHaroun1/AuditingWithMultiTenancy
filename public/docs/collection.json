@@ -1,0 +1,4304 @@
+{
+    "variables": [],
+    "info": {
+        "name": "Almudaqiq API",
+        "_postman_id": "cd3f4527-2892-4e64-a592-7a1618e52094",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Manage Subscriber (Tenant) Office Info",
+            "description": "\nAPIs To Manage Subscriber (Tenant) Office Info",
+            "item": [
+                {
+                    "name": "Get Office Info\nZiggy route : axios.get(route('owner.officeInfo.index')).",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/OfficeInfo\/:TenantID",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "TenantID",
+                                    "key": "TenantID",
+                                    "value": "voluptatibus",
+                                    "description": "param of the Tenant (subscriber ID)."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "store Office Info\nZiggy route : axios.post(route('owner.officeInfo.store'),formData).",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/StoreOfficeInfo\/:TenantID",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "TenantID",
+                                    "key": "TenantID",
+                                    "value": "et",
+                                    "description": "param of the Tenant (subscriber ID)."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"ut\",\n    \"name_english\": \"enim\",\n    \"bank_name\": \"atque\",\n    \"bank_name_english\": \"sunt\",\n    \"bank_account_number\": \"reiciendis\",\n    \"logo\": \"rerum\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "update Office Info\nZiggy route : axios.post(route('owner.officeInfo.update'),formData).",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/UpdateOfficeInfo\/:TenantID",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "TenantID",
+                                    "key": "TenantID",
+                                    "value": "voluptatem",
+                                    "description": "param of the Tenant (subscriber ID)."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"in\",\n    \"name_english\": \"distinctio\",\n    \"bank_name\": \"voluptatem\",\n    \"bank_name_english\": \"et\",\n    \"bank_account_number\": \"cum\",\n    \"logo\": \"consectetur\"\n}"
+                        },
+                        "description": "<br>\nformData.append('_method',\"PATCH\").",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Manage Subscriptions (Tenants)",
+            "description": "\nAPIs To Manage Subscriptions",
+            "item": [
+                {
+                    "name": "Retrieve subscribers (Tenants) paginated\nNote : Return views\/Tenants\/index.blade.php add your component their ----------\nNote : return response if request expects json ----------\n[id , name, email, status (pending,active,expired), subscription_price,subscription_date (TimeStamps),subscription_end_date,created_at,tenancy_db_name,domains[] ]",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/Subscriptions",
+                            "query": [
+                                {
+                                    "key": "SearchTenantName",
+                                    "value": "nihil",
+                                    "description": "string optional param if there is a search with Name.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "CreationDate",
+                                    "value": "quasi",
+                                    "description": "datetime optional param if there is a search with creation date.",
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Ziggy route : axios.get(route('owner.subscriptions.index'))\n\n--------------------------------- EXAMPLE OF data[0] in response ---------------------------------\n\n \"id\": \"KhalilOffice\",<br>\n \"name\": \"khalil ahmed\",<br>\n \"email\": \"\",<br>\n \"status\": \"pending\",<br>\n \"number_of_branches\": 0,<br>\n  \"subscription_price\": 3000,<br>\n \"subscription_date\": null,<br>\n \"subscription_end_date\": null,<br>\n \"created_at\": \"2021-04-24T00:16:22.000000Z\",<br>\n \"updated_at\": \"2021-04-22T20:12:05.000000Z\",<br>\n \"tenancy_db_name\": \"tenantKhalilOffice\",<br>\n  <br>\n \"domains\": [\n<br>\n     {\n     \"id\": 7,\n     \"domain\": \"khaliloffice\",\n     \"tenant_id\": \"KhalilOffice\",\n     \"created_at\": \"2021-04-22T20:12:09.000000Z\",\n     \"updated_at\": \"2021-04-22T20:12:09.000000Z\"\n     }\n<br>\n        ]",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "create new subscriber blade,\n route : route('owner.subscriptions.create'),\n the create blade \/resources\/views\/Owner\/Tenants\/create.blade.php --> add your component their",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/Subscriptions\/create",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "store new subscriber | Return NewSubscriber.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/Subscriptions",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"id\": \"dignissimos\",\n    \"domain\": \"eveniet\",\n    \"name\": \"rerum\",\n    \"email\": \"praesentium\",\n    \"password\": \"ut\",\n    \"status\": \"iure\",\n    \"number_of_branches\": 3,\n    \"subscription_price\": 162.6,\n    \"subscription_period_in_days\": 4,\n    \"subscription_date\": \"dolor\",\n    \"subscription_end_date\": \"et\"\n}"
+                        },
+                        "description": "Ziggy route : axios.post(route('owner.subscriptions.store'),formData).",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Retrieve One Tenant with his domains.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/Subscriptions\/:Subscription\/edit",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "<br>\nthen Returns Blade Owner\/Tenants\/edit.blade.php.\n<br>\nAdd Vue Component Their\n<br>\nroute : route('owner.subscriptions.edit'),",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update the info of the subscriber and its domain.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/Subscriptions\/:Subscription",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"quia\",\n    \"email\": \"sint\",\n    \"password\": \"et\",\n    \"status\": \"expedita\",\n    \"number_of_branches\": 12,\n    \"subscription_price\": 126793466.00043,\n    \"subscription_period_in_days\": 18,\n    \"subscription_date\": \"velit\",\n    \"subscription_end_date\": \"consequatur\"\n}"
+                        },
+                        "description": "Ziggy route : axios.post(route('owner.subscriptions.update',TenantID),formData).\n<br>\nformData.append('_method',\"PATCH\").\n<br>",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Delete the info of the subscriber and its domain\nZiggy route : axios.delete(route('owner.subscriptions.destroy',TenantID),formData).",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/Subscriptions\/:Subscription",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "<br>",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Manage subscribed office branches",
+            "description": "\nAPIs To Manage subscribed office branches",
+            "item": [
+                {
+                    "name": "Retrieve subscriber (Tenant) All Office Branches,\nreturn response json.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/subscriber\/:TenantID\/OfficeBranches",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "TenantID",
+                                    "key": "TenantID",
+                                    "value": "id",
+                                    "description": "The Id of the subscriber (Tenant)."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "<br>\nZiggy route : axios.get(route('owner.officeInfo.index')).\n<br>\nreponse {\n \"OfficeBranches\": [\n<br>\n{\n\"id\": 1,\n\"name\": \"\u0627\u0644\u0631\u064a\u0627\u0636\",\n\"address\": \"\u0639\u0646\u0648\u0627\u0646 - \u0627\u0644\u0631\u064a\u0627\u0636\",\n\"is_main\":1\n\"created_at\": \"2021-04-14T22:43:23.000000Z\",\n\"updated_at\": null\n},\n<br>\n{\n\"id\": 2,\n\"name\": \"\u0627\u0644\u062f\u0645\u0627\u0645\",\n\"address\": \"\u0639\u0646\u0648\u0627\u0646 - \u0627\u0644\u062e\u0628\u0631\",\n\"is_main\":0\n\"created_at\": \"2021-04-28T22:43:26.000000Z\",\n\"updated_at\": null\n}\n<br>\n]\n}",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "store new Branch | Return The NewOfficeBranch.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/subscriber\/:TenantID\/OfficeBranches",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "TenantID",
+                                    "key": "TenantID",
+                                    "value": "reprehenderit",
+                                    "description": "The Id of the subscriber (Tenant)."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"et\",\n    \"address\": \"quo\",\n    \"is_main\": false\n}"
+                        },
+                        "description": "Ziggy route : axios.post(route('owner.OfficeBranches.store'),formData).",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "update Office Branch | Return The UpdatedOfficeBranch.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/subscriber\/:TenantID\/OfficeBranches\/:OfficeBranch",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "TenantID",
+                                    "key": "TenantID",
+                                    "value": "adipisci",
+                                    "description": "The Id of the subscriber (Tenant)."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"eius\",\n    \"address\": \"ut\",\n    \"is_main\": true\n}"
+                        },
+                        "description": "Ziggy route : axios.post(route('owner.OfficeBranches.update'),formData).\n<br>\nformData.append('_method',\"PATCH\").\n<br>",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "delete Office Branch",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/subscriber\/:TenantID\/OfficeBranches\/:OfficeBranch",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "TenantID",
+                                    "key": "TenantID",
+                                    "value": "modi",
+                                    "description": "The Id of the subscriber (Tenant)."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Ziggy route : axios.delete(route('owner.OfficeBranches.destroy',TenantID)).\n<br>\nformData.append('_method',\"delete\").\n<br>",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Owner Admin DashBoard",
+            "description": "\nAPI Send All Tenants Stats",
+            "item": [
+                {
+                    "name": "Retrieve Tenants Stats",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OwnerAdmin\/dashboard",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "[Total Number Of Tenants , Pending Requests To Join, Active Tenants, Expired Tenants, The Money Made By Subscriptions This Month]\nZiggy route : axios.get(route('owner.dashboard'))",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Tenants users to Manage subscribing",
+            "description": "\nviews and APIs To view & store & update Subscriptions",
+            "item": [
+                {
+                    "name": "return view that shows the subscribing Main page ,\n route : route('home.subscriptions.index'),\n the index blade \/resources\/views\/FrontPreviews\/Subscriptions\/index.blade.php --> add your component their",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "home\/subscriptions",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "return view that shows the create new subscription page.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "home\/subscriptions\/create",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "<br>\n route : route('home.subscriptions.create'),\n the index blade \/resources\/views\/FrontPreviews\/Subscriptions\/create.blade.php --> add your component their",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Store New subscription.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "home\/subscriptions",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"id\": \"animi\"\n}"
+                        },
+                        "description": "<br>\n route : route('home.subscriptions.store'),",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "return view that shows the current tenant subscription details page.<br>\n route : route('home.subscriptions.edit',{'TenantID':TenantID}). <br>\n the edit blade \/resources\/views\/FrontPreviews\/Subscriptions\/edit.blade.php --> add your component their.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "home\/subscriptions\/:TenantID\/edit",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "TenantID",
+                                    "key": "TenantID",
+                                    "value": "minus",
+                                    "description": "param of the Tenant (subscriber ID)."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "<br>\n <your-component-name :Subscriper=\"{{$Subscriber}}\"><\/your-component-name>",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "update New subscription.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "home\/subscriptions\/:TenantID",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "TenantID",
+                                    "key": "TenantID",
+                                    "value": "soluta",
+                                    "description": "param of the Tenant (subscriber ID),"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"neque\",\n    \"email\": \"veritatis\",\n    \"password\": \"suscipit\"\n}"
+                        },
+                        "description": "route : route('home.subscriptions.update'),",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "general",
+            "description": "",
+            "item": [
+                {
+                    "name": "maileclipse",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/templates",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/templates",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/templates\/new",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/templates\/new",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/templates\/new\/{type}\/{name}\/{skeleton}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/templates\/new\/:type\/:name\/:skeleton",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/templates\/edit\/{templatename}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/templates\/edit\/:templatename",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/templates\/new",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/templates\/new",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/templates\/delete",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/templates\/delete",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/templates\/update",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/templates\/update",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/templates\/preview",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/templates\/preview",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/mailables",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/mailables",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/mailables\/view\/{name}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/mailables\/view\/:name",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/mailables\/edit\/template\/{name}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/mailables\/edit\/template\/:name",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/mailables\/parse\/template",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/mailables\/parse\/template",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/mailables\/preview\/template",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/mailables\/preview\/template",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/mailables\/preview\/template\/previewerror",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/mailables\/preview\/template\/previewerror",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/mailables\/preview\/{name}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/mailables\/preview\/:name",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/mailables\/new",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/mailables\/new",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/mailables\/new",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/mailables\/new",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "maileclipse\/mailables\/delete",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "maileclipse\/mailables\/delete",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "tenancy\/assets\/{path?}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "tenancy\/assets\/:path",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Show the application's login form.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "login",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "login",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "login",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Log the user out of the application.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "logout",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Show the application registration form.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "register",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Handle a registration request for the application.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "register",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the form to request a password reset link.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/reset",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Send a reset link to the given user.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/email",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the password reset view for the given token.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/reset\/:token",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "If no token is present, display the link request form.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Reset the given user's password.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/reset",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the password confirmation view.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/confirm",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Confirm the given user's password.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/confirm",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Show the application's login form.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "login",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "login",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "login",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Log the user out of the application.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "logout",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Show the application registration form.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "register",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Handle a registration request for the application.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "register",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the form to request a password reset link.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/reset",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Send a reset link to the given user.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/email",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the password reset view for the given token.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/reset\/:token",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "If no token is present, display the link request form.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Reset the given user's password.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/reset",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the password confirmation view.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/confirm",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Confirm the given user's password.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "password\/confirm",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/dashboard",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/dashboard",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/ManageEmployees",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/ManageEmployees",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/AddEmployee",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/AddEmployee",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/StoreNewEmployee",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/StoreNewEmployee",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/EditEmployee\/{employee}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/EditEmployee\/:employee",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/UpdateEmployee\/{employee}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/UpdateEmployee\/:employee",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/DeleteEmployee\/{employee}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/DeleteEmployee\/:employee",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/ManageDropDowns",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/ManageDropDowns",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/StoreDropDownsOption",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/StoreDropDownsOption",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/DeleteDropDownsOption\/{id}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/DeleteDropDownsOption\/:id",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/UpdateDropDownsOption\/{id}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/UpdateDropDownsOption\/:id",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/AccountCharts",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/AccountCharts",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/StoreAccountChart",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/StoreAccountChart",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/DeleteAccountChart\/{id}\/level\/{level}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/DeleteAccountChart\/:id\/level\/:level",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/UpdateAccountChart",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/UpdateAccountChart",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/ManageRevisingGuid",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/ManageRevisingGuid",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/UpdateRevisingGuid\/{RevisingGuidID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/UpdateRevisingGuid\/:RevisingGuidID",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/StoreNewRevisingGuid",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/StoreNewRevisingGuid",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/DeleteRevisingGuid\/{RevisingGuidID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/DeleteRevisingGuid\/:RevisingGuidID",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/ManageFinancialGroups",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/ManageFinancialGroups",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/UpdateFinancialGroup\/\/{FinancialGroupID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/UpdateFinancialGroup\/\/:FinancialGroupID",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/StoreNewFinancialGroup",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/StoreNewFinancialGroup",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/DeleteFinancialGroup\/{FinancialGroupID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/DeleteFinancialGroup\/:FinancialGroupID",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/LinkAccountToFinancialGroup\/{FinancialGroupID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/LinkAccountToFinancialGroup\/:FinancialGroupID",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "SuperAdmin\/UnLinkAccountFromFinancialGroup\/{AccountID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "SuperAdmin\/UnLinkAccountFromFinancialGroup\/:AccountID",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/Transactions",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/Transactions",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/CreateTransaction",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/CreateTransaction",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/StoreNewTransaction\/institution\/{institution}\/reviser\/{reviser}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/StoreNewTransaction\/institution\/:institution\/reviser\/:reviser",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/PrintReceiptVoucher\/TransactionYear\/{TransactionYear}\/CompanyName\/{CompanyName}\/PaymentType\/{PaymentType}\/PaymentValue\/{PaymentValue}\/ReviserCompanyName\/{ReviserCompanyName}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/PrintReceiptVoucher\/TransactionYear\/:TransactionYear\/CompanyName\/:CompanyName\/PaymentType\/:PaymentType\/PaymentValue\/:PaymentValue\/ReviserCompanyName\/:ReviserCompanyName",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/EngagementLetter\/institution\/{institution}\/transaction\/{transaction}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/EngagementLetter\/institution\/:institution\/transaction\/:transaction",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/EditTransaction\/{Transaction_id}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/EditTransaction\/:Transaction_id",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/StoreNewInstitution",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/StoreNewInstitution",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/UpdateInstitution\/{institution}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/UpdateInstitution\/:institution",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/StoreNewAgentFor\/{institution}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/StoreNewAgentFor\/:institution",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/UpdateAgent\/{agent}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/UpdateAgent\/:agent",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/SearchNewRegister",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/SearchNewRegister",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/StoreNewRegisterTrade\/{institution}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/StoreNewRegisterTrade\/:institution",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/UpdateRegister\/{TradeRegister}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/UpdateRegister\/:TradeRegister",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Secretary\/DeleteTradeRegister\/{TradeRegisterID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Secretary\/DeleteTradeRegister\/:TradeRegisterID",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Reviser\/Transactions",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Reviser\/Transactions",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Reviser\/EditTransaction\/{Transaction_id}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Reviser\/EditTransaction\/:Transaction_id",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "TechnicalAuditor\/Transactions",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "TechnicalAuditor\/Transactions",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "TechnicalAuditor\/EditTransaction\/{Transaction_id}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "TechnicalAuditor\/EditTransaction\/:Transaction_id",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "TechnicalAuditor\/AccountAvailableForExcelLinking\/{TransactionID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "TechnicalAuditor\/AccountAvailableForExcelLinking\/:TransactionID",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "TechnicalAuditor\/GetUploadedAccountsExcelHeaders",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "TechnicalAuditor\/GetUploadedAccountsExcelHeaders",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "TechnicalAuditor\/StoreNewBranchedStatementAddedByExcel",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "TechnicalAuditor\/StoreNewBranchedStatementAddedByExcel",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "TechnicalAuditor\/DeleteExistingBranchedStatementAddedByExcel\/{BranchedStatementID}\/WhoseParent\/{ParentID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "TechnicalAuditor\/DeleteExistingBranchedStatementAddedByExcel\/:BranchedStatementID\/WhoseParent\/:ParentID",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "AllTransactions\/{OrderByCase?}\/{MainRegisterNumber?}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "AllTransactions\/:OrderByCase\/:MainRegisterNumber",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "ManagementPartner\/Transactions",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "ManagementPartner\/Transactions",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "ManagementPartner\/EditTransaction\/{Transaction_id}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "ManagementPartner\/EditTransaction\/:Transaction_id",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "RevisingManager\/dashboard",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "RevisingManager\/dashboard",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "RevisingManager\/Transactions",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "RevisingManager\/Transactions",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "RevisingManager\/EditTransaction\/{Transaction_id}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "RevisingManager\/EditTransaction\/:Transaction_id",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "ArchiveSecretary\/Transactions",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "ArchiveSecretary\/Transactions",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "ArchiveSecretary\/RevisingGuid\/Transaction\/{TransactionsID}\/{WithRelation?}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "ArchiveSecretary\/RevisingGuid\/Transaction\/:TransactionsID\/:WithRelation",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "ArchiveSecretary\/RevisingGuidList\/{transactionID}\/Guide\/{RevisingGuidID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "ArchiveSecretary\/RevisingGuidList\/:transactionID\/Guide\/:RevisingGuidID",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "ArchiveSecretary\/UpdateArchiveRecord\/{transactionID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "ArchiveSecretary\/UpdateArchiveRecord\/:transactionID",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "ArchiveSecretary\/StoreArchiveRecord\/{transactionID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "ArchiveSecretary\/StoreArchiveRecord\/:transactionID",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "OfficeInfo",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "OfficeInfo",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "StoreOfficeInfo",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "StoreOfficeInfo",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "UpdateOfficeInfo",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "UpdateOfficeInfo",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "UpdateTransaction\/{transaction}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "UpdateTransaction\/:transaction",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "UpdateTransactionActualTime\/{transaction}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "UpdateTransactionActualTime\/:transaction",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Documents\/{transactionID?}\/document\/{documentCode?}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "Documents\/:transactionID\/document\/:documentCode",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "AddTransactionDocumentFor\/{Transaction}\/document\/{document}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "AddTransactionDocumentFor\/:Transaction\/document\/:document",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "RemoveTransactionDocument\/{documentID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "RemoveTransactionDocument\/:documentID",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "DownloadDocuments\/{documentPath}\/name\/{documentName}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "DownloadDocuments\/:documentPath\/name\/:documentName",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "AddDocumentComment",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "AddDocumentComment",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "GetDropDownsOptions",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "GetDropDownsOptions",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "GetEmployeesType\/{employees_type}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "GetEmployeesType\/:employees_type",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "AllAccountCharts",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "AllAccountCharts",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "NestedAccountCharts",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "NestedAccountCharts",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "AllTransactionAccountsTreeWithStatements\/{TransactionID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "AllTransactionAccountsTreeWithStatements\/:TransactionID",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "TransactionAccountStatements\/{TransactionID}\/account\/{AccountID}\/level\/{AccountLevel}\/WithoutReadOnlyData\/{WithoutReadOnly?}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "TransactionAccountStatements\/:TransactionID\/account\/:AccountID\/level\/:AccountLevel\/WithoutReadOnlyData\/:WithoutReadOnly",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "TransactionAccountsWithSumOfStatements\/{TransactionID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "TransactionAccountsWithSumOfStatements\/:TransactionID",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "StoreNewTransactionAccountStatement\/{transactionID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "StoreNewTransactionAccountStatement\/:transactionID",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "DeleteTransactionAccountStatements\/{StatementID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "DeleteTransactionAccountStatements\/:StatementID",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "UpdateTransactionAccountStatement\/{StatementID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "UpdateTransactionAccountStatement\/:StatementID",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "TransactionAccountStatementsWithBranches\/{TransactionID}\/account\/{AccountID}\/level\/{AccountLevel}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "TransactionAccountStatementsWithBranches\/:TransactionID\/account\/:AccountID\/level\/:AccountLevel",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "StatementReadOnlyDataForAccount\/{TransactionID}\/account\/{Account_id}\/Level\/{AccountLevel}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "StatementReadOnlyDataForAccount\/:TransactionID\/account\/:Account_id\/Level\/:AccountLevel",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "AccountStatementBranches\/{StatementID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "AccountStatementBranches\/:StatementID",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "UpdateBranchOfAccountStatement\/{BranchedStatementID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "UpdateBranchOfAccountStatement\/:BranchedStatementID",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "StoreNewBranchedStatement",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "StoreNewBranchedStatement",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "AccountsHasInKind\/{TransactionID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "AccountsHasInKind\/:TransactionID",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "InKind\/{AccountStatementID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "InKind\/:AccountStatementID",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "StoreNewInKind",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "StoreNewInKind",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "UpdateInKind\/{InKindID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "UpdateInKind\/:InKindID",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "DeleteInKind\/{InKindID}\/Parent\/{ParentStatementID}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "auditingWithTenancy",
+                            "path": "DeleteInKind\/:InKindID\/Parent\/:ParentStatementID",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        }
+    ]
+}

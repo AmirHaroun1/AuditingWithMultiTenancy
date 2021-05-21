@@ -32,4 +32,7 @@ class User extends Authenticatable
             return '';
         }
       }
+      public function OfficeBranch(){
+        return $this->belongsTo('App\OfficeBranch','branch_office_id');
+      }
 }

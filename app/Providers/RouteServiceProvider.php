@@ -68,6 +68,7 @@ class RouteServiceProvider extends ServiceProvider
         }
     }
 
+
     protected function mapApiRoutes()
     {
         foreach ($this->centralDomains() as $domain) {

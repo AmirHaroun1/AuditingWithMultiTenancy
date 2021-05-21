@@ -9,12 +9,16 @@ use App\institution;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use function GuzzleHttp\Promise\all;
+
 
 class AgentController extends Controller
 {
     //
 
+    public function index(){
+        $agents = agent::all();
+        return response()->json(['agents'=>$agents],200);
+    }
     public function store(StoreAgentRequest $request,Institution $institution)
     {
         $agent = agent::firstWhere('national_id',$request->national_id);
@@ -33,7 +37,6 @@ class AgentController extends Controller
     {
 
         $request['password'] = Hash::make($request->password);
-
 
         $agent->update($request->all());
 

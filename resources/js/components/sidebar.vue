@@ -1,7 +1,7 @@
 <template>
 <v-navigation-drawer right permenant app dark class="primary">
     <h3 class="white--text text-center">
-        {{authObject.role}}
+        {{authObject.name}}
     </h3>
         <!-- <v-img class="mainLogo my-2" src="https://toppng.com/uploads/preview/deezer-logo-white-png-spotify-icon-png-white-115628504321wsqwqfkog.png" height="75px"></v-img> -->
     <v-divider></v-divider>
@@ -67,12 +67,17 @@ export default {
             const adminItems =  [{
                     title: 'الرئيسية',
                     icon: 'fa fa-dashboard',
-                    path: "dashboard"
+                    path: "dashboard.admin"
                 },
                 {
                     title: 'الموظفين',
                     icon: 'fa fa-user',
                     path: "employees.index"
+                },
+                {
+                    title: 'بيانات المكتب',
+                    icon: 'fa fa-breifcase',
+                    path: "system.officeInfo"
                 },
                 {
                     title: 'القوائم المنسدلة',
@@ -118,10 +123,16 @@ export default {
             ]
             const reviseManagerItems = [
                 {
+                    title: 'الرئيسية',
+                    icon: 'fa fa-dashboard',
+                    path: "dashboard.RevisingManager"
+                },
+                {
                     title: 'المعاملات',
                     icon: 'fa fa-open',
                     path: "Transactions.index.RevisingManager"
-                }
+                },
+
             ]
             const partnerItems = [
                 {

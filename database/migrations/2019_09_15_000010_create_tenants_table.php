@@ -19,10 +19,21 @@ class CreateTenantsTable extends Migration
             $table->string('id')->primary();
             $table->string('name');
             $table->string('password');
+            $table->string('email');
+
             // your custom columns may go here
+            $table->integer('number_of_branches')->default(0);
+            $table->string('status')->default('pending');
+            $table->double('subscription_price')->default(0);
+
+            $table->integer('subscription_period_in_days')->default(0);
+            $table->timestamp('subscription_date')->nullable();
+            $table->timestamp('subscription_end_date')->nullable();
 
             $table->timestamp('created_at');
             $table->timestamps();
+
+            $table->string('activation_token');
             $table->json('data')->nullable();
         });
     }

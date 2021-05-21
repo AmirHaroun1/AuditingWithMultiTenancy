@@ -30,7 +30,7 @@ class StoreEmployeeRequest extends FormRequest
             'role'=>['bail','required'],
             'name' => [ 'bail','string', 'max:255', 'min:3'],
             'phone'=>['bail','unique:users'],
-            'email' => ['bail','unique:users','email'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['bail','string','min:8','max:255','confirmed'],
 
         ];

@@ -12,12 +12,12 @@
             <v-expansion-panel-header hide-actions>
                 {{FinancialGroup.name}}
             </v-expansion-panel-header>
-            <v-btn absolute @click="ShowEditFinancialGroupModal(FinancialGroup)" class="floatLeftAction2" fab dark x-small color="primary">
+            <v-btn icon outlined absolute @click="ShowEditFinancialGroupModal(FinancialGroup)" class="floatLeftAction2" fab dark x-small color="primary">
                 <v-icon dark>
                     mdi-pencil
                 </v-icon>
             </v-btn>
-            <v-btn absolute class="floatLeftAction" @click="destroy(FinancialGroup.id,index)" fab dark x-small color="error">
+            <v-btn icon outlined absolute class="floatLeftAction" @click="destroy(FinancialGroup.id,index)" fab dark x-small color="error">
                 <v-icon dark>
                     mdi-delete
                 </v-icon>
@@ -29,7 +29,7 @@
                         <v-expansion-panel-header hide-actions>
                             {{account.name}}
                         </v-expansion-panel-header>
-                        <v-btn absolute class="floatLeftAction" @click="UnLinkAccount(account,FinancialGroup,AccountIndex)" fab dark x-small color="error">
+                        <v-btn icon outlined absolute class="floatLeftAction" @click="UnLinkAccount(account,FinancialGroup,AccountIndex)" fab dark x-small color="error">
                             <v-icon dark>
                                 mdi-delete
                             </v-icon>
@@ -57,80 +57,55 @@
         <v-spacer></v-spacer>
     </v-card-actions>
     <!------------ Add Financial Group Hidden Modal  ---------->
-    <h4 type="button" ref="AddModalButton" data-toggle="modal" data-target="#AddFinancialGroupModal" style="display: none">
-        أضافة مجموعة جديدة
-    </h4>
-    <div class="modal  fade" id="AddFinancialGroupModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"> أضافة مجموعة جديدة
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <form @submit.prevent="AddNewFinancialGroup()">
-                            <div class="row">
-                                <div class="col-md-12 form-group">
-                                    <label>أسم المجموعة</label>
-                                    <input v-model="NewFinancialGroup.name" class="form-control" required>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-block btn-success btn-lg" style="width:130px;height:50px">حفظ</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button ref="CloseAddFinancialGroupModal" type="button" class="btn btn-secondary" data-dismiss="modal">غلق</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <v-dialog v-model="newGroupDialog" max-width="600px">
+        <v-card>
+            <v-container>
+                <v-card-title>
+                    {{$t('addNewGroup')}}
+                </v-card-title>
+                <v-form @submit.prevent="AddNewFinancialGroup()">
+                    <v-row>
+                        <v-col cols="12">
+                            <v-text-field v-model="NewFinancialGroup.name" outlined :label="$t('groupName')"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn type="submit" color="primary" dark>
+                            {{$t('save')}}
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-form>
+            </v-container>
+        </v-card>
+    </v-dialog>
     <!------------ /. Add Financial Group Hidden Modal  ---------->
 
     <!------------ Add FinancialGroupAccount Hidden Modal  ---------->
-    <h4 type="button" ref="AddFinancialGroupAccountButton" data-toggle="modal" data-target="#FinancialGroupAccount" style="display: none">
-        أضافة إلي مجموعة
-    </h4>
-    <div class="modal  fade" id="FinancialGroupAccount" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-
-                        أضافة إلي
-                        {{ParentFinancialGroup.name}}
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <form @submit.prevent="LinkNewAccountToFinancialGroups()">
-                            <div class="row">
-                                <div class="col-md-12 form-group">
-                                    <label>أسم الحساب</label>
-                                    <v-select :options="AccountVSelect" v-model="ChosenAccount" style="width: 100%">
-                                    </v-select>
-
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-block btn-success btn-lg" style="width:130px;height:50px">حفظ</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button ref="CloseAddFinancialGroupAccountsModal" type="button" class="btn btn-secondary" data-dismiss="modal">غلق</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <v-dialog v-model="newGroupToDialog" max-width="600px">
+        <v-card>
+            <v-container>
+                <v-card-title>
+                    {{$t('addTo')}} {{ParentFinancialGroup.name}}
+                </v-card-title>
+                <v-form @submit.prevent="LinkNewAccountToFinancialGroups()">
+                    <v-row>
+                        <v-col cols="12">
+                            <v-autocomplete v-model="ChosenAccount" :items="AccountVSelect" item-text="label" item-value="code" outlined :label="$t('accountName')"></v-autocomplete>
+                        </v-col>
+                    </v-row>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn type="submit" color="primary" dark>
+                            {{$t('save')}}
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-form>
+            </v-container>
+        </v-card>
+    </v-dialog>
     <!------------ /. Add FinancialGroupAccount Hidden Modal  ---------->
 
     <!------------ Edit Financial Group Hidden Modal  ---------->
@@ -167,6 +142,29 @@
             </div>
         </div>
     </div>
+    <v-dialog v-model="editGroupDialog" max-width="600px">
+        <v-card>
+            <v-container>
+                <v-card-title>
+                    {{$t('editGroup')}}
+                </v-card-title>
+                <v-form @submit.prevent="UpdateFinancialGroup()">
+                    <v-row>
+                        <v-col cols="12">
+                            <v-text-field v-model="TempFinancialGroup.name" outlined :label="$t('groupName')"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn type="submit" color="primary" dark>
+                            {{$t('save')}}
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-form>
+            </v-container>
+        </v-card>
+    </v-dialog>
     <!------------ /. Edit Financial Group Hidden Modal  ---------->
 </div>
 </template>
@@ -184,6 +182,9 @@ export default {
         return {
             FinancialGroupsArray: this.FinancialGroups,
             LoadingSpinner: false,
+            newGroupDialog: false,
+            newGroupToDialog: false,
+            editGroupDialog: false,
             NewFinancialGroup: {
                 'id': '',
                 'name': ''
@@ -229,7 +230,7 @@ export default {
 
             this.NewFinancialGroup.id = '';
             this.NewFinancialGroup.name = '';
-            this.$refs.AddModalButton.click();
+            this.newGroupDialog = true;
 
         },
         AddNewFinancialGroup() {
@@ -266,7 +267,7 @@ export default {
             this.TempFinancialGroup.id = FinancialGroup.id;
             this.TempFinancialGroup.name = FinancialGroup.name;
             this.EditedFinancialGroup = FinancialGroup;
-            this.$refs.EditModalButton.click();
+            this.editGroupDialog = true;
 
         },
         UpdateFinancialGroup() {
@@ -328,7 +329,7 @@ export default {
         },
         ShowAddAccountToFinancialGroupModal(FinancialGroup) {
             this.ParentFinancialGroup = FinancialGroup;
-            this.$refs.AddFinancialGroupAccountButton.click();
+            this.newGroupToDialog = true;
         },
         LinkNewAccountToFinancialGroups() {
             this.LoadingSpinner = true;

@@ -1,6 +1,6 @@
-import { Pie } from "vue-chartjs";
+import { Doughnut } from "vue-chartjs";
 export default {
-  extends: Pie,
+  extends: Doughnut,
   props: ["data", "options", "title"],
   mounted() {
     // this.chartData is created in the mixin.

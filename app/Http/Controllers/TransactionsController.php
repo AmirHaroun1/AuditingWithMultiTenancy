@@ -8,12 +8,14 @@ use App\institution;
 use App\reviser;
 use App\SystemSettings;
 use App\Transaction;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionsController extends Controller
 {
     //
-    public function index($orderByCase="latest",$MainRegisterNumber=null)
+    public function index($OrderByCase="latest",$MainRegisterNumber=null)
     {
 
         if(\request()->expectsJson()){
@@ -29,15 +31,27 @@ class TransactionsController extends Controller
                 ->when(!is_null($MainRegisterNumber),function($query) use ($MainRegisterNumber){
                     return $query->where('MainTradeRegisterNumber','=',$MainRegisterNumber);
                 })
-                ->when(!is_null($orderByCase), function($query) use ($orderByCase){
-                    switch ($orderByCase)
+                ->when(!is_null($OrderByCase), function($query) use ($OrderByCase){
+                    switch ($OrderByCase)
                     {
                         case "latest": return $query->latest();
                         case "oldest": return $query->OrderBy('created_at','ASC');
                     }
                 })
+                ->when( true  , function($query){
+                    $CurrentAuth = Auth::user();
+                    if($CurrentAuth->OfficeBranch->is_main && Auth::user()->role == 'مدير مراجعة'){
+                        if(!is_null(\request('BranchOfficeID'))){
+                            $query->where('branch_office_id',\request('BranchOfficeID'));
+                        }
+                    }else {
+                        $query->where('branch_office_id',Auth::user()->branch_office_id);
+                    }
+                })
                 ->paginate(10)
-                ->appends(['OrderByCase'=> \request('OrderByCase'),'MainRegisterNumber'=> \request('MainRegisterNumber')]);
+                ->appends(['OrderByCase'=> \request('OrderByCase'),
+                    'MainRegisterNumber'=> \request('MainRegisterNumber'),
+                    'BranchOfficeID'=>\request('BranchOfficeID')]);
 
             return response()->json(['transactions'=>$transactions],200);
         }
@@ -48,15 +62,19 @@ class TransactionsController extends Controller
         return view('Transactions.create');
     }
 
-    public function store(StoreTransactionRequest $request, $institution_id ,$reviser_id){
+    public function store(StoreTransactionRequest $request){
 
-
-        $NewTransaction = Transaction::create($request->all());
-        $NewTransaction = Transaction::findOrFail($NewTransaction->id);
+        $NewTransaction = Transaction::create(array_merge($request->all(),[
+            'branch_office_id'=>Auth::user()->branch_office_id,
+            /*'institution_id' => $request->institution_id,
+            'reviser_id' => $request->reviser_id,
+            'MainTradeRegisterNumber' => $request->MainTradeRegisterNumber,*/
+        ]));
+        /*$NewTransaction = Transaction::findOrFail($NewTransaction->id);
         $NewTransaction->institution_id = $institution_id;
         $NewTransaction->reviser_id = $reviser_id;
         $NewTransaction->MainTradeRegisterNumber = $request->MainTradeRegisterNumber;
-        $NewTransaction->save();
+        $NewTransaction->save();*/
 
         return response()->json([$NewTransaction],200);
     }

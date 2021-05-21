@@ -4,14 +4,23 @@
         <v-card-title class="mb-3">
             <span class="mr-3 ml-3">{{$t('employeesTable')}}</span>
             <v-spacer></v-spacer>
-            <v-text-field id="search-box" height="32px" v-model="search" class="col-md-2 mr-2 ml-2 mt-4" :label="$t('search')" dense small justify="center" single-line solo align-center hide-details append-icon="mdi-search" />
+            <v-text-field id="search-box" v-model="search" class="col-md-2 mr-2 ml-2 mt-4" :label="$t('search')" dense small justify="center" single-line solo align-center hide-details append-icon="mdi-search" />
             <v-spacer></v-spacer>
-            <v-autocomplete :label="$t('filter')" multiple return-object v-model="headers" height="32px" class="col-md-2 mt-4 mr-2" :items="predefinedFilters" dense small justify="center" />
+            <v-autocomplete :label="$t('filter')" hide-details dense chips multiple return-object v-model="headers" outlined class="col-md-3 mt-4 mr-2" :items="predefinedFilters" dense small justify="center">
+                <template v-slot:selection="{ item, index }">
+                    <v-chip small v-if="index === 0">
+                        <span>{{ item.text }}</span>
+                    </v-chip>
+                    <span v-if="index === 1" class="grey--text caption">
+                        (+{{ headers.length - 1 }} {{$t('others')}})
+                    </span>
+                </template>
+            </v-autocomplete>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="primary" dark v-bind="attrs" v-on="on">
-                       <v-icon>mdi-plus</v-icon> {{$t('newEmployee')}}
+                    <v-btn color="primary" class="mt-4" dark v-bind="attrs" v-on="on">
+                        <v-icon>mdi-plus</v-icon> {{$t('newEmployee')}}
                     </v-btn>
                 </template>
                 <newEmployee @close="dialog = false" />
@@ -101,4 +110,3 @@ export default {
     }
 };
 </script>
-

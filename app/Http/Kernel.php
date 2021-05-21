@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -70,6 +71,13 @@ class Kernel extends HttpKernel
         'RevisingManager'=>\App\Http\Middleware\RevisingManager::class,
         'partner'=>\App\Http\Middleware\partner::class,
         'ArchiveSecretary'=>\App\Http\Middleware\ArchiveSecretary::class,
+        'Owner'=>\App\Http\Middleware\Owner::class,
         'TenantAuth' =>\App\Http\Middleware\TenantAuth::class,
+        'CheckEmployeeHasAccess'=> \App\Http\Middleware\EnsureEmployeeHasAccessOnTransaction::class,
+        'TenantAccessValidation'=> \App\Http\Middleware\CheckTenantsBeforeAccessing::class,
+        'universal' => [],
+        'SecretaryAndAgent' => \App\Http\Middleware\SecretaryAndAgent::class,
+
+
     ];
 }

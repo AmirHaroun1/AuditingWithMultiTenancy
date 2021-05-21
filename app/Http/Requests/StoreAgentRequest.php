@@ -30,7 +30,7 @@ class StoreAgentRequest extends FormRequest
             'role'=>['bail','required'],
             'name' => [ 'bail','string', 'max:255', 'min:3'],
             'phone'=>['bail'],
-            'email' => ['bail','email'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['bail','string','min:8','max:255'],
 
         ];
@@ -42,12 +42,13 @@ class StoreAgentRequest extends FormRequest
             'national_id.min' => 'رقم الهوية يجب أن يتكون من 10 أرقام',
             'national_id.max' => 'رقم الهوية يجب أن يتكون من 10 أرقام',
             'national_id.required' => 'هذا الحقل مطلوب',
+            'email.unique' => 'هذا البريد الألكترونى مسجل بالفعل',
+
 
             'role.required' => 'هذا الحقل مطلوب',
 
             'name.min' => 'الأسم يجب أن يكون 3 أحرف على الأقل',
             'name.max' => 'الأسم يجب أن يكون 255 حرف على الأكثر',
-
             'name.string' => 'الأسم يجب يتكون من أحرف',
 
             'password.min'=>'الرقم السري يجب أن يكون أكثر من 8 أحرف',

@@ -55,18 +55,21 @@ class InitializeTenancyBySubdomain extends InitializeTenancyByDomain
         );
     }
 
-    protected function makeSubdomain(string $hostname)
-    {
-        $parts = explode('.', $hostname);
 
-        $isLocalhost = ( count($parts) == 1 ) ? true:false;
-        $isIpAddress = count(array_filter($parts, 'is_numeric')) === count($parts);
+	protected function makeSubdomain(string $hostname)
+
+	{
+
+    $parts = explode('.', $hostname);
+    $isLocalhost = ( count($parts) == 1 ) ? true:false;
+    $isIpAddress = count(array_filter($parts, 'is_numeric')) === count($parts);
 
 
-        if ($isLocalhost) {
-            return new NotASubdomainException($hostname);
-        }
-
-        return $parts[static::$subdomainIndex];
+    if ($isLocalhost) {
+        return new NotASubdomainException($hostname);
     }
+
+    return $parts[static::$subdomainIndex];
+	}	
+
 }

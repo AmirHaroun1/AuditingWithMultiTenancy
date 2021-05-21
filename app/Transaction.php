@@ -6,13 +6,13 @@ use Alkoumi\LaravelHijriDate\Hijri;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use function GuzzleHttp\Psr7\copy_to_string;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Transaction extends Model
 {
     //
     protected $guarded = [];
-    protected $appends =['hijri_financial_year','hijri_created_at','engagement_letter_date','hijri_engagement_letter_Date'];
     protected $dates = ['created_at', 'updated_at'];
 
     public function getCreatedAtAttribute(){
@@ -21,7 +21,7 @@ class Transaction extends Model
 
     public function getHijriFinancialYearAttribute(){
 
-       return Hijri::Date('Y ','ar',Carbon::createFromDate($this->attributes['financial_year'],1,1) );
+       return $this->attributes['financial_year'];
     }
 
     public function getEngagementLetterDateAttribute(){
@@ -31,12 +31,12 @@ class Transaction extends Model
 
     public function getHijriEngagementLetterDateAttribute(){
 
-        return Hijri::Date('Y / m / j','ar', Carbon::parse($this->attributes['created_at'])->addDays(2)  );
+        return $this->attribute['created_at'];
     }
     public function getHijriCreatedAtAttribute(){
 
 
-       return Hijri::Date('Y /m / j','ar',$this->attributes['created_at']);
+        return $this->attribute['created_at'];
 
     }
     public function getEndFinancialYearAttribute(){
@@ -123,6 +123,7 @@ class Transaction extends Model
                 'code',
             ]);
     }
+
     public function FourthLVLAccounts(){
         return $this->belongsToMany(AccountLVL4::class,'account_transaction','transaction_id','fourth_level_account_id')
             ->using(account_transaction::class)
