@@ -29,8 +29,11 @@ class SystemSettingsController extends Controller
         return response()->json('',200);
     }
     public function UpdateOfficeInfo(Request $request){
-        $OfficeInfo = SystemSettings::where('type','Like','بيانات المكتب')->get();
+
+
+        $OfficeInfo = SystemSettings::where('type','Like','بيانات المكتب')->firstOrFail();
         if($request->has('logo')){
+
             unlink('/storage/OfficeLogo/'.$OfficeInfo->logo);
 
             $logoPath = $request['logo']->store('OfficeLogo');

@@ -395,16 +395,16 @@ export default {
         },
         ShowAddModal() {
             this.Added_revisingGuid.id = '',
-                this.Added_revisingGuid.name = '',
-                this.Added_revisingGuid.code = '',
-                this.Added_revisingGuid.id = '',
-                this.Added_revisingGuid.name = '',
-                this.Added_revisingGuid.code = '',
-                this.Added_revisingGuid.isText = '',
-                this.Added_revisingGuid.default_status = '',
-                this.Added_revisingGuid.default_reference = '',
-                this.Added_revisingGuid.Parent = null,
-                this.newAccountDialog = true;
+            this.Added_revisingGuid.name = '',
+            this.Added_revisingGuid.code = '',
+            this.Added_revisingGuid.id = '',
+            this.Added_revisingGuid.name = '',
+            this.Added_revisingGuid.code = '',
+            this.Added_revisingGuid.isText = '',
+            this.Added_revisingGuid.default_status = '',
+            this.Added_revisingGuid.default_reference = '',
+            this.Added_revisingGuid.Parent = null,
+            this.newAccountDialog = true;
         },
         ShowAddChildOfRevisingGuidModal(Parent) {
 
@@ -956,17 +956,36 @@ export default {
             });
         },
         updateRevisingGuidIndex () {
+            let count = 0;
            const data = this.AvailableRevisingGuides.map((element, index) => {
+               count++;
                return {
-                   Id: element.id,
-                   Order: index
+                   id: element.id,
+                   order_in_list: index
                }
+
            }) 
-           const keys = this.AvailableRevisingGuides.map((element) => {
-               return element.id
-           }) 
-           console.log('data', data)
-           console.log('keys', keys)
+
+            let formData = new FormData();
+           formData.append('_method',"PATCH");
+           formData.append('data',JSON.stringify(data));
+           formData.append('data_length',count);
+            this.LoadingSpinner = true;
+           axios.post(route('PatchUpdate.indices'),formData)
+               .then(res => {
+                   this.LoadingSpinner = false;
+                   console.log(res);
+                   this.$toast.success('.', 'تم التعديل بنجاح', {
+                       timeout: 3000
+                   });
+               }).catch(error => {
+               this.LoadingSpinner = false;
+               console.log(error);
+               this.$toast.warning('.', 'خطأ يرجى اعادة المحاولة', {
+                   timeout: 3000
+               });
+           })
+
         }
 
     }

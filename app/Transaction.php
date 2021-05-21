@@ -12,7 +12,7 @@ class Transaction extends Model
 {
     //
     protected $guarded = [];
-    protected $appends =['hijri_financial_year','hijri_created_at','engagement_letter_date','hijri_engagement_letter_Date'];
+    protected $appends =['hijri_financial_year','hijri_created_at'];
     protected $dates = ['created_at', 'updated_at'];
 
     public function getCreatedAtAttribute(){
@@ -20,19 +20,35 @@ class Transaction extends Model
     }
 
     public function getHijriFinancialYearAttribute(){
+        $date = Carbon::createFromDate($this->attributes['financial_year'],1,1);
+        return Hijri::Date('Y ','ar',$date );
+    }
 
-        return Hijri::Date('Y ','ar',Carbon::createFromDate($this->attributes['financial_year'],1,1) );
+    public function getActualStartDateAttribute(){
+        return Carbon::parse($this->attributes['start_date'])->format('Y / m / d');
+    }
+    public function getHijriActualStartDateAttribute(){
+
+        return Hijri::Date('Y /m / j','ar',$this->attributes['start_date']);
+    }
+
+    public function getActualEndDateAttribute(){
+        return Carbon::parse($this->attributes['end_date'])->format('Y / m / d');
+    }
+    public function getHijriActualEndDateAttribute(){
+        return Hijri::Date('Y /m / j','ar',$this->attributes['end_date']);
     }
 
     public function getEngagementLetterDateAttribute(){
 
-        return Carbon::parse($this->attributes['created_at'])->addDays(2)->format('Y / m / d');
+        return Carbon::parse($this->attributes['start_date'])->addDays(2)->format('Y / m / d');
     }
-
     public function getHijriEngagementLetterDateAttribute(){
 
-        return Hijri::Date('Y / m / j','ar', Carbon::parse($this->attributes['created_at'])->addDays(2)  );
+        return Hijri::Date('Y / m / j','ar', Carbon::parse($this->attributes['start_date'])->addDays(2)  );
     }
+
+
     public function getHijriCreatedAtAttribute(){
 
 

@@ -9,21 +9,21 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="MainTradeRegister.number" outlined :rules="numbersRules" autocomplete="MainTradeRegister" :label="$t('mainTradeNumber')" required />
+                            <v-text-field v-if="MainTradeRegister" v-model="MainTradeRegister.number" outlined :rules="numbersRules" autocomplete="MainTradeRegister" :label="$t('mainTradeNumber')" required />
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="auto">
                                 <template v-slot:activator="{ on, attrs2 }">
                                     <v-text-field outlined v-model="MainTradeRegister.date" name="national_id_date" :label="$t('mainTradeDate')" prepend-icon="mdi-calendar" readonly v-bind="attrs2" v-on="on"></v-text-field>
                                 </template>
-                                <v-date-picker v-model="MainTradeRegister.date" @input="menu2 = false"></v-date-picker>
+                                <v-date-picker v-if="MainTradeRegister" v-model="MainTradeRegister.date" @input="menu2 = false"></v-date-picker>
                             </v-menu>
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="MainTradeRegister.production_place" outlined :rules="required" autocomplete="MainTradeRegisterPlace" :label="$t('mainTradePlace')" required />
+                            <v-text-field v-if="MainTradeRegister" v-model="MainTradeRegister.production_place" outlined :rules="required" autocomplete="MainTradeRegisterPlace" :label="$t('mainTradePlace')" required />
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="MainTradeRegister.production_place" outlined :rules="required" autocomplete="MainTradeRegisterPlace" :label="$t('mainTradePlace')" required />
+                            <v-text-field v-if="MainTradeRegister" v-model="MainTradeRegister.production_place" outlined :rules="required" autocomplete="MainTradeRegisterPlace" :label="$t('mainTradePlace')" required />
                         </v-col>
                         <v-col cols="12" sm="12" md="12">
                             <v-divider></v-divider>
@@ -70,9 +70,9 @@
                         <v-col cols="12" sm="6" md="6">
                             <v-menu :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="auto">
                                 <template v-slot:activator="{ on, attrs2 }">
-                                    <v-text-field outlined v-model="MainTradeRegister.EndDate" :label="$t('tradeEndDate')" append-icon="mdi-calendar" readonly v-bind="attrs2" v-on="on"></v-text-field>
+                                    <v-text-field v-if="MainTradeRegister" outlined v-model="MainTradeRegister.EndDate" :label="$t('tradeEndDate')" append-icon="mdi-calendar" readonly v-bind="attrs2" v-on="on"></v-text-field>
                                 </template>
-                                <v-date-picker v-model="MainTradeRegister.EndDate"></v-date-picker>
+                                <v-date-picker v-if="MainTradeRegister" v-model="MainTradeRegister.EndDate"></v-date-picker>
                             </v-menu>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
@@ -314,10 +314,12 @@ export default {
         this.GetRevisingManagers(route('employee.type', 'مدير مراجعة'));;
 
         this.GetDropDowns(route('system.DropDowns.retrieve.option'));
+        if(this.Institution.address){
+            this.City = this.Institution.address.split(',')[0];
+            this.District = this.Institution.address.split(',')[1];
+            this.RestOfAddress = this.Institution.address.split(',')[2];
+        }
 
-        this.City = this.Institution.address.split(',')[0];
-        this.District = this.Institution.address.split(',')[1];
-        this.RestOfAddress = this.Institution.address.split(',')[2];
     },
     methods: {
         GetRevisers(endpoint) {

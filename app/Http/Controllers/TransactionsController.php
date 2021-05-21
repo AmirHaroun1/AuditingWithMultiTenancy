@@ -71,7 +71,7 @@ class TransactionsController extends Controller
                 ->appends(['OrderByCase'=> \request('OrderByCase'),
                     'MainRegisterNumber'=> \request('MainRegisterNumber'),
                     'BranchOfficeID'=>\request('BranchOfficeID')]);
-
+            $transactions->append(['actual_start_date','hijri_actual_start_date','actual_end_date','hijri_actual_end_date','engagement_letter_date','hijri_engagement_letter_Date'])->toArray();
             return response()->json(['transactions'=>$transactions],200);
         }
         return view('Transactions.index');
@@ -104,7 +104,7 @@ class TransactionsController extends Controller
             'revisingManager:id,name,role,signature',
             'partner:id,name,role,signature')
         ->findOrFail($transaction_id);
-
+        $Transaction->append(['actual_start_date','hijri_actual_start_date','actual_end_date','hijri_actual_end_date','engagement_letter_date','hijri_engagement_letter_Date'])->toArray();
         return view('Transactions.edit',compact('Transaction'));
     }
     public function update(UpdateTransactionRequest $request, Transaction $transaction){
@@ -152,9 +152,15 @@ class TransactionsController extends Controller
 
     public function PrintEngagementLetter(institution $Institution,Transaction $Transaction)
     {
-        $OfficeInfo = SystemSettings::where('type','LIKE','بيانات المكتب')->firstOrFail();
-          $Institution->load([
-            'agent']);
+         $Transaction->load(['partner:id,name,signature']);
+
+        $OfficeInfo = SystemSettings::where('type','LIKE','بيانات المكتب')->first();
+        if(!$OfficeInfo){
+            return abort(403,'Please Set Office Info Data');
+        }
+          $Institution->load(['agent']);
+        $Transaction->append(['actual_start_date','hijri_actual_start_date','actual_end_date','hijri_actual_end_date','engagement_letter_date','hijri_engagement_letter_Date'])->toArray();
+
         return view('Transactions.EngagementLetter',compact('Institution','Transaction','OfficeInfo'));
     }
 }

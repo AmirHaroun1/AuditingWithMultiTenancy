@@ -104,7 +104,7 @@ Route::group([ 'prefix'=>'SuperAdmin','middleware'=>['auth','SuperAdmin'] ],func
     Route::patch('/UpdateRevisingGuid/{RevisingGuidID}','RevisingGuidController@update')->name('revisingGuid.update.admin');
     Route::post('/StoreNewRevisingGuid','RevisingGuidController@store')->name('revisingGuid.store.admin');
     Route::delete('/DeleteRevisingGuid/{RevisingGuidID}','RevisingGuidController@destroy')->name('revisingGuid.destroy.admin');
-    Route::get('/PatchUpdate','RevisingGuidController@PatchUpdateIndex');
+    Route::PATCH('/PatchUpdateOrderIndices','RevisingGuidController@PatchUpdateIndex')->name('PatchUpdate.indices');
 
     //FinancialGroupRoutes
     Route::get('/ManageFinancialGroups','FinancialGroupsController@manage')->name('FinancialGroups.manage.admin');

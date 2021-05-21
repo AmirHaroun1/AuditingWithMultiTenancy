@@ -44,7 +44,7 @@
 
                     <strong style="margin-top: 20px;padding:8px;background-color: #95B3D7">
                         رقم
-                        {{$Institution->number}}
+                        {{$Transaction->id}}
                     </strong>
                 </h2>
 
@@ -77,8 +77,12 @@
                         <tr>
                             <td style="width: 14px"><h5 class="pull-left">MR/</h5></td>
                             <td></td>
+                            @if($Institution->agent)
                             <td style="width: 50%"><h3 class="pull-right">{{$Institution->agent->name}}</h3></td>
-                            <td style="width: 14px"><h5 class="pull-right">عناية</h5></td>
+                            @else
+                            <td style="width: 50%"><h3 class="pull-right"></h3></td>
+                            @endif
+                                <td style="width: 14px"><h5 class="pull-right">عناية</h5></td>
                         </tr>
 
                     </tbody>
@@ -394,7 +398,7 @@
                             <h5 class="text-left" style="padding-top: 20px">
 
 
-                                Signature : ........................................
+                                Signature :  {{$Transaction->partner->name}}
 
                             </h5>
                             <h5 class="text-left" style="padding-top: 20px">
@@ -427,10 +431,10 @@
                                 {{$OfficeInfo->name}}
                             </h5>
                             <h5 class="text-right" style="padding-top: 20px">
-                                ........................................
-                                :
+                                التوقيع:
+                                {{$Transaction->partner->name}}
 
-                                التوقيع
+
                             </h5>
                             <h5 class="text-right" style="padding-top: 20px">
                                 نوافق على ما ورد أعلاه نيابة عن الشركة
@@ -447,7 +451,6 @@
                             <h5 class="text-right" style="padding-top: 20px">
                                 ........................................
                                 :
-
                                 التوقيع
                             </h5>
 
@@ -464,14 +467,15 @@
                     <tr>
                         <td>
                             <h4 class="text-left">
-                                We hope to deposit the fees or transfer them on the account of the office at Al-Rajhi Bank account number (211608010988900) or check on behalf of Ali Abdullah Al-Bakhit Al-Zahrani Office for Accounting and Auditing
+                                We hope to deposit the fees or transfer them on the account of the office at {{$OfficeInfo->bank_name_english}} account number ({{$OfficeInfo->bank_account_number}})
+                                or check on behalf of {{$OfficeInfo->name_english}} Office for Accounting and Auditing
                             </h4>
                         </td>
                         <td>
                             <h4 class="text-right">
                                 نأمل إيداع الأتعاب أو تحويلها على حساب المكتب بمصرف
-                                {{$OfficeInfo->bank_account}}
-                                رقم
+                                {{$OfficeInfo->bank_name}}
+                               حساب رقم
                                 ({{$OfficeInfo->bank_account_number}})
                                 أو شيك باسم مكتب
                                 {{$OfficeInfo->name}}

@@ -59,7 +59,7 @@ class TransactionAccountsStatementsRepository
     }
 
     public static function StoreNewAccountStatement($request,$transactionID){
-        $transaction = Transaction::select(['id','financial_year','end_financial_year','created_at'])->findOrFail($transactionID);
+        $transaction = Transaction::select(['id'])->findOrFail($transactionID);
 
         if($request->account_level == 1){
             return $transaction->StoreNewFirstLvlAccountStatement($request);
