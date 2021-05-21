@@ -29,7 +29,13 @@
                     </a>
                 </template>
                 <template :ref="item.id" v-slot:item.action="{ item }">
-                    <v-icon small @click="printRow(item.id)">
+                    <v-icon small color="primary" @click="editItem(item.id)">
+                        mdi-pencil
+                    </v-icon>
+                    <v-icon small color="error" @click="deleteItem(item.id)">
+                        mdi-delete
+                    </v-icon>
+                    <v-icon small color="grey" @click="printRow(item.id)">
                         mdi-printer
                     </v-icon>
                 </template>
@@ -72,11 +78,13 @@ export default {
                 },
                 {
                     text: this.$t('financialChristianYear'),
-                    value: 'financial_year'
+                    value: 'financial_year',
+                    width: "10%"
                 },
                 {
                     text: this.$t('financialHijriYear'),
-                    value: 'hijri_financial_year'
+                    value: 'hijri_financial_year',
+                    width: "10%"
                 },
                 {
                     text: this.$t('action'),
@@ -146,11 +154,13 @@ export default {
                 },
                 {
                     text: this.$t('financialChristianYear'),
-                    value: 'financial_year'
+                    value: 'financial_year',
+                    width: "10%"
                 },
                 {
                     text: this.$t('financialHijriYear'),
-                    value: 'hijri_financial_year'
+                    value: 'hijri_financial_year',
+                    width: "10%"
                 },
                 {
                     text: this.$t('action'),
@@ -228,8 +238,23 @@ export default {
                     }
                 })
         },
-        printRow (item) {
+        printRow(item) {
             console.log('item', item);
+        },
+        editItem(item) {
+            window.location.href = route('transactions.edit.secretary', item)
+        },
+        deleteItem(item) {
+            this.LoadingSpinner = true;
+            axios.delete(route('transactions.index'))
+                .then(({
+                    data
+                }) => {
+
+                    this.LoadingSpinner = false;
+
+                })
+
         }
     },
 }

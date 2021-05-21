@@ -28,33 +28,33 @@ class UpdateTransactionRequest extends FormRequest
         if(\request()->input('financial_period') == 'فترة قصيرة')
         {
             return [
-                'start_financial_year' => 'bail|date',
-                'end_financial_year' => 'bail|after:start_financial_year',
+                'start_financial_year' => 'date',
+                'end_financial_year' => 'after:start_financial_year',
                 'financial_period' => '',
                 'measurement_standard' => '',
                 'measurement_standard_determinants'=>'',
-                'agreed_contract_value'=>'bail|numeric|min:0|not_in:0',
-                'down_payment'=>'bail|numeric|min:0',
-                'final_payment'=>'bail|numeric|min:0',
-                'zakat_deposit_fees'=>'bail|numeric|min:0',
-                'offer_value'=>'bail|numeric|min:0',
-                'total_value'=>'bail|numeric|min:0',
+                'agreed_contract_value'=>'numeric|min:0|not_in:0',
+                'down_payment'=>'numeric|min:0',
+                'final_payment'=>'numeric|min:0',
+                'zakat_deposit_fees'=>'numeric|min:0',
+                'offer_value'=>'numeric|min:0',
+                'total_value'=>'numeric|min:0',
 
             ];
         }else{
             $transaction = $this->route('transaction');
             return [
-                'start_financial_year' => 'bail|date',
-                'end_financial_year' => 'bail|after:start_financial_year',
+                'start_financial_year' => 'date',
+                'end_financial_year' => 'after:start_financial_year',
                 'financial_period' => '',
                 'measurement_standard' => '',
                 'measurement_standard_determinants'=>'',
-                'agreed_contract_value'=>'bail|numeric|min:0',
-                'down_payment'=>'bail|numeric|min:0',
-                'final_payment'=>'bail|numeric|min:0',
-                'zakat_deposit_fees'=>'bail|numeric|min:0',
-                'offer_value'=>'bail|numeric|min:0',
-                'total_value'=>'bail|numeric|min:0',
+                'agreed_contract_value'=>'numeric|min:0',
+                'down_payment'=>'numeric|min:0',
+                'final_payment'=>'numeric|min:0',
+                'zakat_deposit_fees'=>'numeric|min:0',
+                'offer_value'=>'numeric|min:0',
+                'total_value'=>'numeric|min:0',
                 'financial_year' => [
                     'min:4',
                     Rule::unique('transactions')->ignore($transaction)->where(function ($query) {
@@ -92,12 +92,12 @@ class UpdateTransactionRequest extends FormRequest
 
                 'agreed_contract_value.numeric'=>'برجاء أدخال قيمة صحيحة',
                 'agreed_contract_value.min'=>'برجاء أدخال قيمة صحيحة',
-                'agreed_contract_value.required'=>'برجاء أدخال قيمة صحيحة',
+                'agreed_contract_value'=>'برجاء أدخال قيمة صحيحة',
 
 
                 'down_payment.numeric'=>'برجاء أدخال قيمة صحيحة',
                 'down_payment.min'=>'برجاء أدخال قيمة صحيحة',
-                'down_payment.required'=>'برجاء أدخال قيمة صحيحة',
+                'down_payment'=>'برجاء أدخال قيمة صحيحة',
 
                 'final_payment.numeric'=>'برجاء أدخال قيمة صحيحة',
                 'final_payment.min'=>'برجاء أدخال قيمة صحيحة',

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" promptOnRemoteOverwrite="CHECK_TIMESTAMP" serverName="SamyJewelry" traceLevel="ERRORS" compareModeInSync="TIMESTAMP" showDifferentInSync="false" showNewOnTargetInSync="false">
+  <component name="PublishConfigData" promptOnRemoteOverwrite="CHECK_TIMESTAMP" serverName="AuditingApp Server" traceLevel="ERRORS" compareModeInSync="TIMESTAMP" showDifferentInSync="false" showNewOnTargetInSync="false">
     <serverData>
       <paths name="AuditingApp Server">
         <serverdata>
@@ -9,7 +9,7 @@
           </mappings>
         </serverdata>
       </paths>
-      <paths name="Contabo Almudqiq">
+      <paths name="Contabo Server">
         <serverdata>
           <mappings>
             <mapping deploy="/var/www/audit" local="$PROJECT_DIR$" web="/" />

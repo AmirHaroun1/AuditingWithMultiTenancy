@@ -1,7 +1,7 @@
 <template>
 <div class="box-body">
     <div class="d-flex justify-content-between">
-        <v-row @click="[MainRevisingGuid.code[0] !='ع'  ?  SetSelectedRevisingGuid(MainRevisingGuid) : '' ]  " data-toggle="collapse" :data-target="'#'+MainRevisingGuid.code" aria-expanded="false" aria-controls="collapseExample">
+        <v-row @click="[MainRevisingGuid.code[0] =='ع' && !MainRevisingGuid.AddedByUser?  '' : SetSelectedRevisingGuid(MainRevisingGuid) ]  " data-toggle="collapse" :data-target="'#'+MainRevisingGuid.code" aria-expanded="false" aria-controls="collapseExample">
             <v-col cols="9">
                 <span v-if="MainRevisingGuid.code_alias !== null && MainRevisingGuid.code_alias !=='' ">{{MainRevisingGuid.code_alias}}</span>
                 <span v-else>{{MainRevisingGuid.code}}</span>

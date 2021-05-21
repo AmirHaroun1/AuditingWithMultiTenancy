@@ -8,26 +8,45 @@ use App\institution;
 use App\reviser;
 use App\SystemSettings;
 use App\Transaction;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+/**
+ * @group  Manage Transactions
+ *
+ * APIs To Manage Transactions
+ */
 class TransactionsController extends Controller
 {
-    //
+    /**
+     * in case of json response Retrieve The Transactions of the current user in this branch.
+     * <br>
+     * if the Auth User is 'مدير مراجعة ' and his office_branch.is_main all transactions would be retrieved
+     * <br>
+     * and based on the above condition you should show taps of available branches load them through the following end point.
+     * ,route('OfficeBranches.index'), on clicking on any name of the branches send it as query param 'BranchOfficeID'
+     * <br>
+     * in case of non json response Returns Blade Transactions/index.blade.php.
+     * <br>
+     *
+     *
+     *
+     * @urlParam  OrderByCase optional param of the OrderBy [Latest,oldest].
+     * @urlParam  MainRegisterNumber optional param of the Search TreadRegister.
+     * @queryParam BranchOfficeID optional param if the Auth User.role is 'مدير مراجعة' and his User.office_branch.is_main
+     */
     public function index($OrderByCase="latest",$MainRegisterNumber=null)
     {
 
         if(\request()->expectsJson()){
             $transactions = Transaction::
-                when(true, function($query){
-                    switch (auth()->user()->role)
-                    {
-                        case "مراجع فني": return $query->where('reviser_id',auth()->user()->id);
-                        case "مدقق": return $query->where('auditor_id',auth()->user()->id);
-                        case "شريك اداري": return $query->where('partner_id',auth()->user()->id);
-                    }
-                })
+            when(true, function($query){
+                switch (auth()->user()->role)
+                {
+                    case "مراجع فني": return $query->where('reviser_id',auth()->user()->id);
+                    case "مدقق": return $query->where('auditor_id',auth()->user()->id);
+                    case "شريك اداري": return $query->where('partner_id',auth()->user()->id);
+                }
+            })
                 ->when(!is_null($MainRegisterNumber),function($query) use ($MainRegisterNumber){
                     return $query->where('MainTradeRegisterNumber','=',$MainRegisterNumber);
                 })
@@ -52,7 +71,7 @@ class TransactionsController extends Controller
                 ->appends(['OrderByCase'=> \request('OrderByCase'),
                     'MainRegisterNumber'=> \request('MainRegisterNumber'),
                     'BranchOfficeID'=>\request('BranchOfficeID')]);
-
+            $transactions->append(['actual_start_date','hijri_actual_start_date','actual_end_date','hijri_actual_end_date','engagement_letter_date','hijri_engagement_letter_Date'])->toArray();
             return response()->json(['transactions'=>$transactions],200);
         }
         return view('Transactions.index');
@@ -62,19 +81,14 @@ class TransactionsController extends Controller
         return view('Transactions.create');
     }
 
-    public function store(StoreTransactionRequest $request){
+    public function store(StoreTransactionRequest $request, $institution_id ,$reviser_id){
 
-        $NewTransaction = Transaction::create(array_merge($request->all(),[
-            'branch_office_id'=>Auth::user()->branch_office_id,
-            /*'institution_id' => $request->institution_id,
-            'reviser_id' => $request->reviser_id,
-            'MainTradeRegisterNumber' => $request->MainTradeRegisterNumber,*/
-        ]));
-        /*$NewTransaction = Transaction::findOrFail($NewTransaction->id);
+        $NewTransaction = Transaction::create($request->all());
+        $NewTransaction = Transaction::findOrFail($NewTransaction->id);
         $NewTransaction->institution_id = $institution_id;
         $NewTransaction->reviser_id = $reviser_id;
         $NewTransaction->MainTradeRegisterNumber = $request->MainTradeRegisterNumber;
-        $NewTransaction->save();*/
+        $NewTransaction->save();
 
         return response()->json([$NewTransaction],200);
     }
@@ -90,7 +104,7 @@ class TransactionsController extends Controller
             'revisingManager:id,name,role,signature',
             'partner:id,name,role,signature')
         ->findOrFail($transaction_id);
-
+        $Transaction->append(['actual_start_date','hijri_actual_start_date','actual_end_date','hijri_actual_end_date','engagement_letter_date','hijri_engagement_letter_Date'])->toArray();
         return view('Transactions.edit',compact('Transaction'));
     }
     public function update(UpdateTransactionRequest $request, Transaction $transaction){
@@ -138,9 +152,15 @@ class TransactionsController extends Controller
 
     public function PrintEngagementLetter(institution $Institution,Transaction $Transaction)
     {
-        $OfficeInfo = SystemSettings::where('type','LIKE','بيانات المكتب')->firstOrFail();
-          $Institution->load([
-            'agent']);
+
+        $Transaction->load(['partner:id,name,signature']);
+        $OfficeInfo = SystemSettings::where('type','LIKE','بيانات المكتب')->first();
+        if(!$OfficeInfo){
+            return abort(403,'Please Set Office Info Data');
+        }
+          $Institution->load(['agent']);
+        $Transaction->append(['actual_start_date','hijri_actual_start_date','actual_end_date','hijri_actual_end_date','engagement_letter_date','hijri_engagement_letter_Date'])->toArray();
+
         return view('Transactions.EngagementLetter',compact('Institution','Transaction','OfficeInfo'));
     }
 }

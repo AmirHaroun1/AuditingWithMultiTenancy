@@ -39,6 +39,7 @@
         "vue-excel-editor": "^1.3.90",
         "vue-html-to-paper": "^1.3.1",
         "vue-i18n": "^8.24.1",
+        "vuedraggable": "^2.24.3",
         "vuetify": "^2.4.6",
         "vuetify-loader": "^1.7.2"
     },

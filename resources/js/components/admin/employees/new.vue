@@ -66,11 +66,11 @@
         </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="close()">
-                Close
+            <v-btn color="primary" text @click="submit()">
+                {{$t('save')}}
             </v-btn>
-            <v-btn color="blue darken-1" text @click="submit()">
-                Save
+            <v-btn color="error" text @click="close()">
+                {{$t('cancel')}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -117,9 +117,15 @@ export default {
             this.$emit('close')
         },
         submit() {
+            var form_data = new FormData();
 
-            axios.post(route('employees.store'), this.user).then(res => {
+            for ( var key in this.user ) {
+                form_data.append(key, this.user[key]);
+            }
+
+            axios.post(route('employees.store'), form_data).then(res => {
                 console.log('res', res)
+                this.$emit('close')
             })
         }
     },

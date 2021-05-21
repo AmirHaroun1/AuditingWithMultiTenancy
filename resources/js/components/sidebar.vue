@@ -67,7 +67,7 @@ export default {
             const adminItems =  [{
                     title: 'الرئيسية',
                     icon: 'fa fa-dashboard',
-                    path: "dashboard.admin"
+                    path: "dashboard"
                 },
                 {
                     title: 'الموظفين',
@@ -76,7 +76,7 @@ export default {
                 },
                 {
                     title: 'بيانات المكتب',
-                    icon: 'fa fa-breifcase',
+                    icon: 'fa fa-database',
                     path: "system.officeInfo"
                 },
                 {
@@ -93,11 +93,6 @@ export default {
                     title: 'دليل المراجعة',
                     icon: 'fa fa-book',
                     path: "revisingGuid.manage.admin"
-                },
-                {
-                    title: 'مجموعات القوائم المالية',
-                    icon: 'fa fa-info',
-                    path: "FinancialGroups.manage.admin"
                 },
             ]
             const secItems = [
@@ -123,16 +118,10 @@ export default {
             ]
             const reviseManagerItems = [
                 {
-                    title: 'الرئيسية',
-                    icon: 'fa fa-dashboard',
-                    path: "dashboard.RevisingManager"
-                },
-                {
                     title: 'المعاملات',
                     icon: 'fa fa-open',
                     path: "Transactions.index.RevisingManager"
-                },
-
+                }
             ]
             const partnerItems = [
                 {

@@ -24,7 +24,6 @@
                         <revising-guid-management :All-Revising-Guides="{{$AllRevisingGuides}}"></revising-guid-management>
                     @elseif(auth()->user()->role == 'سكرتير تنفيذي')
                         <archive-edit-transaction :Transaction="{{$Transaction}}"></archive-edit-transaction>
-
                     @endif
             
 @endsection

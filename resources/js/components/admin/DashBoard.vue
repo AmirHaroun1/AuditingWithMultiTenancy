@@ -1,7 +1,7 @@
 <template>
 <div>
     <h3 class="text-center" style="text-align:center;">
-        لوحة التحكم
+        لوحة القيادة
     </h3>
     <v-row class="mb-8" align="center">
         <v-col cols="8">
@@ -18,7 +18,7 @@
                                 <v-list-item-title class="primary--text"> عقود ارتباط السنه الحاليه:</v-list-item-title>
                             </v-list-item-content>
                             <v-list-item-action class="primary--text">
-                                {{TransactionsStatus[0].CurrentYearTransactions}}
+                                {{OfficeBranch.CurrentYearTransactions}}
                             </v-list-item-action>
                         </v-list-item>
                         <v-list-item color="grey">
@@ -29,7 +29,7 @@
                                 <v-list-item-title class="grey--text"> عقود ارتباط السنه السابقه:</v-list-item-title>
                             </v-list-item-content>
                             <v-list-item-action class="grey--text">
-                                {{TransactionsStatus[0].PastYearTransactions}}
+                                {{OfficeBranch.PastYearTransactions}}
                             </v-list-item-action>
                         </v-list-item>
                         <v-list-item color="accent2">
@@ -40,7 +40,7 @@
                                 <v-list-item-title class="accent2--text"> عقود ارتباط تحت المراجعه:</v-list-item-title>
                             </v-list-item-content>
                             <v-list-item-action class="accent2--text">
-                                {{TransactionsStatus[0].TransactionsUnderReview}}
+                                {{OfficeBranch.TransactionsUnderReview}}
                             </v-list-item-action>
                         </v-list-item>
                         <v-list-item color="purple">
@@ -51,7 +51,7 @@
                                 <v-list-item-title class="purple--text"> عقود ارتباط تعيرت من مدير المراجعه:</v-list-item-title>
                             </v-list-item-content>
                             <v-list-item-action class="purple--text">
-                                {{TransactionsStatus[0].TransactionsAuditorIsChanged}}
+                                {{OfficeBranch.TransactionsAuditorIsChanged}}
                             </v-list-item-action>
                         </v-list-item>
                         <v-list-item color="accent">
@@ -62,7 +62,7 @@
                                 <v-list-item-title class="accent--text"> عقود ارتباط مسحوبه:</v-list-item-title>
                             </v-list-item-content>
                             <v-list-item-action class="accent--text">
-                                {{TransactionsStatus[0].WithdrawnTransactions}}
+                                {{OfficeBranch.WithdrawnTransactions}}
                             </v-list-item-action>
                         </v-list-item>
                         <v-list-item color="error">
@@ -73,7 +73,7 @@
                                 <v-list-item-title class="red--text"> عقود ارتباط مرفوضه:</v-list-item-title>
                             </v-list-item-content>
                             <v-list-item-action class="red--text">
-                                {{TransactionsStatus[0].rejectedTransactions}}
+                                {{OfficeBranch.rejectedTransactions}}
                             </v-list-item-action>
                         </v-list-item>
                         <v-list-item color="success">
@@ -84,7 +84,7 @@
                                 <v-list-item-title class="success--text"> عقود ارتباط منتهيه:</v-list-item-title>
                             </v-list-item-content>
                             <v-list-item-action class="success--text">
-                                {{TransactionsStatus[0].rejectedTransactions}}
+                                {{OfficeBranch.rejectedTransactions}}
                             </v-list-item-action>
                         </v-list-item>
                         <v-list-item style="border-top: solid; font-weight:bold" color="black">
@@ -95,7 +95,7 @@
                                 <v-list-item-title class="black--text font-weight-black"> </v-list-item-title>
                             </v-list-item-content>
                             <v-list-item-action class="black--text font-weight-black">
-                                {{TransactionsStatus[0].AllTransactions}}
+                                {{OfficeBranch.AllTransactions}}
                             </v-list-item-action>
                         </v-list-item>
                         <v-list-item style="border-top: solid red;" color="red">
@@ -108,7 +108,7 @@
                                 </v-list-item-title>
                             </v-list-item-content>
                             <v-list-item-action class="red--text">
-                                {{TransactionsStatus[0].LateTransactions}}
+                                {{OfficeBranch.LateTransactions}}
                             </v-list-item-action>
                         </v-list-item>
 
@@ -215,7 +215,6 @@ import PieChart from "../PieChart.js";
 export default {
     name: "DashBoard",
     props: {
-        //'TransactionsStatus': '',
         'OfficeBranch': '',
         'Team': '',
     },
@@ -270,7 +269,7 @@ export default {
                     label: "Data One",
                     backgroundColor: colors,
                     data: rolesArray.map(x => {
-                        return this.TransactionsStatus[0][x]
+                        return this.OfficeBranch[x]
                     })
                 }]
             }
@@ -290,7 +289,7 @@ export default {
                     label: "Data One",
                     backgroundColor: colors,
                     data: rolesArray.map(x => {
-                        return this.TransactionsStatus[0][x]
+                        return this.OfficeBranch[x]
                     })
                 }]
             }

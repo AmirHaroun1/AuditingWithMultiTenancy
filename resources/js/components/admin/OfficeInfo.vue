@@ -29,6 +29,11 @@
                         <v-text-field v-model="officeData.bank_account_number" outlined :label="$t('bankAccountNumber')"></v-text-field>
                     </v-col>
                 </v-row>
+                                <v-card>
+                <v-alert type="primary" outlined>
+                    <office-branches></office-branches>
+                </v-alert>
+                                </v-card>
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn type="submit" color="primary" dark>
@@ -50,27 +55,40 @@ export default {
     },
     data() {
         return {
-            officeData: this.officeInfo,
+            officeData: (this.officeInfo == null) ? {}: this.officeInfo,
         }
     },
     methods: {
         submitForm() {
             let formData = new FormData();
+
             for (const key in this.officeData) {
                 if (Object.hasOwnProperty.call(this.officeData, key)) {
                     const element = this.officeData[key];
-                    formData.append(key, element)
+                    if(element != null){
+                        formData.append(key, element)
+                    }
                 }
             }
-            if (this.officeInfo.name) {
-                axios.patch(route('system.officeInfo.store'), formData).then(res => {
+            if (this.officeInfo != null) {
+                formData.append('_method',"PATCH");
+
+                axios.post(route('system.officeInfo.update'), formData).then(res => {
                     console.log('res', res);
+                    this.$toast.success('.',
+                        'قد تم تعديل البيانات بنجاح ', {
+                            timout: 2000
+                        });
                 }).catch(err => {
                     console.log('err', err);
                 })
             } else {
                 axios.post(route('system.officeInfo.store'), formData).then(res => {
                     console.log('res', res);
+                    this.$toast.success('.',
+                        'قد تم اضافة البيانات بنجاح ', {
+                            timout: 2000
+                        });
                 }).catch(err => {
                     console.log('err', err);
                 })

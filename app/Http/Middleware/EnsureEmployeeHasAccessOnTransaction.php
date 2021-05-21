@@ -17,6 +17,7 @@ class EnsureEmployeeHasAccessOnTransaction
      */
     public function handle($request, Closure $next)
     {
+       // return $next($request);
         $CurrentAuthOfficeBranch = Auth::user()->OfficeBranch;
         if($CurrentAuthOfficeBranch->is_main && Auth::user()->role == 'مدير مراجعة'){
             return $next($request);

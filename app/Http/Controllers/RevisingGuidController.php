@@ -15,10 +15,12 @@ class RevisingGuidController extends Controller
         if(\request()->expectsJson()){
 
             if($withRelation){
-                $AvailableRevisingGuides = RevisingGuid::whereNull('parent_id')->with('children.children.children.children')->get();
+
+                $AvailableRevisingGuides = RevisingGuid::whereNull('parent_id')->with('children.children.children.children')->orderBy('order_in_list')->get();
             }
             else{
-                $AvailableRevisingGuides = RevisingGuid::all();
+
+                $AvailableRevisingGuides = RevisingGuid::orderBy('order_in_list')->all();
             }
             return response()->json(['AllRevisingGuides'=> $AvailableRevisingGuides],200);
 
@@ -40,7 +42,7 @@ class RevisingGuidController extends Controller
     }
     public function manage(){
 
-            $AllRevisingGuides = RevisingGuid::whereNull('parent_id')->with('children.children.children.children')->get();
+            $AllRevisingGuides = RevisingGuid::orderBy('order_in_list')->whereNull('parent_id')->with('children.children.children.children')->get();
 
         return view('RevisingGuid.index',compact('AllRevisingGuides'));
     }
@@ -59,6 +61,22 @@ class RevisingGuidController extends Controller
        $revisingGuid->update($request->all());
 
         return response()->json([$revisingGuid],200);
+    }
+    public function PatchUpdateIndex(Request $request){
+        $data = json_decode($request['data'],true);
+        $ParentArray = array();
+        for ($i = 0 ; $i < (integer) $request->data_length ; $i++) {
+            array_push($ParentArray,
+                array(
+                   'id' => $data[$i]['id'],
+                   'order_in_list' => $data[$i]['order_in_list'],
+                )
+            );
+        }
+
+        RevisingGuid::custom_batch_update('id',$ParentArray);
+
+
     }
     public function destroy($RevisingGuidID){
 

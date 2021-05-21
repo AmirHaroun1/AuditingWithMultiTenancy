@@ -6,13 +6,13 @@ use Alkoumi\LaravelHijriDate\Hijri;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use function GuzzleHttp\Psr7\copy_to_string;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Transaction extends Model
 {
     //
     protected $guarded = [];
+    protected $appends =['hijri_financial_year','hijri_created_at'];
     protected $dates = ['created_at', 'updated_at'];
 
     public function getCreatedAtAttribute(){
@@ -20,23 +20,37 @@ class Transaction extends Model
     }
 
     public function getHijriFinancialYearAttribute(){
+        $date = Carbon::createFromDate($this->attributes['start_financial_year']);
+        return Hijri::Date('Y',$date );
+    }
+    public function getActualStartDateAttribute(){
+        return Carbon::parse($this->attributes['start_date'])->format('Y / m / d');
+    }
+    public function getHijriActualStartDateAttribute(){
+        return Hijri::Date('Y /m / j',$this->attributes['start_date']);
+    }
 
-       return $this->attributes['financial_year'];
+    public function getActualEndDateAttribute(){
+        return Carbon::parse($this->attributes['end_date'])->format('Y / m / d');
+    }
+    public function getHijriActualEndDateAttribute(){
+        return Hijri::Date('Y / m / j',$this->attributes['end_date']);
     }
 
     public function getEngagementLetterDateAttribute(){
 
-       return Carbon::parse($this->attributes['created_at'])->addDays(2)->format('Y / m / d');
+        return Carbon::parse($this->attributes['start_date'])->addDays(2)->format('Y / m / d');
     }
-
     public function getHijriEngagementLetterDateAttribute(){
 
-        return $this->attribute['created_at'];
+        return Hijri::Date('Y / m / j', Carbon::parse($this->attributes['start_date'])->addDays(2)  );
     }
+
+
     public function getHijriCreatedAtAttribute(){
 
 
-        return $this->attribute['created_at'];
+        return Hijri::Date('Y /m / j',$this->attributes['created_at']);
 
     }
     public function getEndFinancialYearAttribute(){
@@ -123,7 +137,6 @@ class Transaction extends Model
                 'code',
             ]);
     }
-
     public function FourthLVLAccounts(){
         return $this->belongsToMany(AccountLVL4::class,'account_transaction','transaction_id','fourth_level_account_id')
             ->using(account_transaction::class)

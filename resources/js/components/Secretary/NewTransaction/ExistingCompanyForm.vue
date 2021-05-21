@@ -440,13 +440,9 @@ export default {
 
             formData.append('MainTradeRegisterNumber', this.MainTradeRegister.number);
 
-
-
             formData.append('revisingManager_id', this.ChoosenRevisingManagerID);
-            formData.append('institution_id', this.institution.id);
-            formData.append('reviser_id', this.ChoosenReviserID);
 
-            axios.post(route('Transactions.store'), formData)
+            axios.post(route('Transactions.store', [this.institution.id, this.ChoosenReviserID]), formData)
                 .then(({
                     data
                 }) => {

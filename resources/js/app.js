@@ -121,6 +121,8 @@ Vue.component('dash-board', require('./components/admin/DashBoard').default);
 
 Vue.component('financial-groups-management', require('./components/admin/FinancialGroupsManagement').default);
 
+Vue.component('office-branches', require('./components/admin/OfficeBranches').default);
+
 /**
  * Archive Components
  */
