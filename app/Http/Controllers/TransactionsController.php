@@ -152,8 +152,8 @@ class TransactionsController extends Controller
 
     public function PrintEngagementLetter(institution $Institution,Transaction $Transaction)
     {
-         $Transaction->load(['partner:id,name,signature']);
 
+        $Transaction->load(['partner:id,name,signature']);
         $OfficeInfo = SystemSettings::where('type','LIKE','بيانات المكتب')->first();
         if(!$OfficeInfo){
             return abort(403,'Please Set Office Info Data');
